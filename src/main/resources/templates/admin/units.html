@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../../static/css/admin_styles/head_container_style.css"
+        th:href="@{/css/admin_styles/head_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/main_container_style.css"
+        th:href="@{/css/admin_styles/main_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/table_style.css"
+        th:href="@{/css/admin_styles/table_style.css}">
+    <!-- Scripts -->
+    <script src="../../static/js/admin_scripts/admin_scripts.js"
+        th:src="@{/js/admin_scripts/admin_scripts.js}"></script>
+
+    <title>Об'єкти</title>
+</head>
+
+<body>
+    <header th:replace="~{admin/fragments/navbar::header}"></header>
+
+    <main class="main-container">
+        <div class="main-sidebar">
+            <nav th:replace="~{admin/fragments/navbar::navigation}"></nav>
+        </div>
+
+        <div class="main-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Тип нерухомості</th>
+                        <th>Площа (м.кв)</th>
+                        <th>Ціна ($)</th>
+                        <th>Ціна за кв.м.($)</th>
+                        <th>Кімнат</th>
+                        <th>Поверх</th>
+                        <th>Поверховість</th>
+                        <th>Дата додавання</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="unit : ${units}" th:ondblclick="showUnit([[${unit.id}]])">
+                        <td th:text="${unit.id}"></td>
+                        <td th:text="${unit.type}"></td>
+                        <td th:text="${unit.square}"></td>
+                        <td th:text="${unit.totalPrice}"></td>
+                        <td th:text="${unit.pricePerSqM}"></td>
+                        <td th:text="${unit.rooms}"></td>
+                        <td th:text="${unit.floor}"></td>
+                        <td th:text="${unit.totalFloors}"></td>
+                        <td th:text="${#temporals.format(unit.date, 'dd.MM.yyyy')}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ua" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../../static/css/admin_styles/head_container_style.css"
+        th:href="@{/css/admin_styles/head_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/main_container_style.css"
+        th:href="@{/css/admin_styles/main_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/table_style.css"
+        th:href="@{/css/admin_styles/table_style.css}">
+    <!-- Scripts -->
+    <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
+        defer></script>
+    
+    <title>Заявки</title>
+</head>
+
+<body>
+    <header th:replace="~{admin/fragments/navbar::header}"></header>
+
+    <main class="main-container">
+        <div class="main-sidebar">
+            <nav th:replace="~{admin/fragments/navbar::navigation}"></nav>
+        </div>
+
+        <div class="main-content">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Повне ім'я</th>
+                        <th scope="col">Телефон</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Коментар</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="bid : ${bids}">
+                        <td th:text="${bid.name}">Alice Bob</td>
+                        <td th:text="${bid.phone}">097 1234678</td>
+                        <td th:text="${bid.email}">
+                            dfgdfgdfgfgdfgddd@dgfsdg.com
+                        </td>
+                        <td th:text="${bid.comment}">
+                            Lorem ipsum fdgdfhfhb hfghf gfjfgjfhfdfgdolor sit
+                            amet consectetur adipisicing elit.
+                        </td>
+                        <td th:text="${#temporals.format(bid.date, 'dd.MM.yyyy HH:mm')}">26.09.3669</td>
+                        <td class="btn-block" th:with="status=${bid.status}">
+                            <button type="button" class="status-btn" style="background-color: green; color: white"
+                                th:onclick="changeBidStatus([[${bid.id}]])" th:text="${status}"
+                                th:style="'background-color: ' + ( ${#strings.length(status) == 3} ? 'red' : 'green') + '; color: white'">
+                                Super
+                            </button>
+                        </td>
+                        <td class="btn-block">
+                            <button type="button" class="act-btn" th:onclick="showBid([[${bid.id}]])">
+                                <img src="../../static/img/admin/eye.svg" th:src="@{/img/admin/eye.svg}"
+                                    alt="view icon">
+                            </button>
+                            <button type="button" class="act-btn" th:onclick="deleteBid([[${bid.id}]])">
+                                <img src="../../static/img/admin/x-octagon-fill.svg"
+                                    th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+
+</html>

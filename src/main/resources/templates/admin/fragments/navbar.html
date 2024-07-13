@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ua" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="../../../static/css/admin_styles/head_container_style.css"
+        th:href="@{/css/admin_styles/head_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/main_container_style.css"
+        th:href="@{/css/admin_styles/main_container_style.css}">
+
+    <title>Admin Panel Royal House Site</title>
+</head>
+
+<body>
+    <!-- BEGIN -->
+    <header th:fragment="header">
+        <div class="head-container" id="head-container">
+            <div class="main-logo">
+                <img src="../../../static/img/admin/admin-logo.jpg" th:src="@{/img/admin/admin-logo.jpg}" width="100%"
+                    height="100%" alt="Admin Panel Logo">
+            </div>
+            <div class="bars-solid">
+                <img src="../../../static/img/admin/bars-solid.svg" th:src="@{/img/admin/bars-solid.svg}" width="100%"
+                    height="100%" alt="bars-img">
+            </div>
+            <span class="title-page">Панель адміністратора</span>
+            <span class="title-page right">Андрій Січний</span>
+        </div>
+    </header>
+    <main id="main-container">
+        <nav class="side-nav-block" th:fragment="navigation" id="nav-block">
+            <ul class="nav-list">
+                <li><a href="#" th:href="@{/admin/index}">Admin panel</a></li>
+                <li><a href="#" th:href="@{/admin/bids}">Заявки</a></li>
+                <li><a href="#" th:href="@{/admin/units}">Об'єкти</a></li>
+                <li><a href="#" th:href="@{/admin/new-blds}">Новобудови</a></li>
+                <li><a href="#" th:href="@{/admin/services}">Послуги</a></li>
+                <li class="dropdown-li">
+                    <span class="title-sub-menu">
+                        <span>Налаштування</span>
+                        <img src="../../../static/img/admin/angles-down-solid.svg"
+                            th:src="@{/img/admin/angles-down-solid.svg}" alt="arrow down">
+                    </span>
+                    <ul class="nav-sub-list">
+                        <li><a href="#">Контакти</a></li>
+                        <li><a href="#">Прив'язка об'єктів</a></li>
+                        <li><a href="#">Вториний ринок</a></li>
+                        <li><a href="#">Послуги</a></li>
+                        <li>
+                            <hr />
+                        </li>
+                        <li><a href="#">Про компанію</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </main>
+</body>
+
+</html>
