@@ -1,0 +1,48 @@
+.service-edit {
+    display: flex;
+    justify-content: left;
+}
+
+.service-edit-card {
+    width: 24rem;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 4rem;
+}
+
+.service-edit-card > img {
+    width: 100%;
+    height: 13.5rem;
+}
+
+.choose-img-btn {
+    width: 8rem;
+    padding: .25rem 1rem;
+    margin-top: 1rem;
+}
+
+.service-edit-name, .service-edit-description, .service-edit-submit {
+    margin-left: 4rem;
+    display: block;
+}
+
+.service-edit-name > input, .service-edit-description > textarea {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: .25rem;
+    width: 80%;
+}
+
+.service-edit-description {
+    margin-top: 2rem;
+}
+
+.service-edit-submit {
+    width: 80%;
+    margin-top: 1rem;
+}
+
+.service-edit-submit > button {
+    width: 6rem;
+    padding: .25rem .5rem;
+}

@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    min-width: 800px;
+}
+
+.head-container {
+    display: flex;
+    height: 4rem;
+    border: 1px solid black;
+
+}
+
+.main-logo {
+    display: block;
+    width: 15rem;
+    height: auto;
+}
+
+.bars-solid {
+    display: block;
+    padding: 1rem;
+    border-right: 1px solid black;
+}
+
+.title-page {
+    font-size: 1.5rem;
+    line-height: 4rem;
+    margin-left: 1rem;
+}
+
+.right {
+    margin-left: auto;
+    margin-right: 1rem;
+}
