@@ -12,7 +12,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +43,8 @@ public class Bid {
     private String comment;
 
     @Column(name = "date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime date;
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")

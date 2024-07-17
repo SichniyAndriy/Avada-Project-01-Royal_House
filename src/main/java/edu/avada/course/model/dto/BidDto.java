@@ -2,14 +2,14 @@ package edu.avada.course.model.dto;
 
 import edu.avada.course.model.entity.Bid;
 import edu.avada.course.model.entity.Bid.BidStatus;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record BidDto(
         String name,
         String phone,
         String email,
         String comment,
-        LocalDateTime date,
+        LocalDate date,
         BidStatus status
 ) {
     public BidDto(
@@ -17,7 +17,7 @@ public record BidDto(
             String phone,
             String email,
             String comment,
-            LocalDateTime date,
+            LocalDate date,
             BidStatus status
     ) {
         this.name = name;
