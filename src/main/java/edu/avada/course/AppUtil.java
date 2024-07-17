@@ -47,7 +47,7 @@ public class AppUtil {
                     FAKER.phoneNumber().cellPhone(),
                     FAKER.internet().emailAddress(),
                     FAKER.lorem().sentence(FAKER.random().nextInt(10, 100)),
-                    LocalDateTime.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()),
+                    LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()),
                     (FAKER.random().nextBoolean() ? BidStatus.NEW : BidStatus.ANSWERED));
             repository.save(Bid.fromDto(bidDto));
         }
