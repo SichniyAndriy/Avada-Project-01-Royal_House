@@ -30,12 +30,12 @@ public class AppConfig {
             CompanyServiceRepository companyServiceRepository
     ) {
         return args -> {
-            appUtil.initBids(bidRepository, 50);
+            appUtil.initBids(bidRepository, 25);
             appUtil.initAddress(addressRepository, 100);
-            appUtil.initUnits(unitRepository, UnitType.FLAT, 25);
-            appUtil.initUnits(unitRepository, UnitType.HOUSE, 25);
-            appUtil.initNewBuildings(newBuildingRepository, 15);
-            appUtil.initService(companyServiceRepository, 15);
+            appUtil.initUnits(unitRepository, UnitType.FLAT, 15);
+            appUtil.initUnits(unitRepository, UnitType.HOUSE, 5);
+            appUtil.initNewBuildings(newBuildingRepository, 10);
+            appUtil.initService(companyServiceRepository, 10);
         };
     }
 }
