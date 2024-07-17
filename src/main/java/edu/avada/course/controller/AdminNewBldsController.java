@@ -56,14 +56,14 @@ public class AdminNewBldsController {
     }
 
     @PostMapping("/update-new-bld")
-    public ResponseEntity addInfographic(@RequestBody NewBuilding newBuilding) {
+    public ResponseEntity<HttpStatus> addInfographic(@RequestBody NewBuilding newBuilding) {
         adminNewBldsService.updateNewBld(newBuilding);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/banners/set")
     @ResponseBody
-    public ResponseEntity setMainBanner(
+    public ResponseEntity<HttpStatus> setMainBanner(
             @RequestParam("new-banner") MultipartFile multipartFile,
             @RequestParam("newbldIndex") int newBldIndex,
             @RequestParam("bannerIndex") int bannerIndex
@@ -71,7 +71,6 @@ public class AdminNewBldsController {
         if (multipartFile.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-
 //        Controllers.saveFile(
 //                multipartFile.getOriginalFilename(),
 //                multipartFile.getBytes()
@@ -81,7 +80,7 @@ public class AdminNewBldsController {
 
     @PostMapping("/panoramas/set")
     @ResponseBody
-    public ResponseEntity setPanorama(
+    public ResponseEntity<HttpStatus> setPanorama(
             @RequestParam("new-panorama") MultipartFile multipartFile,
             @RequestParam("newBldIndex") int newBldIndex
     ) throws IOException {
