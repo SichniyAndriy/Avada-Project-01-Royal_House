@@ -42,6 +42,34 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <form action="/admin/units/add-new" method="post">
+                            <td style="text-align: center;">
+                                <input class="status-btn" style="background-color: blue; color: aliceblue;" type="submit">
+                            </td>
+                            <td>
+                                <select type="checkbox" name="unitType" id="unitType">
+                                    <option value="FLAT">FLAT</option>
+                                    <option value="HOUSE">HOUSE</option>
+                                    <option value="COMMERCIAL">COMMERCIAL</option>
+                                    <option value="LAND">LAND</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" step="any" name="square" id="unit__input__square">
+                            </td>
+                            <td>
+                                <input type="number" step="any" name="totalPrice" id="unit__input__totalPrice">
+                            </td>
+                            <td>
+                                <input type="number" step="any" name="pricePerSqM" id="unit__input__pricePerSqM">
+                            </td>
+                            <td><input id="unit__input__rooms" type="number" name="rooms"></td>
+                            <td><input id="unit__input__floor" type="number" name="floor"></td>
+                            <td><input id="unit__input__totalFloors" type="number" name="totalFloors"></td>
+                            <td><input id="unit__input__date" type="date" name="date"></td>
+                        </form>
+                    </tr>
                     <tr th:each="unit : ${units}" th:ondblclick="showUnit([[${unit.id}]])">
                         <td th:text="${unit.id}"></td>
                         <td th:text="${unit.type}"></td>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html lang="ua" xmlns:th="http://www.thymeleaf.com">
 
 <head>
   <meta charset="UTF-8">
@@ -56,8 +56,7 @@
             <div class="info-block">
               <div class="banner-card">
                 <h2>Головний баннер</h2>
-                <img src="../../static/pictures/new_blds/banners/banner_dumb.jpg" 
-                    th:src="(${not #lists.isEmpty(banners)} and *{banners[0]}) ? 
+                <img src="../../static/pictures/new_blds/banners/banner_dumb.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[0]}) ? 
                           @{*{banners[0].path}} : @{/pictures/new_blds/banners/banner_dumb.jpg}" alt="Main banner"
                   id="newblds-main-banner">
                 <p>Рекомендований розмір 1920х800</p>
@@ -77,13 +76,13 @@
               <ul class="infographic-list" id="main-infographic-list">
                 <li class="infographic-input">
                   <input id="main-infographic-input-picture" type="file" accept="image/*">
+                  <label for="main-infographic-input-description"></label>
                   <input id="main-infographic-input-description" type="text" placeholder="Опис">
                   <button onclick="addInfographic('ABOUT')">
                     <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
                   </button>
                 </li>
-                <li class="infographic-info" id="infrastructure-infographic-info"
-                  th:each="infographic: *{infographics}">
+                <li class="infographic-info" th:each="infographic: *{infographics}">
                   <div th:if="${infographic.type} == ABOUT">
                     <p th:text="${infographic.path}">Назва файлу</p>
                     <p th:text="${infographic.description}">Опис інфографіки</p>
@@ -120,10 +119,11 @@
                 <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[3]}) ?
                     @{*{banners[3].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-about-2-banner-input">
+                <input type="file" accept="image/*" id="newblds-about-3-banner-input">
               </div>
             </div>
             <div class="description-block" id="about-description-block">
+              <label for="about-new-bld-description"></label>
               <textarea name="new-bld-description" id="about-new-bld-description"
                 th:field="*{description.about}"></textarea>
             </div>
@@ -138,7 +138,7 @@
                 <input id="latitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
                   th:onchange="showLocation()" th:value="*{location.latitude}" value="50">
               </div>
-              <div class="longitute-block">
+              <div class="longitude-block">
                 <label for="longitude">Довгота</label>
                 <input id="longitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
                   th:onchange="showLocation()" th:value="*{location.longitude}" value="30">
@@ -147,6 +147,7 @@
             </div>
             <div id="map"></div>
             <div class="description-block" id="location-description-block">
+              <label for="location-new-bld-description"></label>
               <textarea name="new-bld-description" id="location-new-bld-description"
                 th:field="*{description.location}"></textarea>
             </div>
@@ -179,6 +180,7 @@
               </div>
             </div>
             <div class="description-block" id="infrastructure-description-block">
+              <label for="infrastructure-new-bld-description"></label>
               <textarea name="new-bld-description" id="infrastructure-new-bld-description"
                 th:field="*{description.infrastructure}"></textarea>
             </div>
@@ -187,6 +189,7 @@
               <ul class="infographic-list" id="infrastructure-infographic-list">
                 <li class="infographic-input">
                   <input id="infrastructure-infographic-input-picture" type="file" accept="image/*">
+                  <label for="infrastructure-infographic-input-description"></label>
                   <input id="infrastructure-infographic-input-description" type="text" placeholder="Опис">
                   <button onclick="addInfographic('INFRASTRUCTURE')">
                     <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
@@ -213,8 +216,7 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" 
-                  th:src="(${not #lists.isEmpty(banners)} and *{banners[7]}) ?
+                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[7]}) ?
                     @{*{banners[7].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-1-banner-input">
@@ -235,6 +237,7 @@
               </div>
             </div>
             <div class="description-block" id="flats-description-block">
+              <label for="flats-new-bld-description"></label>
               <textarea name="new-bld-description" id="flats-new-bld-description"
                 th:field="*{description.flats}"></textarea>
             </div>
@@ -243,13 +246,13 @@
               <ul class="infographic-list" id="flats-infographic-list">
                 <li class="infographic-input">
                   <input id="flats-infographic-input-picture" type="file" accept="image/*">
+                  <label for="flats-infographic-input-description"></label>
                   <input id="flats-infographic-input-description" type="text" placeholder="Опис">
                   <button onclick="addInfographic('FLATS')">
                     <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
                   </button>
                 </li>
-                <li class="infographic-info" id="infrastructure-infographic-info"
-                  th:each="infographic: *{infographics}">
+                <li class="infographic-info" th:each="infographic: *{infographics}">
                   <div th:if="${infographic.type} == 'MAIN'" th:with="i=${infographicStat.index}">
                     <p th:text="${infographic.path}">Назва файлу</p>
                     <p th:text="${infographic.description}">Опис інфографіки</p>
@@ -280,11 +283,12 @@
         <div id="specification" class="tab-content">specification -- TODO --</div>
 
         <div class="action-btn-block">
-          <buttton type="button" class="action-btn" onclick="goToNewBlds()">Скасувати</buttton>
-          <buttton type="submit" class="action-btn" th:onclick="updateNewBld([[${newbld}]])">Зберегти</buttton>
+          <button type="button" class="action-btn" onclick="goToNewBlds()">Скасувати</button>
+          <button type="submit" class="action-btn" th:onclick="updateNewBld([[${newbld}]])">Зберегти</button>
         </div>
       </div>
     </div>
+  </main>
 </body>
 
 </html>
