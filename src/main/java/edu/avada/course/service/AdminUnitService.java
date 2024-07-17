@@ -8,4 +8,6 @@ public interface AdminUnitService {
     Set<Unit> getAllUnits();
 
     Unit getUnitById(long id);
+
+    long add(Unit unit);
 }

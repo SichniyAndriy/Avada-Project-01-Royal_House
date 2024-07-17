@@ -37,6 +37,15 @@ public class AdminUnitServiceImpl implements AdminUnitService {
         return units.get(id);
     }
 
+    @Override
+    public long add(Unit unit) {
+        long id = unitRepository.save(unit).getId();
+        if (id > 0) {
+            units.put(id, unit);
+        }
+        return id;
+    }
+
     private void getAllUnitsFromDB() {
         units = unitRepository.findAll()
                 .parallelStream()
