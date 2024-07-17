@@ -56,6 +56,15 @@ public class AdminCompanyServServiceImpl implements AdminCompanyServService {
         companyServiceRepository.save(companyService);
     }
 
+    @Override
+    public long add(CompanyService newCompanyService) {
+        Long id = companyServiceRepository.save(newCompanyService).getId();
+        if (id > 0) {
+            companyServices.put(id,newCompanyService);
+        }
+        return id;
+    }
+
     private void getAllCompanyServicesFromDb() {
         companyServices = companyServiceRepository
                 .findAll()

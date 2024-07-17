@@ -1,10 +1,12 @@
 package edu.avada.course.controller;
 
 import edu.avada.course.model.entity.CompanyService;
+import edu.avada.course.model.entity.CompanyService.ServiceStatus;
 import edu.avada.course.service.AdminCompanyServService;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Properties;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +123,20 @@ public class AdminServicesController {
                 multipartFile.getBytes()
         );
         return ResponseEntity.ok(servicePreviewPath);
+    }
+
+    @PostMapping("/add-new")
+    public String addNewService(
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("date") String date
+    ) {
+        CompanyService newCompanyService = new CompanyService();
+        newCompanyService.setTitle(title);
+        newCompanyService.setDescription(description);
+        newCompanyService.setStatus(ServiceStatus.YES);
+        newCompanyService.setDate(LocalDate.parse(date));
+        adminCompanyServService.add(newCompanyService);
+        return "redirect:/admin/services";
     }
 }

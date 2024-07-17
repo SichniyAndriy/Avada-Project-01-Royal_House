@@ -13,4 +13,6 @@ public interface AdminCompanyServService {
     void changeCompanyServiceStatusById(long id);
 
     void updateCompanyService(CompanyService companyService);
+
+    long add(CompanyService newCompanyService);
 }
