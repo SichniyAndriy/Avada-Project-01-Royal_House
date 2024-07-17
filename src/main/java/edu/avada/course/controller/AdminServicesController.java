@@ -77,7 +77,7 @@ public class AdminServicesController {
     }
 
     @PostMapping("/service-card/edit")
-    public ResponseEntity editService(
+    public ResponseEntity<HttpStatus> editService(
             @RequestBody CompanyService companyService
     ) {
         adminCompanyServService.updateCompanyService(companyService);
