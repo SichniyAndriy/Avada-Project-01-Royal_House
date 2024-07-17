@@ -52,6 +52,14 @@ public class AdminBidServiceImpl implements AdminBidService {
         bidRepository.save(bid);
     }
 
+    public long add(Bid bid) {
+        long id = bidRepository.save(bid).getId();
+        if (id > 0) {
+            bids.put(id, bid);
+        }
+        return id;
+    }
+
     private void getAllBidsFromDB() {
         bids = bidRepository.findAll().parallelStream().collect(Collectors.toMap(Bid::getId, val -> val));
     }

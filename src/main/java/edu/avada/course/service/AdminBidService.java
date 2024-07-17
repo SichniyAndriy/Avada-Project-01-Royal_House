@@ -12,4 +12,6 @@ public interface AdminBidService {
     void deleteBidById(long id);
 
     void changeBidStatusById(long i);
+
+    long add(Bid bid);
 }
