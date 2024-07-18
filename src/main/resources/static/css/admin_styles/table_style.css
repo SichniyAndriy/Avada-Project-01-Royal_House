@@ -24,6 +24,10 @@ td {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+td > input {
+    width: 100%;
+}
+
 .btn-block {
     text-align: center;
     box-sizing: border-box;

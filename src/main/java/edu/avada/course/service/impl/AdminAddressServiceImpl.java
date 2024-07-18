@@ -31,4 +31,9 @@ public class AdminAddressServiceImpl implements AdminAddressService {
         addresses.remove(i);
         return address;
     }
+
+    @Override
+    public long add(Address address) {
+        return addressRepository.save(address).getId();
+    }
 }

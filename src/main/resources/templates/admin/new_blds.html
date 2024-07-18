@@ -30,14 +30,29 @@
             <table>
                 <thead>
                     <tr>
-                        <td>#</td>
-                        <td>Назва</td>
-                        <td>Адреса</td>
-                        <td>Статус</td>
-                        <td>&nbsp;</td>
+                        <th>#</th>
+                        <th>Назва</th>
+                        <th>Адреса</th>
+                        <th>Статус</th>
+                        <th>Операції</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <form action="/admin/new-blds/add-new" method="post">
+                            <td></td>
+                            <td>
+                                <input type="text" name="title" id="newbld__input_title">
+                            </td>
+                            <td>
+                                <input type="text" name="address" id="newbld__input_address">
+                            </td>  
+                            <td></td>                          
+                            <td class="btn-block" style="text-align: center;">
+                                <input class="status-btn" type="submit" value="Save" style="background-color: blue; color: aliceblue;" >
+                            </td>
+                        </form>
+                    </tr>
                     <tr th:each="newbld : ${newblds}">
                         <td th:text="${newbld.id}">999</td>
                         <td th:text="${newbld.title}">rgdssdgg ds hdh</td>

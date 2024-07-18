@@ -56,9 +56,8 @@
             <div class="info-block">
               <div class="banner-card">
                 <h2>Головний баннер</h2>
-                <img src="../../static/pictures/new_blds/banners/banner_dumb.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[0]}) ? 
-                          @{*{banners[0].path}} : @{/pictures/new_blds/banners/banner_dumb.jpg}" alt="Main banner"
-                  id="newblds-main-banner">
+                <img src="../../static/pictures/banner_dumb.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[0]}) ? 
+                  @{*{banners[0].path}} : @{/pictures/banner_dumb.jpg}" alt="Main banner" id="newblds-main-banner">
                 <p>Рекомендований розмір 1920х800</p>
                 <input type="file" accept="image/*" id="newblds-main-banner-input">
               </div>
@@ -102,22 +101,22 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[1]}) ?
-                    @{*{banners[1].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[1]}) ? @{*{banners[1].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[2]}) ?
-                    @{*{banners[2].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[2]}) ?
+                    @{*{banners[2].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[3]}) ?
-                    @{*{banners[3].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[3]}) ? @{*{banners[3].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-3-banner-input">
               </div>
@@ -136,12 +135,12 @@
               <div class="latitude-block">
                 <label for="latitude">Широта</label>
                 <input id="latitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
-                  th:onchange="showLocation()" th:value="*{location.latitude}" value="50">
+                  th:onchange="showLocation()" th:value="*{location.latitude} ?: 0" value="50">
               </div>
               <div class="longitude-block">
                 <label for="longitude">Довгота</label>
                 <input id="longitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
-                  th:onchange="showLocation()" th:value="*{location.longitude}" value="30">
+                  th:onchange="showLocation()" th:value="*{location.longitude} ?: 0" value="30">
               </div>
 
             </div>
@@ -159,22 +158,22 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[4]}) ?
-                    @{*{banners[4].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[4]}) ? @{*{banners[4].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[5]}) ? 
-                    @{*{banners[5].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[5]}) ? @{*{banners[5].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[6]}) ?
-                    @{*{banners[6].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[6]}) ? @{*{banners[6].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-3-banner-input">
               </div>
@@ -216,22 +215,22 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[7]}) ?
-                    @{*{banners[7].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[7]}) ? @{*{banners[7].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[8]}) ?
-                    @{*{banners[8].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[8]}) ? @{*{banners[8].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/new_blds/banners/banner_dumb2.jpg" th:src="(${not #lists.isEmpty(banners)} and *{banners[9]}) ?
-                    @{*{banners[9].path}} : @{/pictures/new_blds/banners/banner_dumb2.jpg}">
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                  th:src="(${not #lists.isEmpty(banners)} and *{banners[9]}) ? @{*{banners[9].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-3-banner-input">
               </div>
