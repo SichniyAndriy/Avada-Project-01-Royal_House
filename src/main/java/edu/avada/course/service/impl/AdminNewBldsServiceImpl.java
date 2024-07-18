@@ -56,6 +56,15 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
         newBuildingRepository.save(newBuilding);
     }
 
+    @Override
+    public long add(NewBuilding newBuilding) {
+        long id = newBuildingRepository.save(newBuilding).getId();
+        if (id > 0) {
+            newBuildings.put(id, newBuilding);
+        }
+        return id;
+    }
+
     private void getAllNewBldsFromDb() {
         newBuildings = newBuildingRepository
                 .findAll()

@@ -1,6 +1,10 @@
 package edu.avada.course.controller;
 
+import edu.avada.course.model.entity.Address;
 import edu.avada.course.model.entity.NewBuilding;
+import edu.avada.course.model.entity.NewBuilding.Location;
+import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
+import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminNewBldsService;
 import java.io.IOException;
 import java.util.Set;
@@ -22,11 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/new-blds")
 public class AdminNewBldsController {
     private final AdminNewBldsService adminNewBldsService;
+    private final AdminAddressService adminAddressService;
 
     public AdminNewBldsController(
-            @Autowired AdminNewBldsService adminNewBldsService
+            @Autowired AdminNewBldsService adminNewBldsService,
+            @Autowired AdminAddressService adminAddressService
     ) {
         this.adminNewBldsService = adminNewBldsService;
+        this.adminAddressService = adminAddressService;
     }
 
     @GetMapping
@@ -92,5 +99,28 @@ public class AdminNewBldsController {
 //                multipartFile.getBytes()
 //        );
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/add-new")
+    public String addNewBld(
+            @RequestParam("title") String title,
+            @RequestParam("address") String address
+    ){
+        NewBuilding newBuilding = new NewBuilding();
+        newBuilding.setTitle(title);
+        String[] strings = address.split("[.,:;]");
+        Address addressObj = new Address();
+        if (strings.length != 3) {
+            throw new IllegalArgumentException();
+        }
+        addressObj.setCity(strings[0].replace(" ", ""));
+        addressObj.setStreet(strings[1].replace(" ", ""));
+        addressObj.setHouseNumber(strings[2].replace(" ", ""));
+        adminAddressService.add(addressObj);
+        newBuilding.setAddress(addressObj);
+        newBuilding.setStatus(NewBuildStatus.OFF);
+        newBuilding.setLocation(new Location());
+        adminNewBldsService.add(newBuilding);
+        return "redirect:/admin/new-blds";
     }
 }

@@ -13,4 +13,6 @@ public interface AdminNewBldsService {
     void changeNewBldStatusById(long id);
 
     void updateNewBld(NewBuilding newBuilding);
+
+    long add(NewBuilding newBuilding);
 }
