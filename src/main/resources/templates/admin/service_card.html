@@ -16,7 +16,7 @@
         defer></script>
     <script src="../../static/js/admin_scripts/service_scripts.js" th:src="@{/js/admin_scripts/service_scripts.js}"
         defer></script>
-    <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script>
+    <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script> -->
 
     <title>Карта послуги</title>
 </head>
@@ -34,14 +34,14 @@
                 <div class="service-edit-card">
                     <h3>Баннер</h3>
                     <img src="../../static/pictures/no-foto.png" alt="Service banner" id="service-banner"
-                        th:src="@{${serviceBannerPath}}">
+                        th:src="${serviceBannerPath} ? @{${serviceBannerPath}} : @{/pictures/no-foto.png}">
                     <p>Рекомендований розмір (1920x800)</p>
                     <input type="file" id="service-banner-input" accept="image/*">
                 </div>
                 <div class="service-edit-card">
                     <h3>Превью</h3>
                     <img src="../../static/pictures/no-foto.png" alt="preview" id="service-preview"
-                        th:src="@{${service.imagePath}}">
+                        th:src="${service.imagePath} ? @{${service.imagePath}} : @{/pictures/no-foto.png}">
                     <p>Рекомендований розмір (500x350)</p>
                     <input type="file" id="service-preview-input" accept="image/*">
                 </div>
