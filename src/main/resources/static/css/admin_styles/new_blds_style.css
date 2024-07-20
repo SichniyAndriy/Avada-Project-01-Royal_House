@@ -69,6 +69,9 @@ p {
 
 .infographic-list button {
     margin-left: 1rem;
+    width: 2rem;
+    height: 2rem;
+    align-self: center;
 }
 
 .infographic-input,
@@ -79,9 +82,15 @@ p {
 }
 
 .infographic-input input,
-.infographic-info  p {
+.infographic-info p {
     width: 20rem;
     box-sizing: border-box;
+}
+
+.infographic-info span {
+    margin-right: 1rem;
+    width: 96%;
+    text-wrap: wrap;
 }
 
 /* ========================= Banners BLOCK ========================= */
