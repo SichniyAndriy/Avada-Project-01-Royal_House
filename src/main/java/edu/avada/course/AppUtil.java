@@ -1,13 +1,5 @@
 package edu.avada.course;
 
-import edu.avada.course.model.dto.AddressDto;
-import edu.avada.course.model.dto.BannerDto;
-import edu.avada.course.model.dto.BidDto;
-import edu.avada.course.model.dto.CompanyServiceDto;
-import edu.avada.course.model.dto.ImageDto;
-import edu.avada.course.model.dto.InfographicDto;
-import edu.avada.course.model.dto.NewBuildingDto;
-import edu.avada.course.model.dto.UnitDto;
 import edu.avada.course.model.entity.Address;
 import edu.avada.course.model.entity.Bid;
 import edu.avada.course.model.entity.Bid.BidStatus;
@@ -27,7 +19,6 @@ import edu.avada.course.repository.UnitRepository;
 import edu.avada.course.service.AdminAddressService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -41,25 +32,27 @@ public class AppUtil {
 
     public void initBids(BidRepository repository, int amount) {
         for (int i = 0; i < amount; i++) {
-            BidDto bidDto = new BidDto(
-                    FAKER.name().fullName(),
-                    FAKER.phoneNumber().cellPhone(),
-                    FAKER.internet().emailAddress(),
-                    FAKER.lorem().sentence(FAKER.random().nextInt(10, 100)),
-                    LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()),
-                    (FAKER.random().nextBoolean() ? BidStatus.NEW : BidStatus.ANSWERED));
-            repository.save(Bid.fromDto(bidDto));
+            Bid newBid = new Bid();
+            newBid.setName(FAKER.name().fullName());
+            newBid.setPhone(FAKER.phoneNumber().cellPhone());
+            newBid.setEmail(FAKER.internet().emailAddress());
+            newBid.setComment(FAKER.lorem().sentence(FAKER.random().nextInt(10, 100)));
+            newBid.setDate(LocalDate.ofInstant(FAKER.timeAndDate()
+                    .past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()));
+            newBid.setStatus(
+                    (FAKER.random().nextBoolean() ? BidStatus.NEW : BidStatus.ANSWERED)
+            );
+            repository.save(newBid);
         }
     }
 
     public void initAddress(AddressRepository repository, int amount) {
         for (int j = 0; j < amount; j++) {
-            AddressDto addressDto = new AddressDto(
-                    FAKER.address().city(),
-                    FAKER.address().streetName(),
-                    FAKER.address().buildingNumber()
-            );
-            repository.save(Address.fromDto(addressDto));
+            Address newAddress = new Address();
+            newAddress.setCity(FAKER.address().city());
+            newAddress.setStreet(FAKER.address().streetName());
+            newAddress.setHouseNumber(FAKER.address().buildingNumber());
+            repository.save(newAddress);
         }
     }
 
@@ -69,20 +62,18 @@ public class AppUtil {
             int amount
     ) {
         for (int i = 0; i < amount; i++) {
-            UnitDto unitDto = new UnitDto(
-                    type,
-                    BigDecimal.valueOf(FAKER.random().nextDouble() * FAKER.random().nextInt(50, 150)),
-                    new BigDecimal(FAKER.commerce().price(1000, 5000).replace(',', '.')),
-                    new BigDecimal(FAKER.commerce().price(25000, 250000).replace(',', '.')),
-                    FAKER.random().nextInt(1, 10),
-                    FAKER.random().nextInt(1, 30),
-                    FAKER.random().nextInt(1, 30),
-                    LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()),
-                    FAKER.random().nextInt(500),
-                    adminAddressService.getAnyAddress(),
-                    new ArrayList<ImageDto>()
-            );
-            unitRepository.save(Unit.fromDto(unitDto));
+            Unit newUnit = new Unit();
+            newUnit.setType(type);
+            newUnit.setSquare(BigDecimal.valueOf(FAKER.random().nextDouble() * FAKER.random().nextInt(50, 150)));
+            newUnit.setTotalPrice(new BigDecimal(FAKER.commerce().price(1000, 5000).replace(',', '.')));
+            newUnit.setPricePerSqM(new BigDecimal(FAKER.commerce().price(25000, 250000).replace(',', '.')));
+            newUnit.setRooms(FAKER.random().nextInt(1, 10));
+            newUnit.setFloor(FAKER.random().nextInt(1, 30));
+            newUnit.setTotalFloors(FAKER.random().nextInt(1, 30));
+            newUnit.setDate(LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()));
+            newUnit.setFlatNumber(FAKER.random().nextInt(500));
+            newUnit.setAddress(adminAddressService.getAnyAddress());
+            unitRepository.save(newUnit);
         }
     }
 
@@ -94,31 +85,26 @@ public class AppUtil {
             description.setLocation(FAKER.lorem().sentence(FAKER.random().nextInt(50, 100)));
             description.setInfrastructure(FAKER.lorem().sentence(FAKER.random().nextInt(50, 100)));
             description.setFlats(FAKER.lorem().sentence(FAKER.random().nextInt(50, 100)));
-            NewBuildingDto newBuildingDto = new NewBuildingDto(
-                    FAKER.funnyName().name(),
-                    description,
-                    Location.of(FAKER.address().latitude(), FAKER.address().longitude()),
-                    (FAKER.random().nextBoolean() ? NewBuildStatus.ACTIVE: NewBuildStatus.OFF),
-                    adminAddressService.getAnyAddress(),
-                    null,
-                    new ArrayList<BannerDto>(),
-                    new ArrayList<InfographicDto>(),
-                    new ArrayList<UnitDto>()
-            );
-            newBuildingRepository.save(NewBuilding.fromDto(newBuildingDto));
+
+            NewBuilding newBuilding = new NewBuilding();
+            newBuilding.setTitle(FAKER.funnyName().name());
+            newBuilding.setLocation(Location.of(FAKER.address().latitude(), FAKER.address().longitude()));
+            newBuilding.setStatus(FAKER.random().nextBoolean() ? NewBuildStatus.ACTIVE: NewBuildStatus.OFF);
+            newBuilding.setDescription(description);
+            newBuilding.setAddress(adminAddressService.getAnyAddress());
+            newBuildingRepository.save(newBuilding);
         }
     }
 
     public void initService(CompanyServiceRepository companyServiceRepository, int amount) {
         for (int i = 0; i < amount; ++i) {
-            CompanyServiceDto serviceDto = new CompanyServiceDto(
-                    FAKER.lorem().characters(10, 15),
-                    FAKER.lorem().characters(150, 250),
-                    LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()),
-                    (FAKER.random().nextBoolean() ? ServiceStatus.YES: ServiceStatus.NO),
-                    null
-            );
-            companyServiceRepository.save(CompanyService.fromDto(serviceDto));
+            CompanyService newService = new CompanyService();
+            newService.setTitle(FAKER.lorem().characters(10, 15));
+            newService.setDescription(FAKER.lorem().characters(150, 250));
+            newService.setDate(LocalDate.ofInstant(FAKER.timeAndDate()
+                    .past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()));
+            newService.setStatus(FAKER.random().nextBoolean() ? ServiceStatus.YES: ServiceStatus.NO);
+            companyServiceRepository.save(newService);
         }
     }
 }
