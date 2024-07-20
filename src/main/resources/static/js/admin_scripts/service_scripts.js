@@ -36,56 +36,39 @@ async function updateService(service) {
     if (serviceBannerFile) {
         const bannerFormData = new FormData();
         bannerFormData.append("new-banner", serviceBannerFile, "service-banner");
-        bannerFormData.append("ext", serviceBannerFile.name.split(".")[1]);
-        bannerFormData.append("timestamp", new Date().getTime());
         bannerFormData.append("path", SERVICE_PICTURES_PATH);
-        fetch("/admin/services/banner/save", {
+        bannerFormData.append("timestamp", new Date().getTime());
+        bannerFormData.append("ext", serviceBannerFile.name.split(".")[1]);
+        const responce = await fetch("/admin/services/banner/save", {
             method: "POST",
             body: bannerFormData
-        }).then(responce => {
-            console.log(responce);
-            return responce.text();
-        }).then(
-            data => console.log(data)
-        )
+        })
     }
 
     const servicePreviewFile = document.getElementById("service-preview-input").files[0];
     if (servicePreviewFile) {
         const previewformData = new FormData();
         previewformData.append("new-preview", servicePreviewFile, `service_${service.id}`);
-        previewformData.append("ext", servicePreviewFile.name.split(".")[1]);
-        previewformData.append("timestamp", new Date().getTime());
         previewformData.append("path", `${SERVICE_PICTURES_PATH}/previews`);
-        fetch("/admin/services/previews/save", {
+        previewformData.append("timestamp", new Date().getTime());
+        previewformData.append("ext", servicePreviewFile.name.split(".")[1]);
+        const responce = await fetch("/admin/services/previews/save", {
             method: "POST",
             body: previewformData
         }).then(responce => {
-            if (!responce.ok) {
-                console.log("Responce not OK");
-            }
-            console.log(responce);
             return responce.text();
         }).then(data => {
-            console.log(data)
-            service.imagePath = data;
-            console.log(service);
+            service.imagePath = data
         })
     }
 
-    await fetch("/admin/services/service-card/edit", {
+    fetch("/admin/services/service-card/update", {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { "Content-Type" : "application/json" },
         body: JSON.stringify(service)
-    }).then(responce => {
-        if (!responce.ok) {
-            throw new Error("Service update error" + responce.status);
+    }).then(responce => { 
+        if(responce.ok) {
+            goToServices();
         }
-        return responce.json();
-    }).then(data => {
-        console.log("Service successfully update")
-        goToServices();
-    }).catch(error => {
-        console.error("Error service update")
-    });
+    })
 }
