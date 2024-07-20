@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.ImageDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,12 +32,6 @@ public class Image {
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "unit_id")
     private Unit unit;
-
-    public static Image fromDto(ImageDto imageDto) {
-        Image newImage = new Image();
-        newImage.setPath(imageDto.path());
-        return newImage;
-    }
 
     @Override
     public boolean equals(Object object) {

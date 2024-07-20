@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.CompanyServiceDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -50,16 +49,6 @@ public class CompanyService {
     public enum ServiceStatus {
         NO,
         YES
-    }
-
-    public static CompanyService fromDto(CompanyServiceDto serviceDto) {
-        CompanyService newService = new CompanyService();
-        newService.setTitle(serviceDto.title());
-        newService.setDescription(serviceDto.description());
-        newService.setStatus(serviceDto.status());
-        newService.setDate(serviceDto.date());
-        newService.setImagePath(serviceDto.imagePath());
-        return newService;
     }
 
     @Override

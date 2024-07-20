@@ -1,6 +1,5 @@
 package edu.avada.course.model.dto;
 
-import edu.avada.course.model.entity.Bid;
 import edu.avada.course.model.entity.Bid.BidStatus;
 import java.time.LocalDate;
 
@@ -26,16 +25,5 @@ public record BidDto(
         this.comment = comment;
         this.date = date;
         this.status = status;
-    }
-
-    public static BidDto fromEntity(Bid bid) {
-        return new BidDto(
-                bid.getName(),
-                bid.getPhone(),
-                bid.getEmail(),
-                bid.getComment(),
-                bid.getDate(),
-                bid.getStatus()
-        );
     }
 }

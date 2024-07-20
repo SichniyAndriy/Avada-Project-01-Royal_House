@@ -1,10 +1,7 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.BannerDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,29 +26,12 @@ public class Banner {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(name="path", length = 1024, nullable = false, unique = true)
+    @Column(name="path", length = 1024)
     private String path;
-
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "type")
-    private BannerType type;
 
     @ManyToOne(targetEntity = NewBuilding.class)
     @PrimaryKeyJoinColumn(name = "new_building_id", referencedColumnName = "id")
     private NewBuilding newBuilding;
-
-    public enum BannerType {
-        ABOUT,
-        INFRASTRUCTURE,
-        FLATS
-    }
-
-    public static Banner fromDto(BannerDto bannerDto) {
-        Banner newBanner = new Banner();
-        newBanner.setPath(bannerDto.path());
-        newBanner.setType(bannerDto.type());
-        return newBanner;
-    }
 
     @Override
     public boolean equals(Object object) {

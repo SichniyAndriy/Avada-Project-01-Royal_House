@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.AddressDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,14 +32,6 @@ public class Address {
 
     @Column(name = "house_number", nullable = false)
     private String houseNumber;
-
-    public static Address fromDto(AddressDto addressDto) {
-        Address newAddress = new Address();
-        newAddress.setCity(addressDto.city());
-        newAddress.setStreet(addressDto.street());
-        newAddress.setHouseNumber(addressDto.houseNumber());
-        return newAddress;
-    }
 
     @Override
     public boolean equals(Object object) {

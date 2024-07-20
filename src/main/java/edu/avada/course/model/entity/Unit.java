@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.UnitDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,16 +19,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-@Getter @Setter @NoArgsConstructor // Lombok
+@Getter @Setter @NoArgsConstructor @Accessors(chain = true)// Lombok
 @Entity @Table(name = "units")
 public class Unit {
     @Id
@@ -80,20 +79,11 @@ public class Unit {
     @PrimaryKeyJoinColumn(name = "image_id")
     private List<Image> images = new ArrayList<>();
 
-    public static Unit fromDto(UnitDto unitDto) {
-        Unit newUnit = new Unit();
-        newUnit.setType(unitDto.type());
-        newUnit.setSquare(unitDto.square());
-        newUnit.setTotalPrice(unitDto.totalPrice());
-        newUnit.setPricePerSqM(unitDto.pricePerSqM());
-        newUnit.setRooms(unitDto.rooms());
-        newUnit.setFloor(unitDto.floor());
-        newUnit.setTotalFloors(unitDto.totalFloors());
-        newUnit.setDate(unitDto.date());
-        newUnit.setFlatNumber(unitDto.flatNumber());
-        newUnit.setAddress(unitDto.address());
-        newUnit.setImages(unitDto.imagesDto().stream().map(Image::fromDto).collect(Collectors.toCollection(ArrayList::new)));
-        return newUnit;
+    public enum UnitType{
+        FLAT,
+        HOUSE,
+        COMMERCIAL,
+        LAND
     }
 
     @Override
@@ -111,12 +101,5 @@ public class Unit {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    public enum UnitType{
-        FLAT,
-        HOUSE,
-        COMMERCIAL,
-        LAND
     }
 }

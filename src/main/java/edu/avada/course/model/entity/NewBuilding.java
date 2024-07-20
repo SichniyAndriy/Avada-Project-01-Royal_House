@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.NewBuildingDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -17,10 +16,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -52,47 +49,27 @@ public class NewBuilding {
     @Embedded
     private Description description;
 
-    @Column(name = "panorama_path", length = 1024)
-    private String panoramaPath;
-
     @OneToOne
     @PrimaryKeyJoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Banner.class, mappedBy = "newBuilding")
-    private List<Banner> banners = new ArrayList<>();
+    @Column(name = "panorama_path", length = 1024)
+    private String panoramaPath;
 
     @Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Infographic.class, mappedBy = "newBuilding")
-    private List<Infographic> infographics = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Banner.class,
+            mappedBy = "newBuilding", orphanRemoval = true)
+    private List<Banner> banners;
 
     @Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Unit.class, mappedBy = "newBuilding")
-    private List<Unit> units = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Infographic.class,
+            mappedBy = "newBuilding", orphanRemoval = true)
+    private List<Infographic> infographics;
 
-    public static NewBuilding fromDto(NewBuildingDto newBuildingDto) {
-        NewBuilding newBuilding = new NewBuilding();
-        newBuilding.setTitle(newBuildingDto.title());
-        newBuilding.setDescription(newBuildingDto.description());
-        newBuilding.setLocation(newBuildingDto.location());
-        newBuilding.setStatus(newBuildingDto.status());
-        newBuilding.setAddress(newBuildingDto.address());
-        newBuilding.setPanoramaPath(newBuildingDto.panoramaPath());
-        newBuilding.setBanners(
-                newBuildingDto.bannersDto().stream().map(Banner::fromDto)
-                        .collect(Collectors.toCollection(ArrayList::new))
-        );
-        newBuilding.setInfographics(
-                newBuildingDto.infographicsDto().stream().map(Infographic::fromDto)
-                        .collect(Collectors.toCollection(ArrayList::new))
-        );
-        newBuilding.setUnits(
-                newBuildingDto.unitsDto().stream().map(Unit::fromDto)
-                .collect(Collectors.toCollection(ArrayList::new))
-        );
-        return newBuilding;
-    }
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Unit.class,
+            mappedBy = "newBuilding")
+    private List<Unit> units;
 
     public enum NewBuildStatus {
         OFF,

@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.BidDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -49,17 +48,6 @@ public class Bid {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private BidStatus status;
-
-    public static Bid fromDto(BidDto bidDto) {
-        Bid newBid = new Bid();
-        newBid.setName(bidDto.name());
-        newBid.setPhone(bidDto.phone());
-        newBid.setEmail(bidDto.email());
-        newBid.setComment(bidDto.comment());
-        newBid.setDate(bidDto.date());
-        newBid.setStatus(bidDto.status());
-        return newBid;
-    }
 
     public enum BidStatus{
         NEW,

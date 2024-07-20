@@ -1,6 +1,5 @@
 package edu.avada.course.model.entity;
 
-import edu.avada.course.model.dto.InfographicDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,16 +42,8 @@ public class Infographic {
     @PrimaryKeyJoinColumn(name = "new_building_id", referencedColumnName = "id")
     private NewBuilding newBuilding;
 
-    public static Infographic fromDto(InfographicDto infographicDto) {
-        Infographic newInfographic = new Infographic();
-        newInfographic.setPath(infographicDto.path());
-        newInfographic.setDescription(infographicDto.description());
-        newInfographic.setType(infographicDto.type());
-        return newInfographic;
-    }
-
     public enum InfographicType {
-        ABOUT,
+        MAIN,
         INFRASTRUCTURE,
         FLATS
     }
