@@ -7,6 +7,7 @@ import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
 import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminNewBldsService;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,8 @@ public class AdminNewBldsController {
     @GetMapping("/show-newbld-card/{id}")
     public String showNewBld(@PathVariable long id, Model model) {
         NewBuilding newBuildingById = adminNewBldsService.getNewBldById(id);
+        Optional.of(newBuildingById.getInfographics()).ifPresent(item -> item.forEach(el -> el.setNewBuilding(null)));
+        Optional.of(newBuildingById.getBanners()).ifPresent(item -> item.forEach(el -> el.setNewBuilding(null)));
         model.addAttribute("newbld", newBuildingById);
         return "admin/new_bld_card";
     }
@@ -64,48 +67,75 @@ public class AdminNewBldsController {
 
     @PostMapping("/update-new-bld")
     public ResponseEntity<HttpStatus> addInfographic(@RequestBody NewBuilding newBuilding) {
+        for(var banner: newBuilding.getBanners()) {
+            banner.setNewBuilding(newBuilding);
+        }
+        for (var infographic: newBuilding.getInfographics()) {
+            infographic.setNewBuilding(newBuilding);
+        }
         adminNewBldsService.updateNewBld(newBuilding);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/banners/set")
+    @PostMapping("/banners/add-new")
     @ResponseBody
-    public ResponseEntity<HttpStatus> setMainBanner(
+    public ResponseEntity<String> setBanner(
             @RequestParam("new-banner") MultipartFile multipartFile,
-            @RequestParam("newbldIndex") int newBldIndex,
-            @RequestParam("bannerIndex") int bannerIndex
+            @RequestParam("path") String path,
+            @RequestParam("timestamp") String timestamp,
+            @RequestParam("ext") String ext
     ) throws IOException {
         if (multipartFile.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-//        Controllers.saveFile(
-//                multipartFile.getOriginalFilename(),
-//                multipartFile.getBytes()
-//        );
-        return ResponseEntity.ok(HttpStatus.OK);
+        String result = Controllers.saveFile(
+                path, multipartFile.getOriginalFilename(), timestamp, ext,
+                multipartFile.getBytes()
+        );
+        return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/panoramas/set")
+    @PostMapping("/infographics/add-new")
     @ResponseBody
-    public ResponseEntity<HttpStatus> setPanorama(
-            @RequestParam("new-panorama") MultipartFile multipartFile,
-            @RequestParam("newBldIndex") int newBldIndex
+    public ResponseEntity<String> setInfographic(
+            @RequestParam("new-infographic") MultipartFile multipartFile,
+            @RequestParam("path") String path,
+            @RequestParam("timestamp") String timestamp,
+            @RequestParam("ext") String ext
     ) throws IOException {
         if (multipartFile.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-//        Controllers.saveFile(
-//                multipartFile.getOriginalFilename(),
-//                multipartFile.getBytes()
-//        );
-        return ResponseEntity.ok(HttpStatus.OK);
+        String result = Controllers.saveFile(
+                path, multipartFile.getOriginalFilename(), timestamp, ext,
+                multipartFile.getBytes()
+        );
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/panoramas/add-new")
+    @ResponseBody
+    public ResponseEntity<String> setPanorama(
+            @RequestParam("new-panorama") MultipartFile multipartFile,
+            @RequestParam("path") String path,
+            @RequestParam("timestamp") String timestamp,
+            @RequestParam("ext") String ext
+    ) throws IOException {
+        if (multipartFile.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        String result = Controllers.saveFile(
+                path, multipartFile.getOriginalFilename(), timestamp, ext,
+                multipartFile.getBytes()
+        );
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/add-new")
     public String addNewBld(
             @RequestParam("title") String title,
             @RequestParam("address") String address
-    ){
+    ) {
         NewBuilding newBuilding = new NewBuilding();
         newBuilding.setTitle(title);
         String[] strings = address.split("[.,:;]");

@@ -76,7 +76,7 @@ public class AdminServicesController {
         return "forward:/admin/services";
     }
 
-    @PostMapping("/service-card/edit")
+    @PostMapping("/service-card/update")
     public ResponseEntity<HttpStatus> editService(
             @RequestBody CompanyService companyService
     ) {
