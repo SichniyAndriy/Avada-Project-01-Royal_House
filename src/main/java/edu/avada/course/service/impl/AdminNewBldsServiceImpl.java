@@ -52,8 +52,8 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
 
     @Override
     public void updateNewBld(NewBuilding newBuilding) {
-        newBuildings.put(newBuilding.getId(), newBuilding);
-        newBuildingRepository.save(newBuilding);
+        long id = newBuildingRepository.save(newBuilding).getId();
+        newBuildings.put(id, newBuilding);
     }
 
     @Override
