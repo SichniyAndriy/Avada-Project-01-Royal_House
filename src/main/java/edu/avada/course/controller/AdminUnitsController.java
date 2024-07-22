@@ -1,6 +1,6 @@
 package edu.avada.course.controller;
 
-import edu.avada.course.model.entity.Unit;
+import edu.avada.course.model.admindto.AdminUnitDto;
 import edu.avada.course.model.entity.Unit.UnitType;
 import edu.avada.course.service.AdminUnitService;
 import java.math.BigDecimal;
@@ -28,7 +28,7 @@ public class AdminUnitsController {
 
     @GetMapping
     public String getAllUnits(Model model) {
-        Set<Unit> allUnits = adminUnitService.getAllUnits();
+        Set<AdminUnitDto> allUnits = adminUnitService.getAllUnits();
         model.addAttribute("units", allUnits);
         return "admin/units";
     }
@@ -38,8 +38,8 @@ public class AdminUnitsController {
             @PathVariable long id,
             Model model
     ) {
-        Unit unitById = adminUnitService.getUnitById(id);
-        model.addAttribute("unit", unitById);
+        AdminUnitDto adminUnitDtoById = adminUnitService.getUnitById(id);
+        model.addAttribute("unit", adminUnitDtoById);
         return "admin/unit_card";
     }
 
@@ -54,16 +54,16 @@ public class AdminUnitsController {
             @RequestParam("totalFloors") int totalFloors,
             @RequestParam("date") LocalDate date
     ) {
-        Unit newUnit = new Unit();
-        newUnit.setType(UnitType.valueOf(unitType));
-        newUnit.setSquare(square);
-        newUnit.setTotalPrice(totalPrice);
-        newUnit.setPricePerSqM(pricePerSqM);
-        newUnit.setRooms(rooms);
-        newUnit.setFloor(floor);
-        newUnit.setTotalFloors(totalFloors);
-        newUnit.setDate(date);
-        adminUnitService.add(newUnit);
+        AdminUnitDto adminUnitDto = new AdminUnitDto();
+        adminUnitDto.setType(UnitType.valueOf(unitType));
+        adminUnitDto.setSquare(square);
+        adminUnitDto.setTotalPrice(totalPrice);
+        adminUnitDto.setPricePerSqM(pricePerSqM);
+        adminUnitDto.setRooms(rooms);
+        adminUnitDto.setFloor(floor);
+        adminUnitDto.setTotalFloors(totalFloors);
+        adminUnitDto.setDate(date);
+        adminUnitService.add(adminUnitDto);
         return "redirect:/admin/units";
     }
 }

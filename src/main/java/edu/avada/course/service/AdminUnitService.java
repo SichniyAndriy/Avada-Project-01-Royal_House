@@ -1,13 +1,13 @@
 package edu.avada.course.service;
 
-import edu.avada.course.model.entity.Unit;
+import edu.avada.course.model.admindto.AdminUnitDto;
 import java.util.Set;
 
 public interface AdminUnitService {
     //--------------------- UNITS PART ---------------------\\
-    Set<Unit> getAllUnits();
+    Set<AdminUnitDto> getAllUnits();
 
-    Unit getUnitById(long id);
+    AdminUnitDto getUnitById(long id);
 
-    long add(Unit unit);
+    long add(AdminUnitDto unit);
 }
