@@ -1,17 +1,17 @@
 package edu.avada.course.service;
 
-import edu.avada.course.model.entity.Bid;
+import edu.avada.course.model.admindto.AdminBidDto;
 import java.util.Set;
 
 public interface AdminBidService {
     //--------------------- BIDS PART ---------------------\\
-    Set<Bid> getAllBids();
+    Set<AdminBidDto> getAllBids();
 
-    Bid getBidById(long id);
+    AdminBidDto getBidById(long id);
 
     void deleteBidById(long id);
 
     void changeBidStatusById(long i);
 
-    long add(Bid bid);
+    long add(AdminBidDto adminBidDto);
 }

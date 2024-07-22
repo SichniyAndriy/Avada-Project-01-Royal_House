@@ -1,11 +1,15 @@
 package edu.avada.course.service.impl;
 
+import edu.avada.course.mapper.BidMapper;
+import edu.avada.course.model.admindto.AdminBidDto;
 import edu.avada.course.model.entity.Bid;
 import edu.avada.course.model.entity.Bid.BidStatus;
 import edu.avada.course.repository.BidRepository;
 import edu.avada.course.service.AdminBidService;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,19 +26,23 @@ public class AdminBidServiceImpl implements AdminBidService {
     }
 
     @Override
-    public Set<Bid> getAllBids() {
+    public Set<AdminBidDto> getAllBids() {
         if (bids == null) {
             getAllBidsFromDB();
         }
-        return bids.values().parallelStream().collect(Collectors.toSet());
+        return bids.values().parallelStream()
+                .map(BidMapper::fromEntityToAdminDto)
+                .collect(Collectors.toCollection(() ->
+                        new TreeSet<>(Comparator.comparing(AdminBidDto::getId)))
+                );
     }
 
     @Override
-    public Bid getBidById(long id) {
+    public AdminBidDto getBidById(long id) {
         if (bids == null) {
             getAllBidsFromDB();
         }
-        return bids.get(id);
+        return BidMapper.fromEntityToAdminDto(bids.get(id));
     }
 
     @Override
@@ -52,7 +60,8 @@ public class AdminBidServiceImpl implements AdminBidService {
         bidRepository.save(bid);
     }
 
-    public long add(Bid bid) {
+    public long add(AdminBidDto adminBidDto) {
+        Bid bid = BidMapper.fromAdminDtoToEntity(adminBidDto);
         long id = bidRepository.save(bid).getId();
         if (id > 0) {
             bids.put(id, bid);

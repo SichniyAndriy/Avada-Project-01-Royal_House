@@ -1,6 +1,6 @@
 package edu.avada.course.controller;
 
-import edu.avada.course.model.entity.Bid;
+import edu.avada.course.model.admindto.AdminBidDto;
 import edu.avada.course.model.entity.Bid.BidStatus;
 import edu.avada.course.service.AdminBidService;
 import java.time.LocalDate;
@@ -27,14 +27,14 @@ public class AdminBidsController {
 
     @GetMapping
     public String viewBids(Model model) {
-        Set<Bid> allBids = adminBidService.getAllBids();
+        Set<AdminBidDto> allBids = adminBidService.getAllBids();
         model.addAttribute("bids", allBids);
         return "admin/bids";
     }
 
     @GetMapping("/show/{id}")
     public String viewBid(@PathVariable Long id, Model model) {
-        Bid bid = adminBidService.getBidById(id);
+        AdminBidDto bid = adminBidService.getBidById(id);
         model.addAttribute("bid", bid);
         return "admin/bid_card";
     }
@@ -59,14 +59,14 @@ public class AdminBidsController {
             @RequestParam("comment") String comment,
             @RequestParam("date") LocalDate date
     ) {
-        Bid newBid = new Bid();
-        newBid.setName(name);
-        newBid.setPhone(phone);
-        newBid.setEmail(email);
-        newBid.setComment(comment);
-        newBid.setDate(date);
-        newBid.setStatus(BidStatus.NEW);
-        adminBidService.add(newBid);
+        AdminBidDto newAdminBidDto = new AdminBidDto();
+        newAdminBidDto.setName(name);
+        newAdminBidDto.setPhone(phone);
+        newAdminBidDto.setEmail(email);
+        newAdminBidDto.setComment(comment);
+        newAdminBidDto.setDate(date);
+        newAdminBidDto.setStatus(BidStatus.NEW);
+        adminBidService.add(newAdminBidDto);
         return "redirect:/admin/bids";
     }
 }
