@@ -4,7 +4,7 @@ import edu.avada.course.model.admindto.AdminCompanyServiceDto;
 import edu.avada.course.model.dto.CompanyServiceDto;
 import edu.avada.course.model.entity.CompanyService;
 
-public class ComponentServiceMapper {
+public class CompanyServiceMapper {
     public static AdminCompanyServiceDto fromEntityToAdminDto(CompanyService companyService) {
         AdminCompanyServiceDto adminCompanyServiceDto = new AdminCompanyServiceDto();
         adminCompanyServiceDto.setId(companyService.getId());

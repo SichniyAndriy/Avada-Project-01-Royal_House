@@ -1,6 +1,6 @@
 package edu.avada.course.controller;
 
-import edu.avada.course.model.entity.CompanyService;
+import edu.avada.course.model.admindto.AdminCompanyServiceDto;
 import edu.avada.course.model.entity.CompanyService.ServiceStatus;
 import edu.avada.course.service.AdminCompanyServService;
 import java.io.FileReader;
@@ -38,7 +38,7 @@ public class AdminServicesController {
 
     @GetMapping
     public String getAllServices(Model model){
-        Set<CompanyService> allCompanyServices = adminCompanyServService.getAllCompanyServices();
+        Set<AdminCompanyServiceDto> allCompanyServices = adminCompanyServService.getAllCompanyServices();
         model.addAttribute("services", allCompanyServices);
         return "admin/services";
     }
@@ -54,8 +54,8 @@ public class AdminServicesController {
             throw new RuntimeException(e);
         }
         String serviceBannerPath = properties.getProperty(SERVICE_BANNER_PATH_KEY);
-        CompanyService companyServiceById = adminCompanyServService.getCompanyServiceById(id);
-        model.addAttribute("service", companyServiceById);
+        AdminCompanyServiceDto adminCompanyServiceDtoById = adminCompanyServService.getCompanyServiceById(id);
+        model.addAttribute("service", adminCompanyServiceDtoById);
         model.addAttribute("serviceBannerPath", serviceBannerPath);
         return "admin/service_card";
     }
@@ -78,9 +78,9 @@ public class AdminServicesController {
 
     @PostMapping("/service-card/update")
     public ResponseEntity<HttpStatus> editService(
-            @RequestBody CompanyService companyService
+            @RequestBody AdminCompanyServiceDto adminCompanyServiceDto
     ) {
-        adminCompanyServService.updateCompanyService(companyService);
+        adminCompanyServService.updateCompanyService(adminCompanyServiceDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -131,12 +131,12 @@ public class AdminServicesController {
             @RequestParam("description") String description,
             @RequestParam("date") String date
     ) {
-        CompanyService newCompanyService = new CompanyService();
-        newCompanyService.setTitle(title);
-        newCompanyService.setDescription(description);
-        newCompanyService.setStatus(ServiceStatus.YES);
-        newCompanyService.setDate(LocalDate.parse(date));
-        adminCompanyServService.add(newCompanyService);
+        AdminCompanyServiceDto adminCompanyServiceDto = new AdminCompanyServiceDto();
+        adminCompanyServiceDto.setTitle(title);
+        adminCompanyServiceDto.setDescription(description);
+        adminCompanyServiceDto.setStatus(ServiceStatus.YES);
+        adminCompanyServiceDto.setDate(LocalDate.parse(date));
+        adminCompanyServService.add(adminCompanyServiceDto);
         return "redirect:/admin/services";
     }
 }

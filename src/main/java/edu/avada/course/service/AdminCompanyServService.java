@@ -1,18 +1,18 @@
 package edu.avada.course.service;
 
-import edu.avada.course.model.entity.CompanyService;
+import edu.avada.course.model.admindto.AdminCompanyServiceDto;
 import java.util.Set;
 
 public interface AdminCompanyServService {
-    Set<CompanyService> getAllCompanyServices();
+    Set<AdminCompanyServiceDto> getAllCompanyServices();
 
-    CompanyService getCompanyServiceById(long id);
+    AdminCompanyServiceDto getCompanyServiceById(long id);
 
     void deleteCompanyServiceById(long id);
 
     void changeCompanyServiceStatusById(long id);
 
-    void updateCompanyService(CompanyService companyService);
+    void updateCompanyService(AdminCompanyServiceDto companyService);
 
-    long add(CompanyService newCompanyService);
+    long add(AdminCompanyServiceDto newCompanyService);
 }
