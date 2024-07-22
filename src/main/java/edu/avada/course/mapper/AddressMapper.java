@@ -26,12 +26,4 @@ public class AddressMapper {
         newAddress.setHouseNumber(adminAddressDto.getHouseNumber());
         return newAddress;
     }
-
-    public static Address fromDtoToEntity(AddressDto addressDto) {
-        Address newAddress = new Address();
-        newAddress.setCity(addressDto.city());
-        newAddress.setStreet(addressDto.street());
-        newAddress.setHouseNumber(addressDto.houseNumber());
-        return newAddress;
-    }
 }

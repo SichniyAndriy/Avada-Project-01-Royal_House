@@ -54,20 +54,4 @@ public class UnitMapper {
         newUnit.setImages(adminUnitDto.getImages().stream().map(ImageMapper::fromAdminDtoToEntity).toList());
         return newUnit;
     }
-
-    public static Unit fromDtoToEntity(UnitDto unitDto) {
-        Unit newUnit = new Unit();
-        newUnit.setType(unitDto.type());
-        newUnit.setSquare(unitDto.square());
-        newUnit.setTotalPrice(unitDto.totalPrice());
-        newUnit.setPricePerSqM(unitDto.pricePerSqM());
-        newUnit.setRooms(unitDto.rooms());
-        newUnit.setFloor(unitDto.floor());
-        newUnit.setTotalFloors(unitDto.totalFloors());
-        newUnit.setDate(unitDto.date());
-        newUnit.setFlatNumber(unitDto.flatNumber());
-        newUnit.setAddress(AddressMapper.fromDtoToEntity(unitDto.address()));
-        newUnit.setImages(unitDto.imagesDto().stream().map(ImageMapper::fromDtoToEntity).toList());
-        return newUnit;
-    }
 }

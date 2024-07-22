@@ -36,14 +36,4 @@ public class CompanyServiceMapper {
         newService.setImagePath(adminCompanyServiceDto.getImagePath());
         return newService;
     }
-
-    public static CompanyService fromDtoToEntity(CompanyServiceDto serviceDto) {
-        CompanyService newService = new CompanyService();
-        newService.setTitle(serviceDto.title());
-        newService.setDescription(serviceDto.description());
-        newService.setStatus(serviceDto.status());
-        newService.setDate(serviceDto.date());
-        newService.setImagePath(serviceDto.imagePath());
-        return newService;
-    }
 }

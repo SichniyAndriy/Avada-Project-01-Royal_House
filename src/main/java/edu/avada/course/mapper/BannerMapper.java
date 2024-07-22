@@ -22,10 +22,4 @@ public class BannerMapper {
         newBanner.setPath(adminBannerDto.getPath());
         return newBanner;
     }
-
-    public static Banner fromDtoToEntity(BannerDto bannerDto) {
-        Banner newBanner = new Banner();
-        newBanner.setPath(bannerDto.path());
-        return newBanner;
-    }
 }

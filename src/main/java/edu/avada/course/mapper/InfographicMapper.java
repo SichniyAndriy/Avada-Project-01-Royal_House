@@ -30,12 +30,4 @@ public class InfographicMapper {
         newInfographic.setType(adminInfographicDto.getType());
         return newInfographic;
     }
-
-    public static Infographic fromDtoToEntity(InfographicDto infographicDto) {
-        Infographic newInfographic = new Infographic();
-        newInfographic.setPath(infographicDto.path());
-        newInfographic.setDescription(infographicDto.description());
-        newInfographic.setType(infographicDto.type());
-        return newInfographic;
-    }
 }

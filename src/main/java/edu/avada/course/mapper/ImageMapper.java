@@ -22,10 +22,4 @@ public class ImageMapper {
         newImage.setPath(adminImageDto.getPath());
         return newImage;
     }
-
-    public static Image fromDtoToEntity(ImageDto imageDto) {
-        Image newImage = new Image();
-        newImage.setPath(imageDto.path());
-        return newImage;
-    }
 }

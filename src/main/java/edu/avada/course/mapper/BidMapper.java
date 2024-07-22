@@ -39,15 +39,4 @@ public class BidMapper {
         newBid.setStatus(adminBidDto.getStatus());
         return newBid;
     }
-
-    public static Bid fromDtoToEntity(BidDto bidDto) {
-        Bid newBid = new Bid();
-        newBid.setName(bidDto.name());
-        newBid.setPhone(bidDto.phone());
-        newBid.setEmail(bidDto.email());
-        newBid.setComment(bidDto.comment());
-        newBid.setDate(bidDto.date());
-        newBid.setStatus(bidDto.status());
-        return newBid;
-    }
 }

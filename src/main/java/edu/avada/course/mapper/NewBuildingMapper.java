@@ -54,18 +54,4 @@ public class NewBuildingMapper {
                 .map(UnitMapper::fromAdminDtoToEntity).toList());
         return newBuilding;
     }
-
-    public static NewBuilding fromDtoToEntity(NewBuildingDto newBuildingDto) {
-        NewBuilding newBuilding = new NewBuilding();
-        newBuilding.setTitle(newBuildingDto.title());
-        newBuilding.setDescription(newBuildingDto.description());
-        newBuilding.setLocation(newBuildingDto.location());
-        newBuilding.setStatus(newBuildingDto.status());
-        newBuilding.setAddress(AddressMapper.fromDtoToEntity(newBuildingDto.address()));
-        newBuilding.setPanoramaPath(newBuildingDto.panoramaPath());
-        newBuilding.setBanners(newBuildingDto.banners().stream().map(BannerMapper::fromDtoToEntity).toList());
-        newBuilding.setInfographics(newBuildingDto.infographics().stream().map(InfographicMapper::fromDtoToEntity).toList());
-        newBuilding.setUnits(newBuildingDto.units().stream().map(UnitMapper::fromDtoToEntity).toList());
-        return newBuilding;
-    }
 }
