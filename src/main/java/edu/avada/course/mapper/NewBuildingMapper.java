@@ -10,6 +10,7 @@ public class NewBuildingMapper {
         newAdminNewBuildingDto.setId(newBuilding.getId());
         newAdminNewBuildingDto.setTitle(newBuilding.getTitle());
         newAdminNewBuildingDto.setLocation(newBuilding.getLocation());
+        newAdminNewBuildingDto.setStatus(newBuilding.getStatus());
         newAdminNewBuildingDto.setDescription(newBuilding.getDescription());
         newAdminNewBuildingDto.setAddress(AddressMapper.fromEntityToAdminDto(newBuilding.getAddress()));
         newAdminNewBuildingDto.setPanoramaPath(newBuilding.getPanoramaPath());
@@ -40,15 +41,17 @@ public class NewBuildingMapper {
         NewBuilding newBuilding = new NewBuilding();
         newBuilding.setId(newAdminNewBuildingDto.getId());
         newBuilding.setTitle(newAdminNewBuildingDto.getTitle());
-        newBuilding.setDescription(newAdminNewBuildingDto.getDescription());
         newBuilding.setLocation(newAdminNewBuildingDto.getLocation());
         newBuilding.setStatus(newAdminNewBuildingDto.getStatus());
-        AddressMapper.fromAdminDtoToEntity(newAdminNewBuildingDto.getAddress());
+        newBuilding.setDescription(newAdminNewBuildingDto.getDescription());
+        newBuilding.setAddress(AddressMapper.fromAdminDtoToEntity(newAdminNewBuildingDto.getAddress()));
         newBuilding.setPanoramaPath(newAdminNewBuildingDto.getPanoramaPath());
-        newBuilding.setBanners(newAdminNewBuildingDto.getBanners().stream().map(BannerMapper::fromAdminDtoToEntity).toList());
+        newBuilding.setBanners(newAdminNewBuildingDto.getBanners().stream()
+                .map(BannerMapper::fromAdminDtoToEntity).toList());
         newBuilding.setInfographics(newAdminNewBuildingDto.getInfographics().stream()
                 .map(InfographicMapper::fromAdminDtoToEntity).toList());
-        newBuilding.setUnits(newAdminNewBuildingDto.getUnits().stream().map(UnitMapper::fromAdminDtoToEntity).toList());
+        newBuilding.setUnits(newAdminNewBuildingDto.getUnits().stream()
+                .map(UnitMapper::fromAdminDtoToEntity).toList());
         return newBuilding;
     }
 

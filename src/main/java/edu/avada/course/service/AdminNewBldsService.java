@@ -1,18 +1,18 @@
 package edu.avada.course.service;
 
-import edu.avada.course.model.entity.NewBuilding;
+import edu.avada.course.model.admindto.AdminNewBuildingDto;
 import java.util.Set;
 
 public interface AdminNewBldsService {
-    Set<NewBuilding> getAllNewBlds();
+    Set<AdminNewBuildingDto> getAllNewBlds();
 
-    NewBuilding getNewBldById(long id);
+    AdminNewBuildingDto getNewBldById(long id);
 
     void deleteNewBldById(long id);
 
     void changeNewBldStatusById(long id);
 
-    void updateNewBld(NewBuilding newBuilding);
+    void updateNewBld(AdminNewBuildingDto newBuilding);
 
-    long add(NewBuilding newBuilding);
+    long add(AdminNewBuildingDto newBuilding);
 }

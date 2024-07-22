@@ -315,9 +315,12 @@ async function updateNewBld(newbld) {
 
     const newInfographics = [];
     for (const infographic of infographics) {
-        if (infographic) {
-            newInfographics.push(infographic);
-        }
+        newInfographics.push(infographic);
+    }
+
+    const newUnits = [];
+    for(const unit of newbld.units) {
+        newUnits.push(unit);
     }
 
     const updatedNewBld = {
@@ -329,7 +332,8 @@ async function updateNewBld(newbld) {
         address: newAddress,
         panoramaPath: newPanoramaPath,
         banners: newBanners,
-        infographics: newInfographics
+        infographics: newInfographics,
+        units: newUnits
     }
 
     const responce = await fetch("/admin/new-blds/update-new-bld", {

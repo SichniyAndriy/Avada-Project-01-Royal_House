@@ -1,5 +1,7 @@
 package edu.avada.course.service.impl;
 
+import edu.avada.course.mapper.AddressMapper;
+import edu.avada.course.model.admindto.AdminAddressDto;
 import edu.avada.course.model.entity.Address;
 import edu.avada.course.repository.AddressRepository;
 import edu.avada.course.service.AdminAddressService;
@@ -33,7 +35,8 @@ public class AdminAddressServiceImpl implements AdminAddressService {
     }
 
     @Override
-    public long add(Address address) {
+    public long add(AdminAddressDto adminAddressDto) {
+        Address address = AddressMapper.fromAdminDtoToEntity(adminAddressDto);
         return addressRepository.save(address).getId();
     }
 }

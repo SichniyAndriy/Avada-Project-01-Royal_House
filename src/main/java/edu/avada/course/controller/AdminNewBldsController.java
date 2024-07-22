@@ -1,13 +1,13 @@
 package edu.avada.course.controller;
 
-import edu.avada.course.model.entity.Address;
-import edu.avada.course.model.entity.NewBuilding;
+import edu.avada.course.model.admindto.AdminAddressDto;
+import edu.avada.course.model.admindto.AdminNewBuildingDto;
 import edu.avada.course.model.entity.NewBuilding.Location;
 import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
 import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminNewBldsService;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,17 +39,15 @@ public class AdminNewBldsController {
 
     @GetMapping
     public String showNewBlds(Model model) {
-        Set<NewBuilding> allNewBlds = adminNewBldsService.getAllNewBlds();
+        Set<AdminNewBuildingDto> allNewBlds = adminNewBldsService.getAllNewBlds();
         model.addAttribute("newblds", allNewBlds);
         return "admin/new_blds";
     }
 
     @GetMapping("/show-newbld-card/{id}")
     public String showNewBld(@PathVariable long id, Model model) {
-        NewBuilding newBuildingById = adminNewBldsService.getNewBldById(id);
-        Optional.of(newBuildingById.getInfographics()).ifPresent(item -> item.forEach(el -> el.setNewBuilding(null)));
-        Optional.of(newBuildingById.getBanners()).ifPresent(item -> item.forEach(el -> el.setNewBuilding(null)));
-        model.addAttribute("newbld", newBuildingById);
+        AdminNewBuildingDto adminNewBuildingDtoById = adminNewBldsService.getNewBldById(id);
+        model.addAttribute("newbld", adminNewBuildingDtoById);
         return "admin/new_bld_card";
     }
 
@@ -66,14 +64,8 @@ public class AdminNewBldsController {
     }
 
     @PostMapping("/update-new-bld")
-    public ResponseEntity<HttpStatus> addInfographic(@RequestBody NewBuilding newBuilding) {
-        for(var banner: newBuilding.getBanners()) {
-            banner.setNewBuilding(newBuilding);
-        }
-        for (var infographic: newBuilding.getInfographics()) {
-            infographic.setNewBuilding(newBuilding);
-        }
-        adminNewBldsService.updateNewBld(newBuilding);
+    public ResponseEntity<HttpStatus> addInfographic(@RequestBody AdminNewBuildingDto adminNewBuildingDto) {
+        adminNewBldsService.updateNewBld(adminNewBuildingDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -136,21 +128,24 @@ public class AdminNewBldsController {
             @RequestParam("title") String title,
             @RequestParam("address") String address
     ) {
-        NewBuilding newBuilding = new NewBuilding();
-        newBuilding.setTitle(title);
+        AdminNewBuildingDto adminNewBuildingDto = new AdminNewBuildingDto();
+        adminNewBuildingDto.setTitle(title);
         String[] strings = address.split("[.,:;]");
-        Address addressObj = new Address();
+        AdminAddressDto adminAddressDto = new AdminAddressDto();
         if (strings.length != 3) {
             throw new IllegalArgumentException();
         }
-        addressObj.setCity(strings[0].replace(" ", ""));
-        addressObj.setStreet(strings[1].replace(" ", ""));
-        addressObj.setHouseNumber(strings[2].replace(" ", ""));
-        adminAddressService.add(addressObj);
-        newBuilding.setAddress(addressObj);
-        newBuilding.setStatus(NewBuildStatus.OFF);
-        newBuilding.setLocation(new Location());
-        adminNewBldsService.add(newBuilding);
+        adminAddressDto.setCity(strings[0].replace(" ", ""));
+        adminAddressDto.setStreet(strings[1].replace(" ", ""));
+        adminAddressDto.setHouseNumber(strings[2].replace(" ", ""));
+        adminAddressDto.setId(adminAddressService.add(adminAddressDto));
+        adminNewBuildingDto.setAddress(adminAddressDto);
+        adminNewBuildingDto.setStatus(NewBuildStatus.OFF);
+        adminNewBuildingDto.setLocation(new Location());
+        adminNewBuildingDto.setBanners(new ArrayList<>());
+        adminNewBuildingDto.setInfographics(new ArrayList<>());
+        adminNewBuildingDto.setUnits(new ArrayList<>());
+        adminNewBldsService.add(adminNewBuildingDto);
         return "redirect:/admin/new-blds";
     }
 }
