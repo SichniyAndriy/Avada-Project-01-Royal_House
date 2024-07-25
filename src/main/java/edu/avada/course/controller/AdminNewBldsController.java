@@ -64,7 +64,9 @@ public class AdminNewBldsController {
     }
 
     @PostMapping("/update-new-bld")
-    public ResponseEntity<HttpStatus> addInfographic(@RequestBody AdminNewBuildingDto adminNewBuildingDto) {
+    public ResponseEntity<HttpStatus> addInfographic(
+            @RequestBody AdminNewBuildingDto adminNewBuildingDto
+    ) {
         adminNewBldsService.updateNewBld(adminNewBuildingDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }

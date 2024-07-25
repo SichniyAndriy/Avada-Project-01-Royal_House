@@ -1,0 +1,28 @@
+/* CONTACTS */
+
+.contacts__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+.form__item > input {
+    width: 16rem;
+}
+
+.title__list {
+    margin-bottom: 2rem;
+}
+
+.save-btn, .copy-btn {
+    margin-top: 2rem;
+    font-size: 1rem;
+    padding: .25rem .75rem;
+    background-color: blue;
+    color: aliceblue;
+}

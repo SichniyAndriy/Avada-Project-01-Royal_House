@@ -12,9 +12,9 @@
 }
 
 .tabs-container {
+    width: 100%;
     display: flex;
 }
-
 
 .tabs-container > .tab {
     width: calc(100% / 7);
@@ -33,6 +33,7 @@
 }
 
 .tabs-content-container {
+    width: 100%;
     border: 1px solid black;
     box-sizing: border-box;
 }
@@ -40,16 +41,6 @@
 .tab-content {
     box-sizing: border-box;
     padding: 2rem 2rem;
-}
-
-input {
-    font-size: 1rem;
-    line-height: 1.5rem;
-}
-
-p {
-    font-weight: 700;
-    font-size: 1.25rem;
 }
 
 /* ========================= Infographic BLOCK ========================= */

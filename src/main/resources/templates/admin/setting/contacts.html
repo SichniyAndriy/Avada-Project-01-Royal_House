@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ua" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../../static/css/admin_styles/head_container_style.css"
+        th:href="@{/css/admin_styles/head_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/main_container_style.css"
+        th:href="@{/css/admin_styles/main_container_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/table_style.css"
+        th:href="@{/css/admin_styles/table_style.css}">
+    <link rel="stylesheet" href="../../../static/css/admin_styles/setting.css"
+        th:href="@{/css/admin_styles/setting.css}">
+    <!-- Scripts -->
+    <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
+        defer></script>
+    <title>Контакти</title>
+</head>
+
+<body>
+    <header th:replace="~{admin/fragments/navbar::header}"></header>
+
+    <main class="main-container">
+        <div class="main-sidebar">
+            <nav th:replace="~{admin/fragments/navbar::navigation}"></nav>
+        </div>
+
+        <div class="main-content">
+            <div class="page__title">
+                <h2>Контакти</h2>
+                <hr>
+            </div>
+            <form action="/admin/contacts" method="post">
+                <div class="contacts__form">
+                    <div class="form__item">
+                        <label for="phone">Телефон</label>
+                        <input id="phone" type="text" name="phone" th:value="${phone}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="viber">Viber</label>
+                        <input id="viber" type="text" name="viber" th:value="${viber}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" name="email" th:value="${email}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="telegram">Telegram</label>
+                        <input id="telegram" type="text" name="telegram" th:value="${telegram}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="instagram">Instagram</label>
+                        <input id="instagram" type="text" name="instagram" th:value="${instagram}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="facebook">Facebook</label>
+                        <input id="facebook" type="text" name="facebook" th:value="${facebook}?: ''">
+                    </div>
+                    <div class="form__item">
+                        <label for="address">Адреса</label>
+                        <input id="address" type="text" name="address" th:value="${address}?: ''">
+                    </div>
+                </div>
+                <input type="submit" class="action-btn" value="Зберегти">
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>

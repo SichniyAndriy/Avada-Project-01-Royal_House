@@ -14,6 +14,7 @@
     th:href="@{/css/admin_styles/main_container_style.css}">
   <link rel="stylesheet" href="../../static/css/admin_styles/new_blds_style.css"
     th:href="@{/css/admin_styles/new_blds_style.css}">
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 
   <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -21,6 +22,7 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
   <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
     defer></script>
   <script src="../../static/js/admin_scripts/new_blds_scripts.js" th:src="@{/js/admin_scripts/new_blds_scripts.js}"
@@ -56,8 +58,7 @@
             <div class="info-block">
               <div class="banner-card">
                 <h2>Головний баннер</h2>
-                <img alt="Main banner" id="newblds-main-banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} ? 
+                <img alt="Main banner" id="newblds-main-banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} ? 
                       @{${newbld.banners[0].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір 1920х800</p>
                 <input type="file" accept="image/*" id="newblds-main-banner-input">
@@ -83,14 +84,14 @@
                   </button>
                 </li>
                 <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                    th:if="${#strings.equals(infographic.type, 'MAIN')}">
+                  th:if="${#strings.equals(infographic.type, 'MAIN')}">
                   <div>
                     <p><span th:text="${infographic.path}">Наdfgdsfg dfgdf gdfg dgdfgdfg dgd dзва файлу</span></p>
                     <p><span th:text="${infographic.description}">fd gdfgdfgdfgdfgdfgdfhd dfg dfg dfg dhf файлу</span>
                     </p>
                     <button onclick="deleteInfographic(/*[[${infographicStat.index}]]*/)">
                       <img src="../../static/img/admin/x-octagon-fill.svg" th:src="@{/img/admin/x-octagon-fill.svg}"
-                           alt="Delete infographic">
+                        alt="Delete infographic">
                     </button>
                   </div>
                 </li>
@@ -104,24 +105,21 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[1].path} ?  
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[1].path} ?  
                       @{${newbld.banners[1].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[2].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[2].path} ? 
                       @{${newbld.banners[2].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[3].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[3].path} ? 
                       @{${newbld.banners[3].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-about-3-banner-input">
@@ -164,24 +162,21 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4].path} ? 
                       @{${newbld.banners[4].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5].path} ? 
                       @{${newbld.banners[5].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6].path} ? 
                       @{${newbld.banners[6].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-infrastructure-3-banner-input">
@@ -204,7 +199,7 @@
                   </button>
                 </li>
                 <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                    th:if="${#strings.equals(infographic.type,'INFRASTRUCTURE')}">
+                  th:if="${#strings.equals(infographic.type,'INFRASTRUCTURE')}">
                   <div>
                     <p th:text="${infographic.path}">Назва файлу</p>
                     <p th:text="${infographic.description}">Опис інфографіки</p>
@@ -224,24 +219,21 @@
             <div class="banner-cards-block">
               <div class="banner-card">
                 <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" 
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[7].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[7].path} ? 
                       @{${newbld.banners[7].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-1-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"                      
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[8].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[8].path} ? 
                       @{${newbld.banners[8].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-2-banner-input">
               </div>
               <div class="banner-card">
                 <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"                      
-                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[9].path} ? 
+                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[9].path} ? 
                       @{${newbld.banners[9].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір (1920х800)</p>
                 <input type="file" accept="image/*" id="newblds-flats-3-banner-input">
@@ -264,7 +256,7 @@
                   </button>
                 </li>
                 <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                    th:if="${#strings.equals(infographic.type, 'FLATS')}">
+                  th:if="${#strings.equals(infographic.type, 'FLATS')}">
                   <div>
                     <p th:text="${infographic.path}">Назва файлу</p>
                     <p th:text="${infographic.description}">Опис інфографіки</p>
@@ -292,7 +284,9 @@
           </div>
         </div>
         <!-- ======================= Specification TAB ======================= -->
-        <div id="specification" class="tab-content">specification -- TODO --</div>
+        <div id="specification" class="tab-content">
+          <div id="specification__editor"></div>
+        </div>
 
         <div class="action-btn-block">
           <button type="button" class="action-btn" onclick="goToNewBlds()">Скасувати</button>
@@ -301,6 +295,17 @@
       </div>
     </div>
   </main>
+  <script>
+    const options = {
+      debug: 'info',
+      modules: {
+        toolbar: true,
+      },
+      placeholder: 'Compose an epic...',
+      theme: 'snow'
+    };
+    const quill = new Quill('#specification__editor', options);
+  </script>
 </body>
 
 </html>
