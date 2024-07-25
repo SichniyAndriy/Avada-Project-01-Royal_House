@@ -24,8 +24,11 @@ $( () => {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(fieldList)
-        }).then(responce => {
-            console.log(`Responce is ${responce.status}`);
+        }).then(response => {
+            if (response.ok) {
+                alert("Дані збережено");
+            }
+            console.log(`Responce is ${response.status}`);
         })
     })
 })
