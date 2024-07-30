@@ -14,6 +14,9 @@
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
         defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 
     <title>Заявки</title>
 </head>
@@ -28,9 +31,14 @@
 
         <div class="main-content">
             <div class="page__title">
-                <h2>Заявки</h2><hr>
+                <h2>Заявки</h2>
+                <hr>
             </div>
-            <table>
+            <div class="sheetjsexport__container" style="display: flex; justify-content: end;">
+                <button id="sheetjsexport" style="margin: 1.5rem; padding: .5rem 1.5rem"
+                    onclick="openSaveDialog()"><b>Скачати в Excel</b></button>
+            </div>
+            <table id="bids-table">
                 <thead>
                     <tr>
                         <th scope="col">Повне ім'я</th>
@@ -62,11 +70,12 @@
                             </td>
                             <td></td>
                             <td class="btn-block">
-                                <input type="submit" class="status-btn" style="background-color: blue; color: aliceblue">
+                                <input type="submit" class="status-btn"
+                                    style="background-color: blue; color: aliceblue">
                             </td>
                         </form>
                     </tr>
-                    <tr th:each="bid : ${bids}">
+                    <tr th:each="bid : ${bids}" class="data__items">
                         <td th:text="${bid.name}">Alice Bob</td>
                         <td th:text="${bid.phone}">097 1234678</td>
                         <td th:text="${bid.email}">
@@ -99,7 +108,26 @@
             </table>
         </div>
     </main>
-
+    <script>
+        function openSaveDialog() {
+            const filename = prompt("Введіть ім'я файлу: ", "data.xlsx");
+            if (filename) {
+                const arrData = [];
+                const rows = document.querySelectorAll("tr:not(#bid__input__row)");
+                rows.forEach(row => {
+                    const rowElems = row.querySelectorAll("th, td");
+                    const rowData = [];
+                    rowElems.forEach(elem => { rowData.push(elem.textContent.replace("/n", "").trim()) });
+                    arrData.push(rowData);
+                });
+                
+                const sheet = XLSX.utils.aoa_to_sheet(arrData);
+                const workBook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workBook, sheet, "Sheet1");
+                XLSX.writeFile(workBook, filename);
+            }
+        }
+    </script>
 </body>
 
 </html>

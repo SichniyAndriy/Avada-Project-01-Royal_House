@@ -126,7 +126,7 @@ public class AdminNewBldsController {
     }
 
     @PostMapping("/add-new")
-    public String addNewBld(
+    public ResponseEntity<HttpStatus> addNewBld(
             @RequestParam("title") String title,
             @RequestParam("address") String address
     ) {
@@ -148,6 +148,6 @@ public class AdminNewBldsController {
         adminNewBuildingDto.setInfographics(new ArrayList<>());
         adminNewBuildingDto.setUnits(new ArrayList<>());
         adminNewBldsService.add(adminNewBuildingDto);
-        return "redirect:/admin/new-blds";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

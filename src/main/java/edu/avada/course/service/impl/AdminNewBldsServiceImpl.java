@@ -24,13 +24,12 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
             @Autowired NewBuildingRepository newBuildingRepository
     ) {
         this.newBuildingRepository = newBuildingRepository;
+
     }
 
     @Override
     public Set<AdminNewBuildingDto> getAllNewBlds() {
-        if (newBuildings == null) {
-            getAllNewBldsFromDb();
-        }
+        getAllNewBldsFromDb();
         return newBuildings.values().parallelStream()
                 .map(NewBuildingMapper::fromEntityToAdminDto)
                 .collect(Collectors.toCollection(

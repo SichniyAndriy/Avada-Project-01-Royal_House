@@ -14,6 +14,8 @@
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js"
         th:src="@{/js/admin_scripts/admin_scripts.js}"></script>
+    <script src="../../static/js/admin_scripts/new_blds_scripts.js"
+        th:src="@{/js/admin_scripts/new_blds_scripts.js}"></script>
     <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js"></script> -->
      
     <title>Новобудови</title>
@@ -31,6 +33,27 @@
             <div class="page__title">
                 <h2>Новобудови</h2><hr>
             </div>
+            <div class="create__btn__block">
+                <button class="create__btn" id="create__newbld__btn">
+                    <b>Створити</b>
+                </button>
+            </div>
+            <div class="modal__content" id="create__newbld__modal__content">
+                <form id="create__newbld__form">
+                    <div class="form__item">
+                        <label for="newbld__title__input">Назва</label>
+                        <input type="text" name="title" id="newbld__title__input">
+                    </div>
+                    <div class="form__item">
+                        <label for="newbld__address__input">Адреса</label>
+                        <input type="text" name="address" id="newbld__address__input">
+                    </div>
+                </form>
+                <div class="form__btn__block">
+                    <input class="reset__btn" id="reset__modal__form__btn" type="reset" value="Відміна">
+                    <input class="save__btn"  id="save__modal__form__btn" type="button" value="Зберегти">
+                </div>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -42,21 +65,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <form action="/admin/new-blds/add-new" method="post">
-                            <td></td>
-                            <td>
-                                <input type="text" name="title" id="newbld__input_title">
-                            </td>
-                            <td>
-                                <input type="text" name="address" id="newbld__input_address">
-                            </td>  
-                            <td></td>                          
-                            <td class="btn-block" style="text-align: center;">
-                                <input class="status-btn" type="submit" value="Save" style="background-color: blue; color: aliceblue;" >
-                            </td>
-                        </form>
-                    </tr>
                     <tr th:each="newbld : ${newblds}">
                         <td th:text="${newbld.id}">999</td>
                         <td th:text="${newbld.title}">rgdssdgg ds hdh</td>
