@@ -50,6 +50,12 @@ public class AdminUnitServiceImpl implements AdminUnitService {
     }
 
     @Override
+    public void deleteUnitById(long id) {
+        unitRepository.deleteById(id);
+        units.remove(id);
+    }
+
+    @Override
     public long add(AdminUnitDto adminUnitDto) {
         adminUnitDto.setAddress(AddressMapper.fromEntityToAdminDto(adminAddressService.getAnyAddress()));
         Unit unit = UnitMapper.fromAdminDtoToEntity(adminUnitDto);

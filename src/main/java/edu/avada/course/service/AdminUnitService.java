@@ -9,5 +9,7 @@ public interface AdminUnitService {
 
     AdminUnitDto getUnitById(long id);
 
+    void deleteUnitById(long id);
+
     long add(AdminUnitDto unit);
 }
