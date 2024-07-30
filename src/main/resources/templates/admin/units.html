@@ -14,6 +14,8 @@
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js"
         th:src="@{/js/admin_scripts/admin_scripts.js}"></script>
+    <script src="../../static/js/admin_scripts/units_scripts.js"
+        th:src="@{/js/admin_scripts/units_scripts.js}"></script>
 
     <title>Об'єкти</title>
 </head>
@@ -28,7 +30,62 @@
 
         <div class="main-content">
             <div class="page__title">
-                <h2>Об'єкти</h2><hr>
+                <h2>Об'єкти</h2>
+                <hr>
+            </div>
+            <div class="create__btn__block">
+                <button class="create__btn" id="create__unit__btn">
+                    <b>Створити</b>
+                </button>
+            </div>
+            <div class="modal__content" id="create__unit__modal__content">
+                <form id="create__unit__form" action="/admin/units/add-new" method="post">
+                    <div class="form__item">
+                        <label for="unitType">Тип нерухомості</label>
+                        <select type="checkbox" name="unitType" id="unitType">
+                            <option value="FLAT">FLAT</option>
+                            <option value="HOUSE">HOUSE</option>
+                            <option value="COMMERCIAL">COMMERCIAL</option>
+                            <option value="LAND">LAND</option>
+                        </select>
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__square">Площа (м.кв)</label>
+                        <input type="number" step="any" name="square" id="unit__input__square">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__totalPrice">Ціна ($)</label>
+                        <input type="number" step="any" name="totalPrice" id="unit__input__totalPrice">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__pricePerSqM">Ціна за кв.м.($)</label>
+                        <input type="number" step="any" name="pricePerSqM" id="unit__input__pricePerSqM">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__rooms">Кімнат</label>
+                        <input type="number" name="rooms" id="unit__input__rooms">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__floor">Поверх</label>
+                        <input type="number" name="floor" id="unit__input__floor">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__totalFloors">Поверховість</label>
+                        <input type="number" name="totalFloors" id="unit__input__totalFloors">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__flat_number">Номер квартири</label>
+                        <input type="number" name="flatNumber" id="unit__input__flat_number">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__date">Дата додавання</label>
+                        <input type="date" name="date" id="unit__input__date">
+                    </div>
+                </form>
+                <div class="form__btn__block">
+                    <input class="reset__btn" id="reset__modal__form__btn" type="reset" value="Відміна">
+                    <input class="save__btn"  id="save__modal__form__btn" type="button" value="Зберегти">
+                </div>
             </div>
             <table>
                 <thead>
@@ -42,38 +99,11 @@
                         <th>Поверх</th>
                         <th>Поверховість</th>
                         <th>Дата додавання</th>
+                        <th>Операції</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <form action="/admin/units/add-new" method="post">
-                            <td style="text-align: center;">
-                                <input class="status-btn" style="background-color: blue; color: aliceblue;" type="submit">
-                            </td>
-                            <td>
-                                <select type="checkbox" name="unitType" id="unitType">
-                                    <option value="FLAT">FLAT</option>
-                                    <option value="HOUSE">HOUSE</option>
-                                    <option value="COMMERCIAL">COMMERCIAL</option>
-                                    <option value="LAND">LAND</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input type="number" step="any" name="square" id="unit__input__square">
-                            </td>
-                            <td>
-                                <input type="number" step="any" name="totalPrice" id="unit__input__totalPrice">
-                            </td>
-                            <td>
-                                <input type="number" step="any" name="pricePerSqM" id="unit__input__pricePerSqM">
-                            </td>
-                            <td><input id="unit__input__rooms" type="number" name="rooms"></td>
-                            <td><input id="unit__input__floor" type="number" name="floor"></td>
-                            <td><input id="unit__input__totalFloors" type="number" name="totalFloors"></td>
-                            <td><input id="unit__input__date" type="date" name="date"></td>
-                        </form>
-                    </tr>
-                    <tr th:each="unit : ${units}" th:ondblclick="showUnit([[${unit.id}]])">
+                    <tr th:each="unit : ${units}">
                         <td th:text="${unit.id}"></td>
                         <td th:text="${unit.type}"></td>
                         <td th:text="${unit.square}"></td>
@@ -83,6 +113,16 @@
                         <td th:text="${unit.floor}"></td>
                         <td th:text="${unit.totalFloors}"></td>
                         <td th:text="${#temporals.format(unit.date, 'dd.MM.yyyy')}"></td>
+                        <td class="btn-block">
+                            <button type="button" class="act-btn" th:onclick="showUnit([[${unit.id}]])">
+                                <img src="../../static/img/admin/pencil-square.svg"
+                                    th:src="@{/img/admin/pencil-square.svg}" alt="edit icon">
+                            </button>
+                            <button type="button" class="act-btn" th:onclick="deleteUnit([[${unit.id}]])">
+                                <img src="../../static/img/admin/x-octagon-fill.svg"
+                                    th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

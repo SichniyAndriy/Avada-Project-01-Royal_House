@@ -71,6 +71,55 @@ p {
 }
 
 .page__title {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+}
+
+.create__btn__block {
+    display: flex;
+    justify-content: end;
+}
+
+.create__btn {
+    margin: 1.5rem;
+    padding: .5rem 1.5rem;
+}
+
+/* MODAL WINDOW */
+.modal__content {
+    display: none;
+}
+
+.modal__content form {
+    display: table;
+    margin: 0 auto;
+}
+
+.modal__content div.form__btn__block {
+    text-align: center;
+    margin: 1rem auto;
+}
+
+.modal__content input.reset__btn,
+.modal__content input.save__btn {
+    width: 8rem;
+    text-align: center;
+    vertical-align: middle;
+    padding: .5rem 1.5rem;
+    font-size: 1rem;
+    margin: .5rem;
+}
+
+div.form__item {
+    display: table-row;
+    margin-top: .75rem;
+    justify-self: center;
+}
+
+.form__item label, 
+.form__item input, 
+.form__item select {
+    display: table-cell;
+    margin: .25rem;
+    font-size: 1.25rem;
+    line-height: 1.5rem;
 }

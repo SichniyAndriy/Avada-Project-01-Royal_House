@@ -1,0 +1,70 @@
+:root {
+    --primary-font-color: #393939;
+    --secondary-font-color: #F0F1F6;
+    --third-font-color: #CE1D5D;
+    --primary-bg-color: #F1F2F1;
+    --secondary-bg-color: #C0A097;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 96%;
+    margin: 0 auto;
+    background-color: var(--primary-bg-color);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.5rem;
+    text-align: justify;
+}
+
+.main__container {
+    display: flex;
+}
+
+.central__container {
+    width: 100%;
+}
+
+.central__header__container {
+    font-size: 1rem;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--primary-font-color);
+    border-right: 1px solid var(--primary-font-color);
+    border-bottom: 1px solid var(--primary-font-color);
+}
+
+.side__container {
+    width: 25rem;
+    border: 1px solid var(--primary-font-color);
+    box-sizing: border-box;
+}
+
+.logo__image {
+    width: 100%;
+}
+
+.side__navbar_list {
+    list-style-type: none;
+    margin: 1rem 0;
+}
+
+.side__navbar_list__item > a {
+    color: var(--primary-font-color);
+    text-decoration: none;
+}
+
+.side__navbar_list__item span {
+    display: block;
+    padding: .5rem 2.5rem;
+    font-weight: bold;
+}
+
+.side__navbar_list__item span:hover {
+    background-color: var(--primary-font-color);
+    color: var(--primary-bg-color);
+    text-decoration: underline;
+}

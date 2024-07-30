@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +45,16 @@ public class AdminUnitsController {
         return "admin/unit_card";
     }
 
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteUnitById(
+            @PathVariable long id
+    ) {
+        adminUnitService.deleteUnitById(id);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
     @PostMapping("/add-new")
-    public String addNewUnit(
+    public ResponseEntity<HttpStatus> addNewUnit(
             @RequestParam("unitType") String unitType,
             @RequestParam("square") BigDecimal square,
             @RequestParam("totalPrice") BigDecimal totalPrice,
@@ -52,6 +62,7 @@ public class AdminUnitsController {
             @RequestParam("rooms") int rooms,
             @RequestParam("floor") int floor,
             @RequestParam("totalFloors") int totalFloors,
+            @RequestParam("flatNumber") int flatNumber,
             @RequestParam("date") LocalDate date
     ) {
         AdminUnitDto adminUnitDto = new AdminUnitDto();
@@ -62,8 +73,9 @@ public class AdminUnitsController {
         adminUnitDto.setRooms(rooms);
         adminUnitDto.setFloor(floor);
         adminUnitDto.setTotalFloors(totalFloors);
+        adminUnitDto.setFlatNumber(flatNumber);
         adminUnitDto.setDate(date);
         adminUnitService.add(adminUnitDto);
-        return "redirect:/admin/units";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

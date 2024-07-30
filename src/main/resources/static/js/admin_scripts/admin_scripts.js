@@ -40,6 +40,10 @@ function showUnit(id) {
     window.location.href = `${PATH_TO_UNITS}/show/${id}`;
 }
 
+function goToUnits() {
+    window.location.href = PATH_TO_UNITS;
+}
+
 /* =========================== COMPANY SERVICES =========================== */
 
 const PATH_TO_SERVICES = "/admin/services";
