@@ -126,7 +126,7 @@ public class AdminServicesController {
     }
 
     @PostMapping("/add-new")
-    public String addNewService(
+    public ResponseEntity<HttpStatus> addNewService(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("date") String date
@@ -137,6 +137,6 @@ public class AdminServicesController {
         adminCompanyServiceDto.setStatus(ServiceStatus.YES);
         adminCompanyServiceDto.setDate(LocalDate.parse(date));
         adminCompanyServService.add(adminCompanyServiceDto);
-        return "redirect:/admin/services";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

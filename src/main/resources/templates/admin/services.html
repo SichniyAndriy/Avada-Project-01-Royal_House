@@ -16,7 +16,8 @@
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js"
         th:src="@{/js/admin_scripts/admin_scripts.js}"></script>
-
+    <script src="../../static/js/admin_scripts/services_scripts.js"
+        th:src="@{/js/admin_scripts/services_scripts.js}"></script>
     <title>Послуги</title>
 </head>
 
@@ -30,7 +31,33 @@
 
         <div class="main-content">
             <div class="page__title">
-                <h2>Послуги</h2><hr>
+                <h2>Послуги</h2>
+                <hr>
+            </div>
+            <div class="create__btn__block">
+                <button class="create__btn" id="create__service__btn">
+                    <b>Створити</b>
+                </button>
+            </div>
+            <div class="modal__content" id="create__service__modal__content">
+                <form id="create__service__form">
+                    <div class="form__item">
+                        <label for="service__title__input">Назва</label>
+                        <input type="text" name="title" id="service__title__input">
+                    </div>
+                    <div class="form__item">
+                        <label for="service__address__input">Опис</label>
+                        <input type="text" name="description" id="service__description__input">
+                    </div>
+                    <div class="form__item">
+                        <label for="service__address__input">Дата</label>
+                        <input type="date" name="date" id="service__date__input">
+                    </div>
+                </form>
+                <div class="form__btn__block">
+                    <input class="reset__btn" id="reset__modal__form__btn" type="reset" value="Відміна">
+                    <input class="save__btn" id="save__modal__form__btn" type="button" value="Зберегти">
+                </div>
             </div>
             <table>
                 <thead>
@@ -43,17 +70,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <form action="/admin/services/add-new" method="post">
-                            <td><input type="text" name="title" id="service__input__title"></td>
-                            <td><input type="text" name="description" id="service__input__description"></td>
-                            <td><input type="date" name="date" id="service__input__title"></td>
-                            <td></td>
-                            <td class="btn-block" style="text-align: center;">
-                                <input class="status-btn" type="submit" value="Save" style="background-color: blue; color: aliceblue;"> 
-                            </td>
-                        </form>
-                    </tr>
                     <tr th:each="service : ${services}">
                         <td th:text="${service.title}"></td>
                         <td th:text="${service.description}"></td>

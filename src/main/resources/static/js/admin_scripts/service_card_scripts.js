@@ -3,7 +3,6 @@ const SERVICE_PICTURES_PATH = "pictures/services";
 const serviceBannerInput = document.getElementById("service-banner-input");
 const servicePreviewInput = document.getElementById("service-preview-input");
 
-
 serviceBannerInput.addEventListener("input", (event) => {
     const serviceBannerFile = event.target.files[0];
     if (serviceBannerFile) {
@@ -39,7 +38,7 @@ async function updateService(service) {
         bannerFormData.append("path", SERVICE_PICTURES_PATH);
         bannerFormData.append("timestamp", new Date().getTime());
         bannerFormData.append("ext", serviceBannerFile.name.split(".")[1]);
-        const responce = await fetch("/admin/services/banner/save", {
+        await fetch("/admin/services/banner/save", {
             method: "POST",
             body: bannerFormData
         })
@@ -52,7 +51,7 @@ async function updateService(service) {
         previewformData.append("path", `${SERVICE_PICTURES_PATH}/previews`);
         previewformData.append("timestamp", new Date().getTime());
         previewformData.append("ext", servicePreviewFile.name.split(".")[1]);
-        const responce = await fetch("/admin/services/previews/save", {
+        await fetch("/admin/services/previews/save", {
             method: "POST",
             body: previewformData
         }).then(responce => {
