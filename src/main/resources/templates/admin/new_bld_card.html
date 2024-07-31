@@ -29,7 +29,7 @@
     defer></script>
   <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script> -->
 
-  <title>Document</title>
+  <title>Карта новобудови</title>
 </head>
 
 <body>
@@ -58,7 +58,7 @@
             <div class="info-block">
               <div class="banner-card">
                 <h2>Головний баннер</h2>
-                <img alt="Main banner" id="newblds-main-banner" src="../../static/pictures/new_blds/banners/banner-1-0_1722346131486.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} ? 
+                <img alt="Main banner" id="newblds-main-banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} ? 
                     @{${newbld.banners[0].path}} : @{/pictures/banner_dumb.jpg}">
                 <p>Рекомендований розмір 1920х800</p>
                 <input type="file" accept="image/*" id="newblds-main-banner-input">

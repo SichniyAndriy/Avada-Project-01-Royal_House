@@ -1,0 +1,51 @@
+.unit-edit {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__container {
+    margin: 2rem 1rem 4rem;
+}
+
+.form__container form select,
+.form__container form input {
+    margin-left: 2rem;
+}
+
+.card__container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card__container img {
+    width: 100%;
+}
+
+.add__card__btn,
+.unit__img__card {
+    width: calc(100% / 4);
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.add__card__btn button {
+    width: 25%;
+    height: 25%;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.form__btn__block {
+    display: flex;
+    justify-content: end;
+}
+
+.form__btn__block .reset__btn,
+.form__btn__block .save__btn {
+    width: 8rem;
+    padding: .5rem 1.5rem;
+    font-size: 1.25rem;
+    margin: .5rem;
+}

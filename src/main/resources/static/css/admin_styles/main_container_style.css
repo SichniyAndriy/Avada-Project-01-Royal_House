@@ -68,6 +68,7 @@ p {
 .main-content {
     margin-left: 2rem;
     margin-bottom: 1rem;
+    width: 100%;
 }
 
 .page__title {

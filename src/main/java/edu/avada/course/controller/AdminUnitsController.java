@@ -3,6 +3,7 @@ package edu.avada.course.controller;
 import edu.avada.course.model.admindto.AdminUnitDto;
 import edu.avada.course.model.entity.Unit.UnitType;
 import edu.avada.course.service.AdminUnitService;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
@@ -14,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/admin/units")
@@ -51,6 +54,33 @@ public class AdminUnitsController {
     ) {
         adminUnitService.deleteUnitById(id);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/update-unit")
+    public ResponseEntity<HttpStatus> updateUnit(
+          @RequestBody AdminUnitDto adminUnitDto
+    ) {
+        adminUnitService.updateUnit(adminUnitDto);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/image/save")
+    public ResponseEntity<String> setImage(
+            @RequestParam("new-image") MultipartFile multipartFile,
+            @RequestParam("path") String path,
+            @RequestParam("timestamp") String timestamp,
+            @RequestParam("ext") String ext
+    ) throws IOException {
+        if (multipartFile.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        String unitImagePath = Controllers.saveFile(
+                path,
+                multipartFile.getOriginalFilename(),
+                timestamp,
+                ext,
+                multipartFile.getBytes());
+        return ResponseEntity.ok(unitImagePath);
     }
 
     @PostMapping("/add-new")

@@ -12,4 +12,6 @@ public interface AdminUnitService {
     void deleteUnitById(long id);
 
     long add(AdminUnitDto unit);
+
+    void updateUnit(AdminUnitDto adminUnitDto);
 }

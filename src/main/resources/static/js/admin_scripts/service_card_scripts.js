@@ -5,13 +5,14 @@ const servicePreviewInput = document.getElementById("service-preview-input");
 
 serviceBannerInput.addEventListener("input", (event) => {
     const serviceBannerFile = event.target.files[0];
-    if (serviceBannerFile) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            document.getElementById("service-banner").src = event.target.result;
-        }
-        reader.readAsDataURL(serviceBannerFile);
+    if (!serviceBannerFile) {
+        return;
     }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        document.getElementById("service-banner").src = event.target.result;
+    }
+    reader.readAsDataURL(serviceBannerFile);
 })
 
 servicePreviewInput.addEventListener("input", (event) => {
@@ -22,9 +23,9 @@ servicePreviewInput.addEventListener("input", (event) => {
             document.getElementById("service-preview").src = event.target.result;
         }
         reader.readAsDataURL(servicePreviewFile);
-    } else {
-        console.error('No file selected');
+        return;
     }
+    console.error('No file selected');
 })
 
 async function updateService(service) {
@@ -61,7 +62,7 @@ async function updateService(service) {
         })
     }
 
-    fetch("/admin/services/service-card/update", {
+    fetch("/admin/services/update-service", {
         method: 'POST',
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify(service)

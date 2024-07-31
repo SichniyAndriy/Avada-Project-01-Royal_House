@@ -9,6 +9,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
     form = document.getElementById("create__unit__form");
 })
 
+function openUnitSaveModal() {
+    modalContent.style.display = "block";
+}
+
+function closeUnitSaveModal() {
+    modalContent.style.display =  "none";
+}
+
+function saveNewUnit() {
+    const form = document.getElementById("create__unit__form");
+    const formData = new FormData(form);
+
+    fetch("/admin/units/add-new", {
+        method: "POST",
+        body: formData
+    }).then(response => {
+        if(response.ok) {
+            goToUnits();
+        } else {
+            throw Error("Error creating unit")
+        }
+    })
+}
+
 function deleteUnit(id) {
     fetch(`/admin/units/delete/${id}`, {
         method: "GET",
@@ -21,13 +45,3 @@ function deleteUnit(id) {
         }
     });
 }
-
-function openUnitSaveModal() {
-    modalContent.style.display = "block";
-}
-
-function closeUnitSaveModal() {
-    modalContent.style.display =  "none";
-}
-
-c

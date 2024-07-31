@@ -9,6 +9,7 @@ import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminUnitService;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -50,12 +51,6 @@ public class AdminUnitServiceImpl implements AdminUnitService {
     }
 
     @Override
-    public void deleteUnitById(long id) {
-        unitRepository.deleteById(id);
-        units.remove(id);
-    }
-
-    @Override
     public long add(AdminUnitDto adminUnitDto) {
         adminUnitDto.setAddress(AddressMapper.fromEntityToAdminDto(adminAddressService.getAnyAddress()));
         Unit unit = UnitMapper.fromAdminDtoToEntity(adminUnitDto);
@@ -64,6 +59,20 @@ public class AdminUnitServiceImpl implements AdminUnitService {
             units.put(id, unit);
         }
         return id;
+    }
+
+    @Override
+    public void deleteUnitById(long id) {
+        unitRepository.deleteById(id);
+        units.remove(id);
+    }
+
+    @Override
+    public void updateUnit(AdminUnitDto adminUnitDto) {
+        Unit unit = UnitMapper.fromAdminDtoToEntity(adminUnitDto);
+        Optional.ofNullable(unit.getImages()).ifPresent(images -> images.forEach(img -> img.setUnit(unit)));
+        units.put(unit.getId(), unit);
+        unitRepository.save(unit);
     }
 
     private void getAllUnitsFromDB() {
