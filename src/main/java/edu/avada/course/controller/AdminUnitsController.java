@@ -6,8 +6,8 @@ import edu.avada.course.service.AdminUnitService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,9 +32,13 @@ public class AdminUnitsController {
     }
 
     @GetMapping
-    public String getAllUnits(Model model) {
-        Set<AdminUnitDto> allUnits = adminUnitService.getAllUnits();
-        model.addAttribute("units", allUnits);
+    public String getAllUnits(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model
+    ) {
+        Page<AdminUnitDto> unitsPage = adminUnitService.pageUnits(page, size);
+        model.addAttribute("unitsPage", unitsPage);
         return "admin/units";
     }
 

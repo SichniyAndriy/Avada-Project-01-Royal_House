@@ -1,11 +1,11 @@
 package edu.avada.course.service;
 
 import edu.avada.course.model.admindto.AdminUnitDto;
-import java.util.Set;
+import org.springframework.data.domain.Page;
 
 public interface AdminUnitService {
     //--------------------- UNITS PART ---------------------\\
-    Set<AdminUnitDto> getAllUnits();
+    Page<AdminUnitDto> pageUnits(int page, int size);
 
     AdminUnitDto getUnitById(long id);
 

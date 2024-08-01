@@ -3,6 +3,7 @@ package edu.avada.course.mapper;
 import edu.avada.course.model.admindto.AdminUnitDto;
 import edu.avada.course.model.dto.UnitDto;
 import edu.avada.course.model.entity.Unit;
+import java.util.Optional;
 
 public class UnitMapper {
     public static AdminUnitDto fromEntityToAdminDto(Unit unit) {
@@ -52,6 +53,10 @@ public class UnitMapper {
         newUnit.setFlatNumber(adminUnitDto.getFlatNumber());
         newUnit.setAddress(AddressMapper.fromAdminDtoToEntity(adminUnitDto.getAddress()));
         newUnit.setImages(adminUnitDto.getImages().stream().map(ImageMapper::fromAdminDtoToEntity).toList());
+
+        Optional.ofNullable(newUnit.getImages()).ifPresent(
+                items -> items.forEach(image -> image.setUnit(newUnit))
+        );
         return newUnit;
     }
 }
