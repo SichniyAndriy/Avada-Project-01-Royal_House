@@ -1,11 +1,11 @@
 package edu.avada.course.service;
 
 import edu.avada.course.model.admindto.AdminBidDto;
-import java.util.Set;
+import org.springframework.data.domain.Page;
 
 public interface AdminBidService {
     //--------------------- BIDS PART ---------------------\\
-    Set<AdminBidDto> getAllBids();
+    Page<AdminBidDto> getBidPage(int page, int size);
 
     AdminBidDto getBidById(long id);
 

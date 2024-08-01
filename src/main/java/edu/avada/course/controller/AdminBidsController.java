@@ -4,8 +4,8 @@ import edu.avada.course.model.admindto.AdminBidDto;
 import edu.avada.course.model.entity.Bid.BidStatus;
 import edu.avada.course.service.AdminBidService;
 import java.time.LocalDate;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +26,12 @@ public class AdminBidsController {
     }
 
     @GetMapping
-    public String viewBids(Model model) {
-        Set<AdminBidDto> allBids = adminBidService.getAllBids();
-        model.addAttribute("bids", allBids);
+    public String viewBids(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model) {
+        Page<AdminBidDto> bidPage = adminBidService.getBidPage(page, size);
+        model.addAttribute("bidPage", bidPage);
         return "admin/bids";
     }
 

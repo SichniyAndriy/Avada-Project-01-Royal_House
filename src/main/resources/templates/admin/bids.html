@@ -51,31 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="bid__input__row">
-                        <form action="/admin/bids/add-new" method="post">
-                            <td id="bid__input__name">
-                                <input type="text" name="name">
-                            </td>
-                            <td id="bid__input__phone">
-                                <input type="tel" name="phone" pattern="[0-9]{5,10}">
-                            </td>
-                            <td id="bid__input__email">
-                                <input type="email" name="email">
-                            </td>
-                            <td id="bid__input__comment">
-                                <input type="text" name="comment" multiple>
-                            </td>
-                            <td id="bid__input__date">
-                                <input type="date" name="date">
-                            </td>
-                            <td></td>
-                            <td class="btn-block">
-                                <input type="submit" class="status-btn"
-                                    style="background-color: blue; color: aliceblue">
-                            </td>
-                        </form>
-                    </tr>
-                    <tr th:each="bid : ${bids}" class="data__items">
+                    <tr th:each="bid : ${bidPage.content}" class="data__items">
                         <td th:text="${bid.name}">Alice Bob</td>
                         <td th:text="${bid.phone}">097 1234678</td>
                         <td th:text="${bid.email}">
@@ -106,6 +82,23 @@
                     </tr>
                 </tbody>
             </table>
+            <ul class="pagination__list">
+                <li th:if="${bidPage.hasPrevious}">
+                    <a th:href="@{/admin/bids(page=${bidPage.number - 1}, size=${bidPage.size})}">
+                        Попередня
+                    </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(0, bidPage.totalPages - 1)}">
+                    <a th:href="@{/admin/bids(page=${i}, size=${bidPage.size})}">
+                        [[${i} + 1]]
+                    </a>
+                </li>
+                <li th:if="${bidPage.hasNext}">
+                    <a th:href="@{/admin/bids(page=${bidPage.number + 1}, size=${bidPage.size})}">
+                        Наступна
+                    </a>
+                </li>
+            </ul>
         </div>
     </main>
     <script>

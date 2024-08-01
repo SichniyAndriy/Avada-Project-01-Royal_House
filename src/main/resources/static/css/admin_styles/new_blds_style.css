@@ -3,7 +3,7 @@
 .title-new-bld-card,
 .tabs-container,
 .tabs-content-container {
-    margin-left: 4rem;
+    width: 100%;
 }
 
 .title-new-bld-card{
@@ -12,7 +12,6 @@
 }
 
 .tabs-container {
-    width: 100%;
     display: flex;
 }
 
@@ -33,7 +32,6 @@
 }
 
 .tabs-content-container {
-    width: 100%;
     border: 1px solid black;
     box-sizing: border-box;
 }
