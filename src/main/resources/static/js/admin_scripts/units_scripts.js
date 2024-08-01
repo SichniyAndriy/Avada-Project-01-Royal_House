@@ -33,13 +33,13 @@ function saveNewUnit() {
     })
 }
 
-function deleteUnit(id) {
+function deleteUnit(id, pageNo) {
     fetch(`/admin/units/delete/${id}`, {
         method: "GET",
         headers: { "Content-Type" : "application/json" },    
     }).then(response => {
         if (response.ok) {
-            goToUnits();
+            goToUnits(pageNo);
         } else {
             throw Error(`Error deleting unit by id: ${id}`);
         }

@@ -103,7 +103,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="unit : ${unitsPage.content}">
+                    <tr th:each="unit : ${unitPage.content}">
                         <td th:text="${unit.id}"></td>
                         <td th:text="${unit.type}"></td>
                         <td th:text="${unit.square}"></td>
@@ -118,7 +118,8 @@
                                 <img src="../../static/img/admin/pencil-square.svg"
                                     th:src="@{/img/admin/pencil-square.svg}" alt="edit icon">
                             </button>
-                            <button type="button" class="act-btn" th:onclick="deleteUnit([[${unit.id}]])">
+                            <button type="button" class="act-btn"
+                                th:onclick="deleteUnit([[${unit.id}]], [[${unitPage.number}]])">
                                 <img src="../../static/img/admin/x-octagon-fill.svg"
                                     th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
                             </button>
@@ -127,18 +128,18 @@
                 </tbody>
             </table>
             <ul class="pagination__list">
-                <li th:if="${unitsPage.hasPrevious()}">
-                    <a th:href="@{/admin/units(page=${unitsPage.number - 1}, size=${unitsPage.size})}">
+                <li th:if="${unitPage.hasPrevious()}">
+                    <a th:href="@{/admin/units(page=${unitPage.number - 1}, size=${unitPage.size})}">
                         Попередня
                     </a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(0, unitsPage.totalPages - 1)}">
-                    <a th:href="@{/admin/units(page=${i}, size=${unitsPage.size})}">
+                <li th:each="i : ${#numbers.sequence(0, unitPage.totalPages - 1)}">
+                    <a th:href="@{/admin/units(page=${i}, size=${unitPage.size})}">
                         [[${i} + 1]]
                     </a>
                 </li>
-                <li th:if="${unitsPage.hasNext()}">
-                    <a th:href="@{/admin/units(page=${unitsPage.number + 1}, size=${unitsPage.size})}">
+                <li th:if="${unitPage.hasNext()}">
+                    <a th:href="@{/admin/units(page=${unitPage.number + 1}, size=${unitPage.size})}">
                         Наступна
                     </a>
                 </li>

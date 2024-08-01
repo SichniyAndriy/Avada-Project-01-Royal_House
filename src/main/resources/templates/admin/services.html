@@ -13,11 +13,13 @@
         th:href="@{/css/admin_styles/service_style.css}">
     <link rel="stylesheet" href="../../../static/css/admin_styles/table_style.css"
         th:href="@{/css/admin_styles/table_style.css}">
+
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js"
         th:src="@{/js/admin_scripts/admin_scripts.js}"></script>
     <script src="../../static/js/admin_scripts/services_scripts.js"
         th:src="@{/js/admin_scripts/services_scripts.js}"></script>
+
     <title>Послуги</title>
 </head>
 
@@ -46,11 +48,11 @@
                         <input type="text" name="title" id="service__title__input">
                     </div>
                     <div class="form__item">
-                        <label for="service__address__input">Опис</label>
+                        <label for="service__description__input">Опис</label>
                         <input type="text" name="description" id="service__description__input">
                     </div>
                     <div class="form__item">
-                        <label for="service__address__input">Дата</label>
+                        <label for="service__date__input">Дата</label>
                         <input type="date" name="date" id="service__date__input">
                     </div>
                 </form>
@@ -70,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="service : ${pageServices.content}">
+                    <tr th:each="service : ${servicePage.content}">
                         <td th:text="${service.title}"></td>
                         <td th:text="${service.description}"></td>
                         <td th:text="${#temporals.format(service.date, 'dd.MM.yyyy')}"></td>
@@ -86,7 +88,8 @@
                                 <img src="../../static/img/admin/eye.svg" th:src="@{/img/admin/eye.svg}"
                                     alt="view icon">
                             </button>
-                            <button type="button" class="act-btn" th:onclick="deleteService([[${service.id}]])">
+                            <button type="button" class="act-btn"
+                                 th:onclick="deleteService([[${service.id}]], [[${servicePage.number}]])">
                                 <img src="../../static/img/admin/x-octagon-fill.svg"
                                     th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
                             </button>
@@ -95,16 +98,16 @@
                 </tbody>
             </table>
             <ul class="pagination__list">
-                <li th:if="${pageServices.hasPrevious()}">
-                    <a th:href="@{/admin/services(page=${pageServices.getNumber() - 1}, size=${pageServices.size})}">
+                <li th:if="${servicePage.hasPrevious}">
+                    <a th:href="@{/admin/services(page=${servicePage.number - 1}, size=${servicePage.size})}">
                         Попередня
                     </a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(0, pageServices.getTotalPages() - 1)}">
-                    <a th:href="@{/admin/services(page=${i}, size=${pageServices.size})}">[[${i} + 1]]</a>
+                <li th:each="i : ${#numbers.sequence(0, servicePage.totalPages - 1)}">
+                    <a th:href="@{/admin/services(page=${i}, size=${servicePage.size})}">[[${i} + 1]]</a>
                 </li>
-                <li th:if="${pageServices.hasNext()}">
-                    <a th:href="@{/admin/services(page=${pageServices.getNumber() + 1}, size=${pageServices.size})}">
+                <li th:if="${servicePage.hasNext}">
+                    <a th:href="@{/admin/services(page=${servicePage.number + 1}, size=${servicePage.size})}">
                         Наступна
                     </a>
                 </li>

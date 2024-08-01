@@ -38,7 +38,7 @@ public class AdminUnitsController {
             Model model
     ) {
         Page<AdminUnitDto> unitsPage = adminUnitService.pageUnits(page, size);
-        model.addAttribute("unitsPage", unitsPage);
+        model.addAttribute("unitPage", unitsPage);
         return "admin/units";
     }
 

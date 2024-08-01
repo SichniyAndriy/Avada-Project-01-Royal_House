@@ -65,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="newbld : ${pageNewBlds.getContent()}">
+                    <tr th:each="newbld : ${newbldPage.content}">
                         <td th:text="${newbld.id}">999</td>
                         <td th:text="${newbld.title}">rgdssdgg ds hdh</td>
                         <td th:text="|${newbld.address.city}, ${newbld.address.street}, ${newbld.address.houseNumber}|">
@@ -81,7 +81,8 @@
                                 <img src="../../static/img/admin/pencil-square.svg"
                                     th:src="@{/img/admin/pencil-square.svg}" alt="edit icon">
                             </button>
-                            <button type="button" class="act-btn" th:onclick="deleteNewBld([[${newbld.id}]])">
+                            <button type="button" class="act-btn" 
+                                th:onclick="deleteNewBld([[${newbld.id}]], [[${newbldPage.number}]])">
                                 <img src="../../static/img/admin/x-octagon-fill.svg"
                                     th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
                             </button>
@@ -90,14 +91,14 @@
                 </tbody>
             </table>
             <ul class="pagination__list">
-               <li th:if="${pageNewBlds.hasPrevious()}">
-                    <a th:href="@{/admin/new-blds(page=${pageNewBlds.getNumber() - 1})}">Prev</a>
+               <li th:if="${newbldPage.hasPrevious}">
+                    <a th:href="@{/admin/new-blds(page=${newbldPage.number - 1})}">Prev</a>
                </li>
-               <li th:each="i : ${#numbers.sequence(0, pageNewBlds.getTotalPages() - 1)}">
+               <li th:each="i : ${#numbers.sequence(0, newbldPage.totalPages - 1)}">
                     <a th:href="@{/admin/new-blds(page=${i})}">[[${i + 1}]]</a>
                 </li> 
-               <li th:if="${pageNewBlds.hasNext()}">
-                    <a th:href="@{/admin/new-blds(page=${pageNewBlds.getNumber() + 1})}">Next</a>
+               <li th:if="${newbldPage.hasNext}">
+                    <a th:href="@{/admin/new-blds(page=${newbldPage.number + 1})}">Next</a>
                </li>
             </ul>
         </div>

@@ -6,6 +6,8 @@ import edu.avada.course.service.AdminBidService;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +45,9 @@ public class AdminBidsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteBid(@PathVariable long id) {
+    public ResponseEntity<HttpStatus> deleteBid(@PathVariable long id) {
         adminBidService.deleteBidById(id);
-        return "forward:/admin/bids";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/change-bid-status/{id}")

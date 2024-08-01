@@ -26,3 +26,16 @@ function saveNewBld() {
         }
     })
 }
+
+function deleteNewBld(id, pageNo) {
+    fetch(`/admin/new-blds/delete/${id}`, {
+        method: "GET",
+        headers: { "Content-Type" : "application/json" },    
+    }).then(response => {
+        if (response.ok) {
+            goToNewBlds(pageNo);
+        } else {
+            throw Error(`Error deleting NewBld by id: ${id}`);
+        }
+    });
+}

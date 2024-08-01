@@ -14,6 +14,7 @@
     <!-- Scripts -->
     <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
         defer></script>
+    <script src="../../static/js/admin_scripts/bids_script.js" th:src="@{/js/admin_scripts/bids_script.js}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -74,7 +75,7 @@
                                 <img src="../../static/img/admin/eye.svg" th:src="@{/img/admin/eye.svg}"
                                     alt="view icon">
                             </button>
-                            <button type="button" class="act-btn" th:onclick="deleteBid([[${bid.id}]])">
+                            <button type="button" class="act-btn" th:onclick="deleteBid([[${bid.id}]], [[${bidPage.number}]])">
                                 <img src="../../static/img/admin/x-octagon-fill.svg"
                                     th:src="@{/img/admin/x-octagon-fill.svg}" alt="delete icon">
                             </button>

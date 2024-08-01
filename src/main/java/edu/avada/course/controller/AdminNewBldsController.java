@@ -44,15 +44,15 @@ public class AdminNewBldsController {
             Model model
     ) {
         Page<AdminNewBuildingDto> pageNewBlds = adminNewBldsService.getPageNewBlds(page, size);
-        model.addAttribute("pageNewBlds", pageNewBlds);
+        model.addAttribute("newbldPage", pageNewBlds);
         return "admin/new_blds";
     }
 
     @GetMapping("/show-newbld-card/{id}")
-    public String showNewBld(@PathVariable long id, Model model) {
+    public ResponseEntity<HttpStatus> showNewBld(@PathVariable long id, Model model) {
         AdminNewBuildingDto adminNewBuildingDtoById = adminNewBldsService.getNewBldById(id);
         model.addAttribute("newbld", adminNewBuildingDtoById);
-        return "admin/new_bld_card";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/change-new-bld-status/{id}")
@@ -61,10 +61,10 @@ public class AdminNewBldsController {
         return "forward:/admin/new-blds";
     }
 
-    @GetMapping("/delete-new-bld/{id}")
-    public String deleteNewBld(@PathVariable int id){
+    @GetMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteNewBld(@PathVariable int id){
         adminNewBldsService.deleteNewBldById(id);
-        return "forward:/admin/new-blds";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/update-new-bld")

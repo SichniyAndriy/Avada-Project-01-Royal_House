@@ -5,11 +5,11 @@ const PATH_TO_BIDS = "/admin/bids";
 function showBid(id) {
     window.location.href = `${PATH_TO_BIDS}/show/${id}`;
 }
-function deleteBid(id) {
-    window.location.href = `${PATH_TO_BIDS}/delete/${id}`;
-}
 function changeBidStatus(id) {
     window.location.href = `${PATH_TO_BIDS}/change-bid-status/${id}`;
+}
+function goToBids(pageNo) {
+    window.location.href = `${PATH_TO_BIDS}?page=${pageNo}`;
 }
 
 /* =========================== NEW BUILDINGS =========================== */
@@ -24,12 +24,8 @@ function showNewBld(id) {
     window.location.href = `${PATH_TO_NEW_BUILDS}/show-newbld-card/${id}`;
 }
 
-function deleteNewBld(id) {
-    window.location.href = `${PATH_TO_NEW_BUILDS}/delete-new-bld/${id}`;
-}
-
-function goToNewBlds() {
-    window.location.href = PATH_TO_NEW_BUILDS;
+function goToNewBlds(pageNo) {
+    window.location.href = `${PATH_TO_NEW_BUILDS}?page=${pageNo}`;
 }
 
 /* =========================== UNITS =========================== */
@@ -40,8 +36,8 @@ function showUnit(id) {
     window.location.href = `${PATH_TO_UNITS}/show/${id}`;
 }
 
-function goToUnits() {
-    window.location.href = PATH_TO_UNITS;
+function goToUnits(pageNo) {
+    window.location.href = `${PATH_TO_UNITS}?page=${pageNo}`;
 }
 
 /* =========================== COMPANY SERVICES =========================== */
@@ -56,10 +52,6 @@ function showService(id) {
     window.location.href = `${PATH_TO_SERVICES}/service-card/${id}`;
 }
 
-function deleteService(id) {
-    window.location.href = `${PATH_TO_SERVICES}/delete/${id}`;
-}
-
-function goToServices() {
-    window.location.href = PATH_TO_SERVICES;
+function goToServices(pageNo) {
+    window.location.href = `${PATH_TO_SERVICES}?page=${pageNo}`;
 }

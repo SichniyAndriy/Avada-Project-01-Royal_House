@@ -27,3 +27,16 @@ function saveService() {
         }
     })
 }
+
+function deleteService(id, pageNo) {
+    fetch(`/admin/services/delete/${id}`, {
+        method: "GET",
+        headers: { "Content-Type" : "application/json" },    
+    }).then(response => {
+        if (response.ok) {
+            goToServices(pageNo);
+        } else {
+            throw Error(`Error deleting Service by id: ${id}`);
+        }
+    });
+}

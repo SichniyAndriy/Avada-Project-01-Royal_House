@@ -37,14 +37,14 @@ public class AdminServicesController {
     }
 
     @GetMapping
-    public String getAllServices(
+    public String getServices(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size,
             Model model
     ){
         Page<AdminCompanyServiceDto> pageCompanyServices =
                 adminCompanyServService.getPageCompanyServices(page, size);
-        model.addAttribute("pageServices", pageCompanyServices);
+        model.addAttribute("servicePage", pageCompanyServices);
         return "admin/services";
     }
 
@@ -74,11 +74,11 @@ public class AdminServicesController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteService(
+    public ResponseEntity<HttpStatus> deleteService(
             @PathVariable int id
     ) {
         adminCompanyServService.deleteCompanyServiceById(id);
-        return "forward:/admin/services";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/update-service")
