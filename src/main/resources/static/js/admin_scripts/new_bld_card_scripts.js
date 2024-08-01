@@ -5,17 +5,44 @@ const newbldsPanoramaInput = document.getElementById("newblds-panorama-input");
 const bannersArr = new Array(10);
 const infographics = [];
 
-
 document.addEventListener("DOMContentLoaded", () => {
     showTab("main");
     loadImages();
     // loadInfographics();
 });
 
+allBannerCards.forEach((card, i) => {
+    card.children[3].addEventListener("input", (event) => {
+        const bannerFile = event.target.files[0];
+        if (!bannerFile) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            card.children[1].src = event.target.result;
+        }
+        reader.readAsDataURL(bannerFile);
+        bannersArr[i] = bannerFile;
+    })
+})
+
+newbldsPanoramaInput.addEventListener("input", event => {
+    const panoramaFile = event.target.files[0];
+    if (!panoramaFile) {
+        return;
+    }
+    const newbldsPanorama = document.getElementById("newblds-panorama");
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        newbldsPanorama.src = event.target.result;
+    }
+    reader.readAsDataURL(panoramaFile);
+})
+
 function showTab(tabId) {
     document
-        .querySelectorAll(".tab-content")
-        .forEach(tab => (tab.style.display = "none"));
+    .querySelectorAll(".tab-content")
+    .forEach(tab => (tab.style.display = "none"));
     document.getElementById(tabId).style.display = "block";
     document
         .querySelectorAll(".active-tab")
@@ -28,43 +55,15 @@ function showTab(tabId) {
     }
 }
 
-function loadImages() {
-    const images = document.querySelectorAll("img[data-src]");
-    const loadImage = (image) => {
-        const source = image.getAttribute("data-src");
-        if (!source) {
-            return;
-        }
-        fetch(source)
-            .then(responce => {
-                if (!responce.ok) {
-                    throw Error(`Status of error: ${responce.status}. Url: ${source}`)
-                }
-                return responce.blob();
-            }).then(blob => {
-                const url = URL.createObjectURL(blob);
-                image.src = url;
-                image.removeAttribute("data-src");
-            }).catch(error => {
-                console.log("Error loading image")
-            })
-    }
-
-    const observerOtions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: .1
-    }
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                loadImage(entry.target);
-                observer.unobserve(entry.target);
+function loadBanners() {
+    allBannerCards.forEach(item => {
+        const bannerPath = item.getElementsByTagName("img").src;
+        fetch(bannerPath).then(response => {
+            if(response.ok) {
+                return response.blob();
             }
         })
-    }, observerOtions);
-
-    images.forEach(image => observer.observe(image));
+    })
 }
 
 function loadInfographics() {
@@ -78,32 +77,6 @@ function loadInfographics() {
         }
     })
 }
-
-allBannerCards.forEach((card, i) => {
-    card.children[3].addEventListener("input", (event) => {
-        const bannerFile = event.target.files[0];
-        if (bannerFile) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                card.children[1].src = event.target.result;
-            }
-            reader.readAsDataURL(bannerFile);
-            bannersArr[i] = bannerFile;
-        }
-    })
-})
-
-newbldsPanoramaInput.addEventListener("input", event => {
-    const panoramaFile = event.target.files[0];
-    if (panoramaFile) {
-        const newbldsPanorama = document.getElementById("newblds-panorama");
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            newbldsPanorama.src = event.target.result;
-        }
-        reader.readAsDataURL(panoramaFile);
-    }
-})
 
 async function addInfographic(type, id) {
     let infographicList;

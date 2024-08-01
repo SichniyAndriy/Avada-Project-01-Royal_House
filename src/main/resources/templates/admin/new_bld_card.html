@@ -2,310 +2,323 @@
 <html lang="ua" xmlns:th="http://www.thymeleaf.com">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Styles -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    th:href="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.css}"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="../../static/css/admin_styles/head_container_style.css"
-    th:href="@{/css/admin_styles/head_container_style.css}">
-  <link rel="stylesheet" href="../../static/css/admin_styles/main_container_style.css"
-    th:href="@{/css/admin_styles/main_container_style.css}">
-  <link rel="stylesheet" href="../../static/css/admin_styles/new_blds_style.css"
-    th:href="@{/css/admin_styles/new_blds_style.css}">
-  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="../../static/css/admin_styles/head_container_style.css"
+        th:href="@{/css/admin_styles/head_container_style.css}">
+    <link rel="stylesheet" href="../../static/css/admin_styles/main_container_style.css"
+        th:href="@{/css/admin_styles/main_container_style.css}">
+    <link rel="stylesheet" href="../../static/css/admin_styles/new_blds_style.css"
+        th:href="@{/css/admin_styles/new_blds_style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    th:src="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.js}"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-  <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
-    defer></script>
-  <script src="../../static/js/admin_scripts/new_bld_card_scripts.js" th:src="@{/js/admin_scripts/new_bld_card_scripts.js}"
-    defer></script>
-  <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script> -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        th:src="@{https://unpkg.com/leaflet@1.9.4/dist/leaflet.js}"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script src="../../static/js/admin_scripts/admin_scripts.js" th:src="@{/js/admin_scripts/admin_scripts.js}"
+        defer></script>
+    <script src="../../static/js/admin_scripts/new_bld_card_scripts.js"
+        th:src="@{/js/admin_scripts/new_bld_card_scripts.js}" defer></script>
+    <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script> -->
 
-  <title>Карта новобудови</title>
+    <title>Карта новобудови</title>
 </head>
 
 <body>
-  <header th:replace="~{admin/fragments/navbar::header}" id="header"></header>
-  <main class="main-container">
-    <div class="main-sidebar" id="nav">
-      <nav th:replace="~{admin/fragments/navbar::navigation}" id="nav-block"></nav>
-    </div>
-    <div class="main-content">
-      <div>
-        <h3 class="title-new-bld-card">Редагування новобудови <span th:text="${newbld.title}"></span></h3>
-      </div>
-      <div class="tabs-container">
-        <div class="tab active-tab" onclick="showTab('main')">Основне</div>
-        <div class="tab" onclick="showTab('about')">Про проект</div>
-        <div class="tab" onclick="showTab('location')">Місцеположення</div>
-        <div class="tab" onclick="showTab('infrastructure')">Інфрастуктура</div>
-        <div class="tab" onclick="showTab('flats')">Квартири</div>
-        <div class="tab" onclick="showTab('panorama')">Панорама</div>
-        <div class="tab" onclick="showTab('specification')">Специфікація</div>
-      </div>
-      <div class="tabs-content-container">
-        <!-- ======================= Main-TAB ======================= -->
-        <div id="main" class="tab-content">
-          <div class="main-tab">
-            <div class="info-block">
-              <div class="banner-card">
-                <h2>Головний баннер</h2>
-                <img alt="Main banner" id="newblds-main-banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} ? 
-                    @{${newbld.banners[0].path}} : @{/pictures/banner_dumb.jpg}">
-                <p>Рекомендований розмір 1920х800</p>
-                <input type="file" accept="image/*" id="newblds-main-banner-input">
-              </div>
-              <div class="info-description">
-                <label for="name-bld-input">Назва</label>
-                <input id="name-bld-input" type="text" size="50" maxlength="200" placeholder="Назва"
-                  th:value="${newbld.title}">
-                <label for="address-bld-input">Адреса</label>
-                <input id="address-bld-input" type="text" size="50" maxlength="200" placeholder="Адреса"
-                  th:value="|${newbld.address.city}, ${newbld.address.street}, ${newbld.address.houseNumber}|">
-              </div>
-            </div>
-            <div class="infographic-block">
-              <h3>Інфографіка</h3>
-              <ul class="infographic-list" id="main-infographic-list">
-                <li class="infographic-input">
-                  <input id="main-infographic-input-picture" type="file" accept="image/*">
-                  <label for="main-infographic-input-description"></label>
-                  <input id="main-infographic-input-description" type="text" placeholder="Опис">
-                  <button onclick="addInfographic('MAIN', /*[[${newbld.id}]]*/)">
-                    <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
-                  </button>
-                </li>
-                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                  th:if="${#strings.equals(infographic.type, 'MAIN')}">
-                  <div>
-                    <p><span th:text="${infographic.path}">Наdfgdsfg dfgdf gdfg dgdfgdfg dgd dзва файлу</span></p>
-                    <p><span th:text="${infographic.description}">fd gdfgdfgdfgdfgdfgdfhd dfg dfg dfg dhf файлу</span>
-                    </p>
-                    <button onclick="deleteInfographic(/*[[${infographicStat.index}]]*/)">
-                      <img src="../../static/img/admin/x-octagon-fill.svg" th:src="@{/img/admin/x-octagon-fill.svg}"
-                        alt="Delete infographic">
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
+    <header th:replace="~{admin/fragments/navbar::header}" id="header"></header>
+    <main class="main-container">
+        <div class="main-sidebar" id="nav">
+            <nav th:replace="~{admin/fragments/navbar::navigation}" id="nav-block"></nav>
         </div>
-        <!-- ======================= About-TAB ======================= -->
-        <div id="about" class="tab-content">
-          <div class="about-tab">
-            <div class="banner-cards-block">
-              <div class="banner-card">
-                <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[1].path} ?  
-                      ${newbld.banners[1].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-about-1-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[2].path} ? 
-                      ${newbld.banners[2].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-about-2-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[3].path} ? 
-                      ${newbld.banners[3].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-about-3-banner-input">
-              </div>
+        <div class="main-content">
+            <div>
+                <h3 class="title-new-bld-card">Редагування новобудови <span th:text="${newbld.title}"></span></h3>
             </div>
-            <div class="description-block" id="about-description-block">
-              <label for="about-new-bld-description"></label>
-              <textarea name="new-bld-description" id="about-new-bld-description"
-                th:field="${newbld.description.about}"></textarea>
+            <div class="tabs-container">
+                <div class="tab active-tab" onclick="showTab('main')">Основне</div>
+                <div class="tab" onclick="showTab('about')">Про проект</div>
+                <div class="tab" onclick="showTab('location')">Місцеположення</div>
+                <div class="tab" onclick="showTab('infrastructure')">Інфрастуктура</div>
+                <div class="tab" onclick="showTab('flats')">Квартири</div>
+                <div class="tab" onclick="showTab('panorama')">Панорама</div>
+                <div class="tab" onclick="showTab('specification')">Специфікація</div>
             </div>
-          </div>
-        </div>
-        <!-- ======================= Location-TAB ======================= -->
-        <div id="location" class="tab-content">
-          <div class="location-tab">
-            <div class="coordinates-block">
-              <div class="latitude-block">
-                <label for="latitude">Широта</label>
-                <input id="latitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
-                  th:onchange="showLocation()" th:value="${newbld.location.latitude} ?: 0" value="50">
-              </div>
-              <div class="longitude-block">
-                <label for="longitude">Довгота</label>
-                <input id="longitude" type="number" step="any" pattern="[0-9]+[.][0-9]+" onchange="showLocation()"
-                  th:onchange="showLocation()" th:value="${newbld.location.longitude} ?: 0" value="30">
-              </div>
+            <div class="tabs-content-container" th:with="DUMB_BANNER_PATH='/pictures/banner_dumb.jpg'">
+                <!-- ======================= Main-TAB ======================= -->
+                <div id="main" class="tab-content">
+                    <div class="main-tab">
+                        <div class="info-block">
+                            <div class="banner-card">
+                                <h2>Головний баннер</h2>
+                                <img alt="Main banner" id="newblds-main-banner"
+                                    src="../../static/pictures/banner_dumb.jpg" 
+                                    th:src="${not #lists.isEmpty(newbld.banners)} 
+                                              and ${newbld.banners[0]} and ${newbld.banners[0].path} ? 
+                                              ${newbld.banners[0].path} : ${DUMB_BANNER_PATH}">
+                                <p>Рекомендований розмір 1920х800</p>
+                                <input type="file" accept="image/*" id="newblds-main-banner-input">
+                            </div>
+                            <div class="info-description">
+                                <label for="name-bld-input">Назва</label>
+                                <input id="name-bld-input" type="text" size="50" maxlength="200" placeholder="Назва"
+                                    th:value="${newbld.title}">
+                                <label for="address-bld-input">Адреса</label>
+                                <input id="address-bld-input" type="text" size="50" maxlength="200" placeholder="Адреса"
+                                    th:value="|${newbld.address.city}, ${newbld.address.street}, ${newbld.address.houseNumber}|">
+                            </div>
+                        </div>
+                        <div class="infographic-block">
+                            <h3>Інфографіка</h3>
+                            <ul class="infographic-list" id="main-infographic-list">
+                                <li class="infographic-input">
+                                    <input id="main-infographic-input-picture" type="file" accept="image/*">
+                                    <label for="main-infographic-input-description"></label>
+                                    <input id="main-infographic-input-description" type="text" placeholder="Опис">
+                                    <button onclick="addInfographic('MAIN', /*[[${newbld.id}]]*/)">
+                                        <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}"
+                                            alt="Add infographic">
+                                    </button>
+                                </li>
+                                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
+                                    th:if="${#strings.equals(infographic.type, 'MAIN')}">
+                                    <div>
+                                        <p><span th:text="${infographic.path}">Наdfgdsfg dfgdf gdfg dgdfgdfg dgd dзва
+                                                файлу</span></p>
+                                        <p><span th:text="${infographic.description}">fd gdfgdfgdfgdfgdfgdfhd dfg dfg
+                                                dfg dhf файлу</span>
+                                        </p>
+                                        <button onclick="deleteInfographic(/*[[${infographicStat.index}]]*/)">
+                                            <img src="../../static/img/admin/x-octagon-fill.svg"
+                                                th:src="@{/img/admin/x-octagon-fill.svg}" alt="Delete infographic">
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= About-TAB ======================= -->
+                <div id="about" class="tab-content">
+                    <div class="about-tab">
+                        <div class="banner-cards-block">
+                            <div class="banner-card">
+                                <h2>Баннер 1</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[1].path} ?
+                                        ${newbld.banners[1].path} : '/pictures/banner_dumb.jpg'">
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-about-1-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 2</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[2].path} ?
+                                        ${newbld.banners[2].path} : '/pictures/banner_dumb.jpg'">
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-about-2-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 3</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
+                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[3].path} ?
+                                        ${newbld.banners[3].path} : '/pictures/banner_dumb.jpg'">
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-about-3-banner-input">
+                            </div>
+                        </div>
+                        <div class="description-block" id="about-description-block">
+                            <label for="about-new-bld-description"></label>
+                            <textarea name="new-bld-description" id="about-new-bld-description"
+                                th:field="${newbld.description.about}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= Location-TAB ======================= -->
+                <div id="location" class="tab-content">
+                    <div class="location-tab">
+                        <div class="coordinates-block">
+                            <div class="latitude-block">
+                                <label for="latitude">Широта</label>
+                                <input id="latitude" type="number" step="any" pattern="[0-9]+[.][0-9]+"
+                                    onchange="showLocation()" th:onchange="showLocation()"
+                                    th:value="${newbld.location.latitude} ?: 0" value="50">
+                            </div>
+                            <div class="longitude-block">
+                                <label for="longitude">Довгота</label>
+                                <input id="longitude" type="number" step="any" pattern="[0-9]+[.][0-9]+"
+                                    onchange="showLocation()" th:onchange="showLocation()"
+                                    th:value="${newbld.location.longitude} ?: 0" value="30">
+                            </div>
 
-            </div>
-            <div id="map"></div>
-            <div class="description-block" id="location-description-block">
-              <label for="location-new-bld-description"></label>
-              <textarea name="new-bld-description" id="location-new-bld-description"
-                th:field="${newbld.description.location}"></textarea>
-            </div>
-          </div>
-        </div>
-        <!-- ======================= Infrastructure TAB ======================= -->
-        <div id="infrastructure" class="tab-content">
-          <div class="infrastructure-tab">
-            <div class="banner-cards-block">
-              <div class="banner-card">
-                <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4].path} ? 
+                        </div>
+                        <div id="map"></div>
+                        <div class="description-block" id="location-description-block">
+                            <label for="location-new-bld-description"></label>
+                            <textarea name="new-bld-description" id="location-new-bld-description"
+                                th:field="${newbld.description.location}"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= Infrastructure TAB ======================= -->
+                <div id="infrastructure" class="tab-content">
+                    <div class="infrastructure-tab">
+                        <div class="banner-cards-block">
+                            <div class="banner-card">
+                                <h2>Баннер 1</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4].path} ? 
                       ${newbld.banners[4].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-infrastructure-1-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5].path} ? 
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-infrastructure-1-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 2</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5].path} ? 
                       ${newbld.banners[5].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-infrastructure-2-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6].path} ? 
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-infrastructure-2-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 3</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6].path} ? 
                       ${newbld.banners[6].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-infrastructure-3-banner-input">
-              </div>
-            </div>
-            <div class="description-block" id="infrastructure-description-block">
-              <label for="infrastructure-new-bld-description"></label>
-              <textarea name="new-bld-description" id="infrastructure-new-bld-description"
-                th:field="${newbld.description.infrastructure}"></textarea>
-            </div>
-            <div class="infographic-block">
-              <h3>Інфографіка</h3>
-              <ul class="infographic-list" id="infrastructure-infographic-list">
-                <li class="infographic-input">
-                  <input id="infrastructure-infographic-input-picture" type="file" accept="image/*">
-                  <label for="infrastructure-infographic-input-description"></label>
-                  <input id="infrastructure-infographic-input-description" type="text" placeholder="Опис">
-                  <button th:onclick="addInfographic('INFRASTRUCTURE', [[${newbld.id}]])">
-                    <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
-                  </button>
-                </li>
-                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                  th:if="${#strings.equals(infographic.type,'INFRASTRUCTURE')}">
-                  <div>
-                    <p th:text="${infographic.path}">Назва файлу</p>
-                    <p th:text="${infographic.description}">Опис інфографіки</p>
-                    <button th:onclick="deleteInfographic([[${infographicStat.index}]])">
-                      <img src="../../static/img/admin/x-octagon-fill.svg" th:src="@{/img/admin/x-octagon-fill.svg}"
-                        alt="Delete infographic">
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- ======================= Flats TAB ======================= -->
-        <div id="flats" class="tab-content">
-          <div class="flats-tab">
-            <div class="banner-cards-block">
-              <div class="banner-card">
-                <h2>Баннер 1</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[7].path} ? 
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-infrastructure-3-banner-input">
+                            </div>
+                        </div>
+                        <div class="description-block" id="infrastructure-description-block">
+                            <label for="infrastructure-new-bld-description"></label>
+                            <textarea name="new-bld-description" id="infrastructure-new-bld-description"
+                                th:field="${newbld.description.infrastructure}"></textarea>
+                        </div>
+                        <div class="infographic-block">
+                            <h3>Інфографіка</h3>
+                            <ul class="infographic-list" id="infrastructure-infographic-list">
+                                <li class="infographic-input">
+                                    <input id="infrastructure-infographic-input-picture" type="file" accept="image/*">
+                                    <label for="infrastructure-infographic-input-description"></label>
+                                    <input id="infrastructure-infographic-input-description" type="text"
+                                        placeholder="Опис">
+                                    <button th:onclick="addInfographic('INFRASTRUCTURE', [[${newbld.id}]])">
+                                        <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}"
+                                            alt="Add infographic">
+                                    </button>
+                                </li>
+                                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
+                                    th:if="${#strings.equals(infographic.type,'INFRASTRUCTURE')}">
+                                    <div>
+                                        <p th:text="${infographic.path}">Назва файлу</p>
+                                        <p th:text="${infographic.description}">Опис інфографіки</p>
+                                        <button th:onclick="deleteInfographic([[${infographicStat.index}]])">
+                                            <img src="../../static/img/admin/x-octagon-fill.svg"
+                                                th:src="@{/img/admin/x-octagon-fill.svg}" alt="Delete infographic">
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= Flats TAB ======================= -->
+                <div id="flats" class="tab-content">
+                    <div class="flats-tab">
+                        <div class="banner-cards-block">
+                            <div class="banner-card">
+                                <h2>Баннер 1</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[7].path} ? 
                       ${newbld.banners[7].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-flats-1-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 2</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[8].path} ? 
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-flats-1-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 2</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[8].path} ? 
                       ${newbld.banners[8].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-flats-2-banner-input">
-              </div>
-              <div class="banner-card">
-                <h2>Баннер 3</h2>
-                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[9].path} ? 
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-flats-2-banner-input">
+                            </div>
+                            <div class="banner-card">
+                                <h2>Баннер 3</h2>
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[9].path} ? 
                       ${newbld.banners[9].path} : '/pictures/banner_dumb.jpg'">
-                <p>Рекомендований розмір (1920х800)</p>
-                <input type="file" accept="image/*" id="newblds-flats-3-banner-input">
-              </div>
-            </div>
-            <div class="description-block" id="flats-description-block">
-              <label for="flats-new-bld-description"></label>
-              <textarea name="new-bld-description" id="flats-new-bld-description"
-                th:field="${newbld.description.flats}"></textarea>
-            </div>
-            <div class="infographic-block">
-              <h3>Інфографіка</h3>
-              <ul class="infographic-list" id="flats-infographic-list">
-                <li class="infographic-input">
-                  <input id="flats-infographic-input-picture" type="file" accept="image/*">
-                  <label for="flats-infographic-input-description"></label>
-                  <input id="flats-infographic-input-description" type="text" placeholder="Опис">
-                  <button th:onclick="addInfographic('FLATS', [[${newbld.id}]])">
-                    <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}" alt="Add infographic">
-                  </button>
-                </li>
-                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
-                  th:if="${#strings.equals(infographic.type, 'FLATS')}">
-                  <div>
-                    <p th:text="${infographic.path}">Назва файлу</p>
-                    <p th:text="${infographic.description}">Опис інфографіки</p>
-                    <button th:onclick="deleteInfographic([[${infographicStat.index}]])">
-                      <img src="../../static/img/admin/x-octagon-fill.svg" th:src="@{/img/admin/x-octagon-fill.svg}"
-                        alt="Delete infographic">
-                    </button>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- ======================= Panorama TAB ======================= -->
-        <div id="panorama" class="tab-content">
-          <div class="panorama-tab">
-            <div class="panorama-card" th>
-              <h2>Панорама</h2>
-              <img src="../../static/pictures/new_blds/panorama_dumb.jpg" id="newblds-panorama"
-                th:src="${newbld.panoramaPath} ? ${newbld.panoramaPath} : '/pictures/new_blds/panorama_dumb.jpg'"
-                alt="New building banner">
-              <p>Рекомендований розмір (1920х800)</p>
-              <input type="file" accept="image/*" id="newblds-panorama-input">
-            </div>
-          </div>
-        </div>
-        <!-- ======================= Specification TAB ======================= -->
-        <div id="specification" class="tab-content">
-          <div id="specification__editor"></div>
-        </div>
+                                <p>Рекомендований розмір (1920х800)</p>
+                                <input type="file" accept="image/*" id="newblds-flats-3-banner-input">
+                            </div>
+                        </div>
+                        <div class="description-block" id="flats-description-block">
+                            <label for="flats-new-bld-description"></label>
+                            <textarea name="new-bld-description" id="flats-new-bld-description"
+                                th:field="${newbld.description.flats}"></textarea>
+                        </div>
+                        <div class="infographic-block">
+                            <h3>Інфографіка</h3>
+                            <ul class="infographic-list" id="flats-infographic-list">
+                                <li class="infographic-input">
+                                    <input id="flats-infographic-input-picture" type="file" accept="image/*">
+                                    <label for="flats-infographic-input-description"></label>
+                                    <input id="flats-infographic-input-description" type="text" placeholder="Опис">
+                                    <button th:onclick="addInfographic('FLATS', [[${newbld.id}]])">
+                                        <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}"
+                                            alt="Add infographic">
+                                    </button>
+                                </li>
+                                <li class="infographic-info" th:each="infographic: ${newbld.infographics}"
+                                    th:if="${#strings.equals(infographic.type, 'FLATS')}">
+                                    <div>
+                                        <p th:text="${infographic.path}">Назва файлу</p>
+                                        <p th:text="${infographic.description}">Опис інфографіки</p>
+                                        <button th:onclick="deleteInfographic([[${infographicStat.index}]])">
+                                            <img src="../../static/img/admin/x-octagon-fill.svg"
+                                                th:src="@{/img/admin/x-octagon-fill.svg}" alt="Delete infographic">
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= Panorama TAB ======================= -->
+                <div id="panorama" class="tab-content">
+                    <div class="panorama-tab">
+                        <div class="panorama-card">
+                            <h2>Панорама</h2>
+                            <img src="../../static/pictures/new_blds/panorama_dumb.jpg" id="newblds-panorama"
+                                th:src="${newbld.panoramaPath} ? ${newbld.panoramaPath} : '/pictures/new_blds/panorama_dumb.jpg'"
+                                alt="New building banner">
+                            <p>Рекомендований розмір (1920х800)</p>
+                            <input type="file" accept="image/*" id="newblds-panorama-input">
+                        </div>
+                    </div>
+                </div>
+                <!-- ======================= Specification TAB ======================= -->
+                <div id="specification" class="tab-content">
+                    <div id="specification__editor"></div>
+                </div>
 
-        <div class="action-btn-block">
-          <button type="button" class="action-btn" onclick="goToNewBlds()">Скасувати</button>
-          <button type="submit" class="action-btn" th:onclick="updateNewBld([[${newbld}]])">Зберегти</button>
+                <div class="action-btn-block">
+                    <button type="button" class="action-btn" onclick="goToNewBlds()">Скасувати</button>
+                    <button type="submit" class="action-btn" th:onclick="updateNewBld([[${newbld}]])">Зберегти</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </main>
-  <script>
-    const options = {
-      debug: 'info',
-      modules: {
-        toolbar: true,
-      },
-      placeholder: 'Compose an epic...',
-      theme: 'snow'
-    };
-    const quill = new Quill('#specification__editor', options);
-  </script>
+    </main>
+    <script>
+        const options = {
+            debug: 'info',
+            modules: {
+                toolbar: true,
+            },
+            placeholder: 'Compose an epic...',
+            theme: 'snow'
+        };
+        const quill = new Quill('#specification__editor', options);
+    </script>
 </body>
 
 </html>

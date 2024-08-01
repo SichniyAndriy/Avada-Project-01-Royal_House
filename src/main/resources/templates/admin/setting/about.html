@@ -39,7 +39,7 @@
                 <div class="banner-card">
                     <h3>Баннер</h3>
                     <img alt="About banner" id="about-banner" src="../../../static/pictures/banner_dumb.jpg"
-                        th:src="${bannerUrl} ?: '/pictures/banner_dumb.jpg'">
+                        th:src="@{ ${bannerUrl} ?: '/pictures/banner_dumb.jpg' }">
                     <p>Рекомендований розмір 1920х800</p>
                     <input type="file" accept="image/*" id="about-banner-input">
                 </div>

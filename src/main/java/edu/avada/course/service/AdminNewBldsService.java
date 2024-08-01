@@ -1,10 +1,13 @@
 package edu.avada.course.service;
 
 import edu.avada.course.model.admindto.AdminNewBuildingDto;
-import java.util.Set;
+import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface AdminNewBldsService {
-    Set<AdminNewBuildingDto> getAllNewBlds();
+    List<AdminNewBuildingDto> getAllNewBuildings();
+
+    Page<AdminNewBuildingDto> getPageNewBlds(int page, int size);
 
     AdminNewBuildingDto getNewBldById(long id);
 

@@ -65,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="newbld : ${newblds}">
+                    <tr th:each="newbld : ${pageNewBlds.getContent()}">
                         <td th:text="${newbld.id}">999</td>
                         <td th:text="${newbld.title}">rgdssdgg ds hdh</td>
                         <td th:text="|${newbld.address.city}, ${newbld.address.street}, ${newbld.address.houseNumber}|">
@@ -88,10 +88,18 @@
                         </td>
                     </tr>
                 </tbody>
-                <tbody>
-
-                </tbody>
             </table>
+            <ul class="pagination__list">
+               <li th:if="${pageNewBlds.hasPrevious()}">
+                    <a th:href="@{/admin/new-blds(page=${pageNewBlds.getNumber() - 1})}">Prev</a>
+               </li>
+               <li th:each="i : ${#numbers.sequence(0, pageNewBlds.getTotalPages() - 1)}">
+                    <a th:href="@{/admin/new-blds(page=${i})}">[[${i + 1}]]</a>
+                </li> 
+               <li th:if="${pageNewBlds.hasNext()}">
+                    <a th:href="@{/admin/new-blds(page=${pageNewBlds.getNumber() + 1})}">Next</a>
+               </li>
+            </ul>
         </div>
     </main>
 </body>

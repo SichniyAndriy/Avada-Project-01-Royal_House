@@ -75,7 +75,7 @@ public class AdminSettingController {
     @GetMapping("/binding")
     public String binding(Model model) throws IOException {
         List<String> titleList =
-                adminNewBldsService.getAllNewBlds().stream().map(AdminNewBuildingDto::getTitle).toList();
+                adminNewBldsService.getAllNewBuildings().stream().map(AdminNewBuildingDto::getTitle).toList();
 
         model.addAttribute("titleList", titleList);
         Properties properties = new Properties();

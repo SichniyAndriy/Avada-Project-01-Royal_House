@@ -124,3 +124,16 @@ div.form__item {
     font-size: 1.25rem;
     line-height: 1.5rem;
 }
+
+/* PAGINATION */
+.pagination__list {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination__list  li {
+    font-size: 1.5rem;
+    padding: .75rem;
+}

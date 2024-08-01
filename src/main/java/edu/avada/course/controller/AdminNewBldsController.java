@@ -8,8 +8,8 @@ import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminNewBldsService;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,9 +38,13 @@ public class AdminNewBldsController {
     }
 
     @GetMapping
-    public String showNewBlds(Model model) {
-        Set<AdminNewBuildingDto> allNewBlds = adminNewBldsService.getAllNewBlds();
-        model.addAttribute("newblds", allNewBlds);
+    public String showNewBlds(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model
+    ) {
+        Page<AdminNewBuildingDto> pageNewBlds = adminNewBldsService.getPageNewBlds(page, size);
+        model.addAttribute("pageNewBlds", pageNewBlds);
         return "admin/new_blds";
     }
 
