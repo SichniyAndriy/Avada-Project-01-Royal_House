@@ -1,10 +1,10 @@
 package edu.avada.course.service;
 
 import edu.avada.course.model.admindto.AdminCompanyServiceDto;
-import java.util.Set;
+import org.springframework.data.domain.Page;
 
 public interface AdminCompanyServService {
-    Set<AdminCompanyServiceDto> getAllCompanyServices();
+    Page<AdminCompanyServiceDto> getPageCompanyServices(int page, int size);
 
     AdminCompanyServiceDto getCompanyServiceById(long id);
 

@@ -1,9 +1,13 @@
 package edu.avada.course.repository;
 
 import edu.avada.course.model.entity.CompanyService;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CompanyServiceRepository extends JpaRepository<CompanyService, Long> {
+public interface CompanyServiceRepository extends PagingAndSortingRepository<CompanyService, Long> {
+    CompanyService findById(Long id);
+    void deleteById(Long id);
+
+    CompanyService save(CompanyService companyService);
 }

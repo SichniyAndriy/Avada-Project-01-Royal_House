@@ -70,7 +70,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="service : ${services}">
+                    <tr th:each="service : ${pageServices.content}">
                         <td th:text="${service.title}"></td>
                         <td th:text="${service.description}"></td>
                         <td th:text="${#temporals.format(service.date, 'dd.MM.yyyy')}"></td>
@@ -94,6 +94,21 @@
                     </tr>
                 </tbody>
             </table>
+            <ul class="pagination__list">
+                <li th:if="${pageServices.hasPrevious()}">
+                    <a th:href="@{/admin/services(page=${pageServices.getNumber() - 1}, size=${pageServices.size})}">
+                        Попередня
+                    </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(0, pageServices.getTotalPages() - 1)}">
+                    <a th:href="@{/admin/services(page=${i}, size=${pageServices.size})}">[[${i} + 1]]</a>
+                </li>
+                <li th:if="${pageServices.hasNext()}">
+                    <a th:href="@{/admin/services(page=${pageServices.getNumber() + 1}, size=${pageServices.size})}">
+                        Наступна
+                    </a>
+                </li>
+            </ul>
         </div>
 </body>
 

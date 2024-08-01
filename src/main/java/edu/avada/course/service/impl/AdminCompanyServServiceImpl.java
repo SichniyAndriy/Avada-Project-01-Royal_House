@@ -6,18 +6,14 @@ import edu.avada.course.model.entity.CompanyService;
 import edu.avada.course.model.entity.CompanyService.ServiceStatus;
 import edu.avada.course.repository.CompanyServiceRepository;
 import edu.avada.course.service.AdminCompanyServService;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdminCompanyServServiceImpl implements AdminCompanyServService {
     private final CompanyServiceRepository companyServiceRepository;
-    private Map<Long, CompanyService> companyServices;
 
     public AdminCompanyServServiceImpl(
             @Autowired CompanyServiceRepository companyServiceRepository
@@ -26,60 +22,42 @@ public class AdminCompanyServServiceImpl implements AdminCompanyServService {
     }
 
     @Override
-    public Set<AdminCompanyServiceDto> getAllCompanyServices() {
-        if (companyServices == null) {
-            getAllCompanyServicesFromDb();
-        }
-        return companyServices.values().parallelStream()
-                .map(CompanyServiceMapper::fromEntityToAdminDto)
-                .collect(Collectors.toCollection(
-                        () -> new TreeSet<>(Comparator.comparing(AdminCompanyServiceDto::getId))
-                ));
+    public Page<AdminCompanyServiceDto> getPageCompanyServices(int page, int size) {
+        Page<CompanyService> companyServicePage = companyServiceRepository.findAll(PageRequest.of(page, size));
+        return companyServicePage.map(CompanyServiceMapper::fromEntityToAdminDto);
     }
 
     @Override
     public AdminCompanyServiceDto getCompanyServiceById(long id) {
-        return CompanyServiceMapper.fromEntityToAdminDto(companyServices.get(id));
+        CompanyService companyService = companyServiceRepository.findById(id);
+        return CompanyServiceMapper.fromEntityToAdminDto(companyService);
     }
 
     @Override
     public void deleteCompanyServiceById(long id) {
-        CompanyService companyService = companyServices.get(id);
-        companyServices.remove(id);
-        companyServiceRepository.delete(companyService);
+        companyServiceRepository.deleteById(id);
     }
 
     @Override
     public void changeCompanyServiceStatusById(long id) {
-        CompanyService companyService = companyServices.get(id);
-        ServiceStatus newStatus =
-                companyService.getStatus() == ServiceStatus.YES ? ServiceStatus.NO : ServiceStatus.YES;
+        CompanyService companyService = companyServiceRepository.findById(id);
+        ServiceStatus newStatus = companyService.getStatus() ==
+                ServiceStatus.YES ? ServiceStatus.NO : ServiceStatus.YES;
         companyService.setStatus(newStatus);
         companyServiceRepository.save(companyService);
     }
 
     @Override
     public void updateCompanyService(AdminCompanyServiceDto adminCompanyServiceDto) {
-        CompanyService companyService = CompanyServiceMapper.fromAdminDtoToEntity(adminCompanyServiceDto);
-        companyServices.put(companyService.getId(), companyService);
+        CompanyService companyService =
+                CompanyServiceMapper.fromAdminDtoToEntity(adminCompanyServiceDto);
         companyServiceRepository.save(companyService);
     }
 
     @Override
     public long add(AdminCompanyServiceDto adminCompanyServiceDto) {
-        CompanyService companyService = CompanyServiceMapper.fromAdminDtoToEntity(adminCompanyServiceDto);
-        Long id = companyServiceRepository.save(companyService).getId();
-        if (id > 0) {
-            companyServices.put(id, companyService);
-        }
-        return id;
+        CompanyService companyService =
+                CompanyServiceMapper.fromAdminDtoToEntity(adminCompanyServiceDto);
+        return companyServiceRepository.save(companyService).getId();
     }
-
-    private void getAllCompanyServicesFromDb() {
-        companyServices = companyServiceRepository
-                .findAll()
-                .parallelStream()
-                .collect(Collectors.toConcurrentMap(CompanyService::getId, val -> val));
-    }
-
 }

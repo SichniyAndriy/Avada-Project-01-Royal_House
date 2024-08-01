@@ -8,8 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Properties;
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -37,9 +37,14 @@ public class AdminServicesController {
     }
 
     @GetMapping
-    public String getAllServices(Model model){
-        Set<AdminCompanyServiceDto> allCompanyServices = adminCompanyServService.getAllCompanyServices();
-        model.addAttribute("services", allCompanyServices);
+    public String getAllServices(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model
+    ){
+        Page<AdminCompanyServiceDto> pageCompanyServices =
+                adminCompanyServService.getPageCompanyServices(page, size);
+        model.addAttribute("pageServices", pageCompanyServices);
         return "admin/services";
     }
 
