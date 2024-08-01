@@ -3,6 +3,7 @@ package edu.avada.course.mapper;
 import edu.avada.course.model.admindto.AdminNewBuildingDto;
 import edu.avada.course.model.dto.NewBuildingDto;
 import edu.avada.course.model.entity.NewBuilding;
+import java.util.Optional;
 
 public class NewBuildingMapper {
     public static AdminNewBuildingDto fromEntityToAdminDto(NewBuilding newBuilding) {
@@ -52,6 +53,14 @@ public class NewBuildingMapper {
                 .map(InfographicMapper::fromAdminDtoToEntity).toList());
         newBuilding.setUnits(newAdminNewBuildingDto.getUnits().stream()
                 .map(UnitMapper::fromAdminDtoToEntity).toList());
+
+        Optional.ofNullable(newBuilding.getBanners())
+                .ifPresent(items -> items.forEach(banner -> banner.setNewBuilding(newBuilding)));
+        Optional.ofNullable(newBuilding.getInfographics())
+                .ifPresent(items -> items.forEach(infographic -> infographic.setNewBuilding(newBuilding)));
+        Optional.ofNullable(newBuilding.getUnits())
+                .ifPresent(items -> items.forEach(unit -> unit.setNewBuilding(newBuilding)));
+
         return newBuilding;
     }
 }

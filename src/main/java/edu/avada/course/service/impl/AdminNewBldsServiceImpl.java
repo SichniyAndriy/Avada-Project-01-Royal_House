@@ -32,8 +32,10 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
 
     @Override
     public Page<AdminNewBuildingDto> getPageNewBlds(int page, int size) {
-        Page<NewBuilding> newBuildingPage = newBuildingRepository.findAll(PageRequest.of(page, size));
-        Page<AdminNewBuildingDto> adminNewBuildingDtoPage = newBuildingPage.map(NewBuildingMapper::fromEntityToAdminDto);
+        Page<NewBuilding> newBuildingPage =
+                newBuildingRepository.findAll(PageRequest.of(page, size));
+        Page<AdminNewBuildingDto> adminNewBuildingDtoPage =
+                newBuildingPage.map(NewBuildingMapper::fromEntityToAdminDto);
         return adminNewBuildingDtoPage;
     }
 
@@ -56,34 +58,21 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
         Optional<NewBuilding> newBuildingOptional = newBuildingRepository.findById(id);
         newBuildingOptional.ifPresent(item -> {
             NewBuildStatus status = item.getStatus();
-            item.setStatus(status == NewBuildStatus.ACTIVE ? NewBuildStatus.OFF: NewBuildStatus.ACTIVE);
+            item.setStatus(status == NewBuildStatus.ACTIVE ?
+                    NewBuildStatus.OFF: NewBuildStatus.ACTIVE);
             newBuildingRepository.save(item);
         });
     }
 
     @Override
     public void updateNewBld(AdminNewBuildingDto adminNewBuildingDto) {
-        NewBuilding newBuilding = convertToEntity(adminNewBuildingDto);
+        NewBuilding newBuilding = NewBuildingMapper.fromAdminDtoToEntity(adminNewBuildingDto);
         newBuildingRepository.save(newBuilding);
     }
 
     @Override
     public long add(AdminNewBuildingDto adminNewBuildingDto) {
-        NewBuilding newBuilding = convertToEntity(adminNewBuildingDto);
-        return newBuildingRepository.save(newBuilding).getId();
-    }
-
-    private NewBuilding convertToEntity(AdminNewBuildingDto adminNewBuildingDto) {
         NewBuilding newBuilding = NewBuildingMapper.fromAdminDtoToEntity(adminNewBuildingDto);
-        Optional.of(newBuilding.getBanners()).ifPresent(
-                banners -> banners.forEach(banner -> banner.setNewBuilding(newBuilding))
-        );
-        Optional.of(newBuilding.getInfographics()).ifPresent(
-                infographics -> infographics.forEach(infographic -> infographic.setNewBuilding(newBuilding))
-        );
-        Optional.of(newBuilding.getUnits()).ifPresent(
-                units -> units.forEach(unit -> unit.setNewBuilding(newBuilding))
-        );
-        return newBuilding;
+        return newBuildingRepository.save(newBuilding).getId();
     }
 }
