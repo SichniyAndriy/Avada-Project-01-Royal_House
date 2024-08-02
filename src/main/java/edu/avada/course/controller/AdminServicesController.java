@@ -66,11 +66,11 @@ public class AdminServicesController {
     }
 
     @GetMapping("/change-service-status/{id}")
-    public String changeServiceStatus(
+    public ResponseEntity<HttpStatus> changeServiceStatus(
             @PathVariable long id
     ) {
         adminCompanyServService.changeCompanyServiceStatusById(id);
-        return "forward:/admin/services";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/delete/{id}")

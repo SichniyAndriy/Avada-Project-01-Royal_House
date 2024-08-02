@@ -78,7 +78,7 @@
                         <td th:text="${#temporals.format(service.date, 'dd.MM.yyyy')}"></td>
                         <td class="btn-block" th:with="status=${service.status}">
                             <button type="button" class="status-btn" style="background-color: blue; color: white"
-                                th:onclick="changeServiceStatus([[${service.id}]])" th:text="${status}"
+                                th:onclick="changeServiceStatus([[${service.id}]], [[${servicePage.number}]])" th:text="${status}"
                                 th:style="'background-color: ' + ( ${#strings.equalsIgnoreCase(status, 'NO')} ? 'red' : 'green') + '; color: white'">
                                 Super
                             </button>
@@ -113,6 +113,7 @@
                 </li>
             </ul>
         </div>
+    </main>
 </body>
 
 </html>

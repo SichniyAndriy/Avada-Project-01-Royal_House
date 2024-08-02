@@ -38,10 +38,6 @@ function goToUnits(pageNo) {
 
 const PATH_TO_SERVICES = "/admin/services";
 
-function changeServiceStatus(id) {
-    window.location.href = `${PATH_TO_SERVICES}/change-service-status/${id}`;
-}
-
 function showService(id) {
     window.location.href = `${PATH_TO_SERVICES}/service-card/${id}`;
 }
