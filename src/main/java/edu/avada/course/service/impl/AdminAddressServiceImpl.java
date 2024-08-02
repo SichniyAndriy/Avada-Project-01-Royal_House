@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class AdminAddressServiceImpl implements AdminAddressService {
     @Override
     public Address getAnyAddress() {
         if (addresses == null || addresses.isEmpty()) {
-            addresses = addressRepository.findAll().stream().collect(Collectors.toCollection(ArrayList::new));
+            addresses = new ArrayList<>(addressRepository.findAll());
         }
         int i = RANDOM.nextInt(addresses.size());
         Address address = addresses.get(i);

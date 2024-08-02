@@ -93,17 +93,17 @@
                     </form>
                 </div>
                 <div class="card__container">
-                    <div class="unit__img__card" th:each="img : *{images}" th:if="${img.path}">
+                    <div class="unit__img__card" th:each="image : *{images}" th:if="${image.path}">
                         <h3>Зображення</h3>
-                        <img src="../../static/pictures/no-foto.png" alt="Unit image">
+                        <img src="../../static/pictures/no-foto.png" th:src="${image.path}" alt="Unit image">
                         <p>Рекомендований розмір (1920x800)</p>
-                        <input type="file" id="unit-image-input" accept="image/*" th:value="${img.path}">
+                        <input type="file" accept="image/*">
                     </div>
                     <div class="unit__img__card" id="empty__card">
                         <h3>Зображення</h3>
                         <img src="../../static/pictures/no-foto.png" th:src="@{/pictures/no-foto.png}" alt="Unit image">
                         <p>Рекомендований розмір (1920x800)</p>
-                        <input type="file" id="unit-image-input" accept="image/*">
+                        <input type="file" accept="image/*">
                     </div>
                     <div class="add__card__btn" id="add__card__btn__container">
                         <button type="button" id="add__card__btn">

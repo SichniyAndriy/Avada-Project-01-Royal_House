@@ -7,7 +7,6 @@ const infographics = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     showTab("main");
-    loadImages();
     // loadInfographics();
 });
 
@@ -319,8 +318,6 @@ async function updateNewBld(newbld) {
         goToNewBlds();
     }
 }
-
-
 
 // ========================= LOCATION SCRIPTS ========================= \\
 

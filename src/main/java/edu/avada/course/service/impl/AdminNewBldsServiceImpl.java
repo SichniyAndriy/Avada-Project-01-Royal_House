@@ -39,18 +39,15 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
     public Page<AdminNewBuildingDto> getPageNewBlds(int page, int size) {
         Page<NewBuilding> newBuildingPage =
                 newBuildingRepository.findAll(PageRequest.of(page, size, Sort.by("id")));
-        Page<AdminNewBuildingDto> adminNewBuildingDtoPage =
-                newBuildingPage.map(NewBuildingMapper::fromEntityToAdminDto);
-        return adminNewBuildingDtoPage;
+        return newBuildingPage.map(NewBuildingMapper::fromEntityToAdminDto);
     }
 
     @Override
     public AdminNewBuildingDto getNewBldById(long id) {
         Optional<NewBuilding> newBuildingOptional = newBuildingRepository.findById(id);
-        if (newBuildingOptional.isPresent()) {
-            return NewBuildingMapper.fromEntityToAdminDto(newBuildingOptional.get());
-        }
-        return null;
+        return newBuildingOptional
+                .map(NewBuildingMapper::fromEntityToAdminDto)
+                .orElse(null);
     }
 
     @Override

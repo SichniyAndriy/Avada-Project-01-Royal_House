@@ -24,6 +24,7 @@ function saveService() {
             alert("Новий сервіс збережено");
            form.reset();
         } else {
+            alert("Помилка");
             throw new Error("Error creating service");
         }
     })

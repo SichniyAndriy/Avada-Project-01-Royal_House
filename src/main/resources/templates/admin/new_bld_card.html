@@ -111,24 +111,27 @@
                             <div class="banner-card">
                                 <h2>Баннер 1</h2>
                                 <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[1].path} ?
-                                        ${newbld.banners[1].path} : '/pictures/banner_dumb.jpg'">
+                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                            and ${newbld.banners[1]} and ${newbld.banners[1].path} ?
+                                            ${newbld.banners[1].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-about-1-banner-input">
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 2</h2>
                                 <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[2].path} ?
-                                        ${newbld.banners[2].path} : '/pictures/banner_dumb.jpg'">
+                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                            and ${newbld.banners[2]} and ${newbld.banners[2].path} ?
+                                            ${newbld.banners[2].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-about-2-banner-input">
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 3</h2>
                                 <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[3].path} ?
-                                        ${newbld.banners[3].path} : '/pictures/banner_dumb.jpg'">
+                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                            and ${newbld.banners[3]} and ${newbld.banners[3].path} ?
+                                            ${newbld.banners[3].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-about-3-banner-input">
                             </div>

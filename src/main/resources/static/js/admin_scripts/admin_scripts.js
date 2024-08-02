@@ -6,7 +6,7 @@ function showBid(id) {
     window.location.href = `${PATH_TO_BIDS}/show/${id}`;
 }
 
-function goToBids(pageNo) {
+function goToBids(pageNo = 0) {
     window.location.href = `${PATH_TO_BIDS}?page=${pageNo}`;
 }
 
@@ -18,7 +18,7 @@ function showNewBld(id) {
     window.location.href = `${PATH_TO_NEW_BUILDS}/show-newbld-card/${id}`;
 }
 
-function goToNewBlds(pageNo) {
+function goToNewBlds(pageNo = 0) {
     window.location.href = `${PATH_TO_NEW_BUILDS}?page=${pageNo}`;
 }
 
@@ -42,6 +42,6 @@ function showService(id) {
     window.location.href = `${PATH_TO_SERVICES}/service-card/${id}`;
 }
 
-function goToServices(pageNo) {
+function goToServices(pageNo = 0) {
     window.location.href = `${PATH_TO_SERVICES}?page=${pageNo}`;
 }

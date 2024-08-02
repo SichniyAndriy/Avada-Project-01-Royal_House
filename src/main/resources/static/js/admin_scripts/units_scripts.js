@@ -29,6 +29,7 @@ function saveNewUnit() {
            alert("Новий об'єкт збережено");
            form.reset();
         } else {
+            alert("Помилка");
             throw Error("Error creating unit")
         }
     })

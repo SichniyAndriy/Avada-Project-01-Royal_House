@@ -4,7 +4,6 @@ import edu.avada.course.model.admindto.AdminAddressDto;
 import edu.avada.course.model.admindto.AdminNewBuildingDto;
 import edu.avada.course.model.entity.NewBuilding.Location;
 import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
-import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminNewBldsService;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,14 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/new-blds")
 public class AdminNewBldsController {
     private final AdminNewBldsService adminNewBldsService;
-    private final AdminAddressService adminAddressService;
 
     public AdminNewBldsController(
-            @Autowired AdminNewBldsService adminNewBldsService,
-            @Autowired AdminAddressService adminAddressService
+            @Autowired AdminNewBldsService adminNewBldsService
     ) {
         this.adminNewBldsService = adminNewBldsService;
-        this.adminAddressService = adminAddressService;
     }
 
     @GetMapping

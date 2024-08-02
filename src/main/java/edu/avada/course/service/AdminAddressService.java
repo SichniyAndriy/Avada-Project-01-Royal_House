@@ -11,5 +11,5 @@ public interface AdminAddressService {
 
     List<AdminAddressDto> getAllAddresses();
 
-    public Address getAddressById(long id);
+    Address getAddressById(long id);
 }

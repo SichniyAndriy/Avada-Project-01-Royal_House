@@ -24,6 +24,7 @@ function saveNewBld() {
             alert("Нова новобудова збережена");
             form.reset();
         } else {
+            alert("Помилка");
             throw new Error("Error creating new building")
         }
     })

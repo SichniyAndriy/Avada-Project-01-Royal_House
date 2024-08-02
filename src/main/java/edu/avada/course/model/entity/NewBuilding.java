@@ -49,7 +49,7 @@ public class NewBuilding {
     @Embedded
     private Description description;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Address.class)
     @PrimaryKeyJoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
