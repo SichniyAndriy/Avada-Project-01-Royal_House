@@ -56,9 +56,9 @@ public class AdminNewBldsController {
     }
 
     @GetMapping("/change-new-bld-status/{id}")
-    public String changeNewBldStatus(@PathVariable long id) {
+    public ResponseEntity<HttpStatus> changeNewBldStatus(@PathVariable long id) {
         adminNewBldsService.changeNewBldStatusById(id);
-        return "forward:/admin/new-blds";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/delete/{id}")

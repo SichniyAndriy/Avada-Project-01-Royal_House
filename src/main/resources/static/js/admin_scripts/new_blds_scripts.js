@@ -27,10 +27,21 @@ function saveNewBld() {
     })
 }
 
+function changeNewBldStatus(id, pageNo) {
+    fetch(`/admin/new-blds/change-new-bld-status/${id}`, {
+        method: "GET"
+    }).then(response => {
+        if (response.ok) {
+            goToNewBlds(pageNo);
+        } else {
+            throw Error(`Error changing status NewBld by id: ${id}`);
+        }
+    })
+}
+
 function deleteNewBld(id, pageNo) {
     fetch(`/admin/new-blds/delete/${id}`, {
         method: "GET",
-        headers: { "Content-Type" : "application/json" },    
     }).then(response => {
         if (response.ok) {
             goToNewBlds(pageNo);

@@ -14,10 +14,6 @@ function goToBids(pageNo) {
 
 const PATH_TO_NEW_BUILDS = "/admin/new-blds";
 
-function changeNewBldStatus(id) {
-    window.location.href = `${PATH_TO_NEW_BUILDS}/change-new-bld-status/${id}`;
-}
-
 function showNewBld(id) {
     window.location.href = `${PATH_TO_NEW_BUILDS}/show-newbld-card/${id}`;
 }

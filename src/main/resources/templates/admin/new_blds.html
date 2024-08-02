@@ -73,7 +73,7 @@
                         </td>
                         <td class="btn-block" th:with="status=${newbld.status}">
                             <button type="button" class="status-btn" style="background-color: blue; color: white;"
-                                th:onclick="changeNewBldStatus([[${newbld.id}]])" th:text="${status}"
+                                th:onclick="changeNewBldStatus([[${newbld.id}]], [[${newbldPage.number}]])" th:text="${status}"
                                 th:style="'background-color: ' + ( ${#strings.equalsIgnoreCase(status, 'OFF')} ? 'red' : 'green') + '; color: white;'">SUPER</button>
                         </td>
                         <td class="btn-block">

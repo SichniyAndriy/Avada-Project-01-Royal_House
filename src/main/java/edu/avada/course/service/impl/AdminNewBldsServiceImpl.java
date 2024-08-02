@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +34,7 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
     @Override
     public Page<AdminNewBuildingDto> getPageNewBlds(int page, int size) {
         Page<NewBuilding> newBuildingPage =
-                newBuildingRepository.findAll(PageRequest.of(page, size));
+                newBuildingRepository.findAll(PageRequest.of(page, size, Sort.by("id")));
         Page<AdminNewBuildingDto> adminNewBuildingDtoPage =
                 newBuildingPage.map(NewBuildingMapper::fromEntityToAdminDto);
         return adminNewBuildingDtoPage;
