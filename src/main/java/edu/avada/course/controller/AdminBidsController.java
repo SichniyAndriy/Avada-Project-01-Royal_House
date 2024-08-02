@@ -51,9 +51,9 @@ public class AdminBidsController {
     }
 
     @GetMapping("/change-bid-status/{id}")
-    public String changeBidStatus(@PathVariable long id) {
+    public ResponseEntity<HttpStatus> changeBidStatus(@PathVariable long id) {
         adminBidService.changeBidStatusById(id);
-        return "forward:/admin/bids";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @PostMapping("/add-new")

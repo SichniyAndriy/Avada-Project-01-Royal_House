@@ -5,9 +5,7 @@ const PATH_TO_BIDS = "/admin/bids";
 function showBid(id) {
     window.location.href = `${PATH_TO_BIDS}/show/${id}`;
 }
-function changeBidStatus(id) {
-    window.location.href = `${PATH_TO_BIDS}/change-bid-status/${id}`;
-}
+
 function goToBids(pageNo) {
     window.location.href = `${PATH_TO_BIDS}?page=${pageNo}`;
 }

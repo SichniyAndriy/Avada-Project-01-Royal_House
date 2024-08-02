@@ -65,7 +65,7 @@
                         <td th:text="${#temporals.format(bid.date, 'dd.MM.yyyy HH:mm')}">26.09.3669</td>
                         <td class="btn-block" th:with="status=${bid.status}">
                             <button type="button" class="status-btn" style="background-color: green; color: white"
-                                th:onclick="changeBidStatus([[${bid.id}]])" th:text="${status}"
+                                th:onclick="changeBidStatus([[${bid.id}]], [[${bidPage.number}]])" th:text="${status}"
                                 th:style="'background-color: ' + ( ${#strings.length(status) == 3} ? 'red' : 'green') + '; color: white'">
                                 Super
                             </button>

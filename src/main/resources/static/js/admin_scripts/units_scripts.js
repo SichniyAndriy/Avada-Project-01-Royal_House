@@ -35,8 +35,7 @@ function saveNewUnit() {
 
 function deleteUnit(id, pageNo) {
     fetch(`/admin/units/delete/${id}`, {
-        method: "GET",
-        headers: { "Content-Type" : "application/json" },    
+        method: "GET",   
     }).then(response => {
         if (response.ok) {
             goToUnits(pageNo);
