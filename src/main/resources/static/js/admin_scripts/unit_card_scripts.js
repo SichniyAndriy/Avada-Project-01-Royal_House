@@ -37,6 +37,7 @@ async function updateUnit(unit) {
     const floor = document.getElementById("unit__input__floor").value;
     const totalFloors = document.getElementById("unit__input__totalFloors").value;
     const flatNumber = document.getElementById("unit__input__flat_number").value;
+    const newBuilding = document.getElementById("unit__input__newbld").value;
     const date = document.getElementById("unit__input__date").value;
 
 
@@ -50,6 +51,7 @@ async function updateUnit(unit) {
         floor,
         totalFloors,
         flatNumber,
+        newBuilding,
         date,
         address: unit.address,
         images: newImages

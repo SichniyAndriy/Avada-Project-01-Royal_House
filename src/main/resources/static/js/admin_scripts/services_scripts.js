@@ -21,7 +21,8 @@ function saveService() {
         body: formData
     }).then(responce => {
         if (responce.ok) {
-            goToServices();
+            alert("Новий сервіс збережено");
+           form.reset();
         } else {
             throw new Error("Error creating service");
         }

@@ -15,12 +15,14 @@ function closeNewBldSaveModal() {
 function saveNewBld() {
     const form = document.getElementById("create__newbld__form");
     const formData = new FormData(form);
+    
     fetch("/admin/new-blds/add-new", {
         method: "POST",
         body: formData
     }).then(response => {
         if (response.ok) {
-            goToNewBlds();
+            alert("Нова новобудова збережена");
+            form.reset();
         } else {
             throw new Error("Error creating new building")
         }

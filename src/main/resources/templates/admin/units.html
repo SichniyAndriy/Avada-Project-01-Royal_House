@@ -54,6 +54,14 @@
                         <input type="number" step="any" name="square" id="unit__input__square">
                     </div>
                     <div class="form__item">
+                        <label for="unit__input__address">Адреса</label>
+                        <input list="addresses" name="address" id="unit__input__address">
+                        <datalist id="addresses">
+                            <option value="xxx" th:each="address : ${addresses}" 
+                                th:value="|${address.city}, ${address.street}, ${address.houseNumber}|">
+                        </datalist>
+                    </div>
+                    <div class="form__item">
                         <label for="unit__input__totalPrice">Ціна ($)</label>
                         <input type="number" step="any" name="totalPrice" id="unit__input__totalPrice">
                     </div>
@@ -76,6 +84,10 @@
                     <div class="form__item">
                         <label for="unit__input__flat_number">Номер квартири</label>
                         <input type="number" name="flatNumber" id="unit__input__flat_number">
+                    </div>
+                    <div class="form__item">
+                        <label for="unit__input__newbld">Id новобудови</label>
+                        <input type="number" name="newBuilding" id="unit__input__newbld">
                     </div>
                     <div class="form__item">
                         <label for="unit__input__date">Дата додавання</label>

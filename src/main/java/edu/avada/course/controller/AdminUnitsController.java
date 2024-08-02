@@ -1,11 +1,15 @@
 package edu.avada.course.controller;
 
+import edu.avada.course.model.admindto.AdminAddressDto;
 import edu.avada.course.model.admindto.AdminUnitDto;
 import edu.avada.course.model.entity.Unit.UnitType;
+import edu.avada.course.service.AdminAddressService;
 import edu.avada.course.service.AdminUnitService;
+import jakarta.annotation.Nullable;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,11 +28,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/admin/units")
 public class AdminUnitsController {
     private final AdminUnitService adminUnitService;
-
+    private final AdminAddressService adminAddressService;
     public AdminUnitsController(
-            @Autowired AdminUnitService adminUnitService
+            @Autowired AdminUnitService adminUnitService,
+            @Autowired AdminAddressService adminAddressService
     ) {
         this.adminUnitService = adminUnitService;
+        this.adminAddressService = adminAddressService;
     }
 
     @GetMapping
@@ -38,7 +44,9 @@ public class AdminUnitsController {
             Model model
     ) {
         Page<AdminUnitDto> unitsPage = adminUnitService.pageUnits(page, size);
+        List<AdminAddressDto> addresses = adminAddressService.getAllAddresses();
         model.addAttribute("unitPage", unitsPage);
+        model.addAttribute("addresses", addresses);
         return "admin/units";
     }
 
@@ -91,17 +99,28 @@ public class AdminUnitsController {
     public ResponseEntity<HttpStatus> addNewUnit(
             @RequestParam("unitType") String unitType,
             @RequestParam("square") BigDecimal square,
+            @RequestParam("address") String address,
             @RequestParam("totalPrice") BigDecimal totalPrice,
             @RequestParam("pricePerSqM") BigDecimal pricePerSqM,
             @RequestParam("rooms") int rooms,
             @RequestParam("floor") int floor,
             @RequestParam("totalFloors") int totalFloors,
             @RequestParam("flatNumber") int flatNumber,
+            @RequestParam(name = "newBuilding", required = false) @Nullable Long newBuilding,
             @RequestParam("date") LocalDate date
     ) {
         AdminUnitDto adminUnitDto = new AdminUnitDto();
         adminUnitDto.setType(UnitType.valueOf(unitType));
         adminUnitDto.setSquare(square);
+        String[] strings = address.split("[-,:;]");
+        AdminAddressDto adminAddressDto = new AdminAddressDto();
+        if (strings.length != 3) {
+            throw new IllegalArgumentException();
+        }
+        adminAddressDto.setCity(strings[0].trim());
+        adminAddressDto.setStreet(strings[1].trim());
+        adminAddressDto.setHouseNumber(strings[2].trim());
+        adminUnitDto.setAddress(adminAddressDto);
         adminUnitDto.setTotalPrice(totalPrice);
         adminUnitDto.setPricePerSqM(pricePerSqM);
         adminUnitDto.setRooms(rooms);
@@ -109,6 +128,7 @@ public class AdminUnitsController {
         adminUnitDto.setTotalFloors(totalFloors);
         adminUnitDto.setFlatNumber(flatNumber);
         adminUnitDto.setDate(date);
+        adminUnitDto.setNewBuilding(newBuilding);
         adminUnitService.add(adminUnitDto);
         return ResponseEntity.ok(HttpStatus.OK);
     }

@@ -99,12 +99,6 @@ public class AdminSettingController {
         return "redirect:/admin/binding";
     }
 
-
-    @GetMapping("/secondary")
-    public String secondary() {
-        return "admin/setting/secondary";
-    }
-
     @GetMapping("/about")
     public String about(Model model) throws IOException {
         Properties properties = new Properties();
@@ -146,5 +140,4 @@ public class AdminSettingController {
         );
         return ResponseEntity.ok(result);
     }
-
 }

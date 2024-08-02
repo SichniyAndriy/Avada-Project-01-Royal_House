@@ -26,7 +26,8 @@ function saveNewUnit() {
         body: formData
     }).then(response => {
         if(response.ok) {
-            goToUnits();
+           alert("Новий об'єкт збережено");
+           form.reset();
         } else {
             throw Error("Error creating unit")
         }

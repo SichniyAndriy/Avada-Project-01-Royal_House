@@ -17,6 +17,7 @@ import edu.avada.course.repository.CompanyServiceRepository;
 import edu.avada.course.repository.NewBuildingRepository;
 import edu.avada.course.repository.UnitRepository;
 import edu.avada.course.service.AdminAddressService;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -56,6 +57,7 @@ public class AppUtil {
         }
     }
 
+    @Transactional
     public void initUnits(
             UnitRepository unitRepository,
             UnitType type,
@@ -72,11 +74,14 @@ public class AppUtil {
             newUnit.setTotalFloors(FAKER.random().nextInt(1, 30));
             newUnit.setDate(LocalDate.ofInstant(FAKER.timeAndDate().past(2000, TimeUnit.DAYS), TimeZone.getDefault().toZoneId()));
             newUnit.setFlatNumber(FAKER.random().nextInt(500));
-            newUnit.setAddress(adminAddressService.getAnyAddress());
+            Long id = adminAddressService.getAnyAddress().getId();
+            Address addressById = adminAddressService.getAddressById(id);
+            newUnit.setAddress(addressById);
             unitRepository.save(newUnit);
         }
     }
 
+    @Transactional
     public void initNewBuildings(NewBuildingRepository newBuildingRepository, int amount) {
 
         for (int i = 0; i < amount; i++) {
@@ -91,7 +96,9 @@ public class AppUtil {
             newBuilding.setLocation(Location.of(FAKER.address().latitude(), FAKER.address().longitude()));
             newBuilding.setStatus(FAKER.random().nextBoolean() ? NewBuildStatus.ACTIVE: NewBuildStatus.OFF);
             newBuilding.setDescription(description);
-            newBuilding.setAddress(adminAddressService.getAnyAddress());
+            Long id = adminAddressService.getAnyAddress().getId();
+            Address addressById = adminAddressService.getAddressById(id);
+            newBuilding.setAddress(addressById);
             newBuildingRepository.save(newBuilding);
         }
     }

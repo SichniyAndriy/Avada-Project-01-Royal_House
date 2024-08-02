@@ -18,6 +18,9 @@ public class UnitMapper {
         newAdminUnitDto.setTotalFloors(unit.getTotalFloors());
         newAdminUnitDto.setDate(unit.getDate());
         newAdminUnitDto.setFlatNumber(unit.getFlatNumber());
+        if (unit.getNewBuilding() != null) {
+            newAdminUnitDto.setNewBuilding(unit.getNewBuilding().getId());
+        }
         newAdminUnitDto.setAddress(AddressMapper.fromEntityToAdminDto(unit.getAddress()));
         newAdminUnitDto.setImages(unit.getImages().stream().map(ImageMapper::fromEntityToAdminDto).toList());
         return newAdminUnitDto;

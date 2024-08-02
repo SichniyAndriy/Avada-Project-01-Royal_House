@@ -66,7 +66,7 @@ public class Unit {
     @Column(name = "flat_number")
     private Integer flatNumber;
 
-    @ManyToOne(targetEntity = Address.class)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Address.class)
     @PrimaryKeyJoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

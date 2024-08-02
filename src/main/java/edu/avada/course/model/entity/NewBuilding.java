@@ -67,8 +67,7 @@ public class NewBuilding {
     private List<Infographic> infographics;
 
     @Fetch(value = FetchMode.SUBSELECT)
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = Unit.class,
-            mappedBy = "newBuilding")
+    @OneToMany(targetEntity = Unit.class, mappedBy = "newBuilding")
     private List<Unit> units;
 
     public enum NewBuildStatus {

@@ -2,8 +2,10 @@ package edu.avada.course.service.impl;
 
 import edu.avada.course.mapper.NewBuildingMapper;
 import edu.avada.course.model.admindto.AdminNewBuildingDto;
+import edu.avada.course.model.entity.Address;
 import edu.avada.course.model.entity.NewBuilding;
 import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
+import edu.avada.course.repository.AddressRepository;
 import edu.avada.course.repository.NewBuildingRepository;
 import edu.avada.course.service.AdminNewBldsService;
 import java.util.List;
@@ -17,11 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminNewBldsServiceImpl implements AdminNewBldsService {
     private final NewBuildingRepository newBuildingRepository;
+    private final AddressRepository addressRepository;
 
     public AdminNewBldsServiceImpl(
-            @Autowired NewBuildingRepository newBuildingRepository
-    ) {
+            @Autowired NewBuildingRepository newBuildingRepository,
+            AddressRepository addressRepository) {
         this.newBuildingRepository = newBuildingRepository;
+        this.addressRepository = addressRepository;
     }
 
      @Override
@@ -74,6 +78,15 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
     @Override
     public long add(AdminNewBuildingDto adminNewBuildingDto) {
         NewBuilding newBuilding = NewBuildingMapper.fromAdminDtoToEntity(adminNewBuildingDto);
+        Address address = addressRepository.findByCityAndStreetAndHouseNumber(
+                adminNewBuildingDto.getAddress().getCity(),
+                adminNewBuildingDto.getAddress().getStreet(),
+                adminNewBuildingDto.getAddress().getHouseNumber()
+        );
+        if (address == null) {
+            address = addressRepository.save(newBuilding.getAddress());
+        }
+        newBuilding.setAddress(address);
         return newBuildingRepository.save(newBuilding).getId();
     }
 }

@@ -23,6 +23,7 @@ public class AdminUnitDto implements Serializable {
     private Integer rooms;
     private Integer floor;
     private Integer totalFloors;
+    private Long newBuilding;
     private LocalDate date;
     private Integer flatNumber;
     private AdminAddressDto address;

@@ -49,10 +49,10 @@ public class AdminNewBldsController {
     }
 
     @GetMapping("/show-newbld-card/{id}")
-    public ResponseEntity<HttpStatus> showNewBld(@PathVariable long id, Model model) {
+    public String showNewBld(@PathVariable long id, Model model) {
         AdminNewBuildingDto adminNewBuildingDtoById = adminNewBldsService.getNewBldById(id);
         model.addAttribute("newbld", adminNewBuildingDtoById);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return "admin/new_bld_card";
     }
 
     @GetMapping("/change-new-bld-status/{id}")
@@ -141,10 +141,9 @@ public class AdminNewBldsController {
         if (strings.length != 3) {
             throw new IllegalArgumentException();
         }
-        adminAddressDto.setCity(strings[0].replace(" ", ""));
-        adminAddressDto.setStreet(strings[1].replace(" ", ""));
-        adminAddressDto.setHouseNumber(strings[2].replace(" ", ""));
-        adminAddressDto.setId(adminAddressService.add(adminAddressDto));
+        adminAddressDto.setCity(strings[0].trim());
+        adminAddressDto.setStreet(strings[1].trim());
+        adminAddressDto.setHouseNumber(strings[2].trim());
         adminNewBuildingDto.setAddress(adminAddressDto);
         adminNewBuildingDto.setStatus(NewBuildStatus.OFF);
         adminNewBuildingDto.setLocation(new Location());

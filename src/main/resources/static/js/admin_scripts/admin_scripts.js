@@ -30,7 +30,7 @@ function showUnit(id) {
     window.location.href = `${PATH_TO_UNITS}/show/${id}`;
 }
 
-function goToUnits(pageNo) {
+function goToUnits(pageNo = 0) {
     window.location.href = `${PATH_TO_UNITS}?page=${pageNo}`;
 }
 
