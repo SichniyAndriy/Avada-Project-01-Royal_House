@@ -1,0 +1,63 @@
+:root {
+    --primary-font-color: #393939;
+    --secondary-font-color: #F0F1F6;
+    --third-font-color: #CE1D5D;
+    --primary-bg-color: #F1F2F1;
+    --secondary-bg-color: #C0A097;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.nav-item a {
+    width: 100%;
+    color: black;
+}
+
+.nav-item a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+/* NEWBUILDING STYLES */
+
+table tr td {
+    position: relative;
+}
+
+.overlay__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-bg-color);
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, .45);
+    font-family: 'Times New Roman', Times, serif;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 2.5rem var(--primary-bg-color);
+}
+
+.contacts__container ul,
+.card__data_list {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    text-align: start;
+}
+
+.contacts__container i {
+    font-size: 1.5rem;
+}
+
+.contacts__container li,
+.card__data_list li {
+    display: flex;
+    align-items: baseline;
+}
+
+.contacts__container li h6,
+.card__data_list li p {
+    margin-left: 1rem;
+}

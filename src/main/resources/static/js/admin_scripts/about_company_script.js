@@ -29,7 +29,6 @@ $( () => {
             bannerUrl = await response.text(); 
         }
 
-        console.log(bannerUrl);
         const formData = new FormData();
         formData.append("title", title);
         formData.append("desc", desc);

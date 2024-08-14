@@ -1,88 +1,114 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ua" xmlns:th="http://www.thymeleaf.com">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- STYLES -->
-    <link rel="stylesheet" href="../../static/css/client_styles/index_styles.css"
-        th:href="@{/css/client_styles/main_styles.css}">
-    <link rel="stylesheet" href="../../static/css/client_styles/newblds_styles.css"
-        th:href="@{/css/client_styles/newblds_styles.css}">
-    <!-- SCRIPTS -->
-    <script src="../../static/js/client_scripts/inject_sidebar_header.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Styles -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
 
-    <title>Document</title>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="../../static/js/client_scripts/inject_sidebar_header.js" th:remove="all" defer></script>
+  <script src="../../static/js/client_scripts/client_scripts.js" th:src="@{/js/client_scripts/client_scripts.js}" defer></script>
+  <title>Новобудови</title>
 </head>
 
-<body>
-    <main>
-        <div class="main__container">
-            <div class="placeholder__side__container"></div>
-            <div class="central__container">
-                <div class="placeholder__central__header__container"></div>
-                <div class="central__body__container">
-                    <table class="newblds__table">
-                        <tr>
-                            <td>
-                                <img src="https://picsum.photos/id/1076/800/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet.</div>
-                            </td>
-                            <td>
-                                <img src="https://picsum.photos/id/1081/800/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit.</div>
-                            </td>
-                            <td rowspan="2">
-                                <img src="https://picsum.photos/id/1040/800/1600" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet consectetur.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <img src="https://picsum.photos/id/870/1600/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet consectetur adipisicing.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2">
-                                <img src="https://picsum.photos/id/972/800/1600" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet.</div>
-                            </td>
-                            <td>
-                                <img src="https://picsum.photos/id/945/800/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit.</div>
-                            </td>
-                            <td>
-                                <img src="https://picsum.photos/id/870/800/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet consectetur.</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <img src="https://picsum.photos/id/1050/1600/800" alt="">
-                                <div class="overlay__text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="card__container">
-                        <div class="card__wrapper">
-                            <div class="newbld__card">
-                                <div class="img__container">
-                                    <img src="https://picsum.photos/id/1050/1000/1000" alt="">
-                                </div>
-                                <h5>Lorem ipsum dolor sit amet consectetur adipisicing.</h5>
-                                <p>Lorem ipsum dolor sit amet.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                <p>Lorem ipsum dolor sit.</p>
-                                <p>Lorem ipsum dolor sit amet consectetur.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body class="mx-auto" style="width: 90%;">
+  <div class="container-fluid main__container">
+    <div class="row">
+      <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}">
+      </div>
+      <div class="col-md-10 container-fluid text-center g-0" id="main__container">
+        <div id="placeholder__main__header" th:replace="~{client/fragments/index :: mainheader}"></div>
+        <div class="container-fluid g-0 border border-top-0 border-black">
+          <div class="table__container container-fluid g-0 mb-5">
+            <table class="table tab">
+              <tr>
+                <td th:onclick="showNewBld([[${field1} ? ${field1.id} : 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/684/800/800"
+                    th:src="@{${field1} and ${not #lists.isEmpty(field1.banners)} and ${field1.banners[0]}
+                      ? ${field1.banners[0].path} : 'https://picsum.photos/id/1081/800/800'}" alt="">
+                  <div class="overlay__text" th:text="${field1} ? ${field1.title} : 'No main banner'">No main banner</div>
+                </td>
+                <td th:onclick="showNewBld([[${field2} ? ${field2.id}: 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/1081/800/800" alt=""
+                    th:src="@{${field2} and ${not #lists.isEmpty(field2.banners)} and ${field2.banners[0].path}
+                      ? ${field2.banners[0].path} : 'https://picsum.photos/id/1081/800/800'}">
+                  <div class="overlay__text" th:text="${field2} ? ${field2.title} : 'No main banner'"></div>
+                </td>
+                <td rowspan="2" th:onclick="showNewBld([[${field3} ? ${field3.id}: 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/1081/800/1600" alt=""
+                    th:src="@{${field3} and ${not #lists.isEmpty(field3.banners)} and ${field3.banners[0].path}
+                      ? ${field3.banners[0].path} : 'https://picsum.photos/id/1081/800/1600'}">
+                  <div class="overlay__text"  th:text="${field3} ? ${field3.title} : 'No main banner'">No main banner</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" th:onclick="showNewBld([[${field4} ? ${field4.id} : 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/684/1600/800"
+                    th:src="@{${field4} and ${not #lists.isEmpty(field4.banners)} and ${field4.banners[0].path}
+                      ? ${field4.banners[0].path} : 'https://picsum.photos/id/1081/1600/800'}" alt="">
+                  <div class="overlay__text" th:text="${field4} ? ${field4.title} : 'No main banner'">No main banner</div>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" th:onclick="showNewBld([[${field5} ? ${field5.id}: 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/1081/800/1600" alt=""
+                    th:src="@{${field5} and ${not #lists.isEmpty(field5.banners)} and ${field5.banners[0].path}
+                      ? ${field5.banners[0].path} : 'https://picsum.photos/id/1081/800/1600'}">
+                  <div class="overlay__text"  th:text="${field5} ? ${field5.title} : 'No main banner'">No main banner</div>
+                </td>
+                <td th:onclick="showNewBld([[${field6} ? ${field6.id} : 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/1081/800/800" alt=""
+                    th:src="@{${field6} and ${not #lists.isEmpty(field6.banners)} and ${field6.banners[0].path}
+                      ? ${field6.banners[0].path} : 'https://picsum.photos/id/1081/800/800'}">
+                  <div class="overlay__text"  th:text="${field6} ? ${field6.title} : 'No main banner'">No main banner</div>
+                </td>
+                <td th:onclick="showNewBld([[${field7} ? ${field7.id} : 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/1081/800/800" alt=""
+                    th:src="@{${field7} and ${not #lists.isEmpty(field7.banners)} and ${field7.banners[0].path}
+                      ? ${field7.banners[0].path} : 'https://picsum.photos/id/1081/800/800'}">
+                  <div class="overlay__text"  th:text="${field7} ? ${field7.title} : 'No main banner'">No main banner</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" th:onclick="showNewBld([[${field8} ? ${field8.id} : 0]])">
+                  <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/684/1600/800"
+                    th:src="@{${field8} and ${not #lists.isEmpty(field8.banners)} and ${field8.banners[0].path}
+                      ? ${field8.banners[0].path} : 'https://picsum.photos/id/1081/1600/800'}" alt="">
+                <div class="overlay__text" th:text="${field8} ? ${field8.title} : 'No main banner'">No main banner</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="cards__container container-fluid d-flex flex-wrap row-cols-3 mb-5 g-0">
+            <div class="card bg-white text-black p-3 border-0" 
+              th:each="newbld : ${newblds}" th:onclick="showNewBld([[${newbld.id} ?: 0]])">
+              <img class="img-fluid img-thumbnail" src="../../static/img/client/fff.jpg"
+                th:src="@{${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[0].path} 
+                  ? ${newbld.banners[0].path} : '/img/client/fff.jpg'}">
+              <h3 class="card-title" th:text="${newbld.title}">Lorem ipsum dolor sit.</h3>
+              <ul class="card__data_list" style="list-style-type: none;">
+                <li>
+                  <i class="bi bi-geo-alt-fill text-danger"></i>
+                  <p th:text="|${newbld.address.city}, ${newbld.address.street}, ${newbld.address.houseNumber}|">
+                    Lorem ipsum dolor sit amet.
+                  </p>
+              </ul>
             </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

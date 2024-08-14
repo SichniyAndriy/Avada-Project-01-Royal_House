@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ua" xmlns:th="http://www.thymeleaf.com">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
+        </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">
+        </script>
+    <script src="../../static/js/client_scripts/newbld_card.js" th:src="@{/js/client_scripts/newbld_card.js}"
+        defer>
+        </script>
+    <script src="../../static/js/client_scripts/inject_sidebar_header.js" th:remove="all" defer>
+    </script>
+
+    <title>Картка новобудови</title>
+</head>
+
+<body class="mx-auto" style="width: 90%;">
+    <div class="container-fluid main__container">
+        <div class="row">
+            <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}">
+            </div>
+            <div class="col-md-10 container-fluid text-center g-0" id="main__container">
+                <div id="placeholder__main__header"></div>
+                <div class="container-fluid g-0 border border-top-0 border-black" th:object="${newbld}"
+                    th:with="DUMB_PATH='/img/client/fff.jpg'">
+
+                    <!-- MAIN BANNER -->
+                    <img class="img-fluid img-thumbnail" style="height: 480px;" src="https://picsum.photos/id/870/1920/800" 
+                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[0]} ? 
+                            *{banners[0].path} : 'https://picsum.photos/id/870/1920/800'}" alt="Main banner">
+
+                    <!-- ABOUT SECTION -->
+
+                    <section class="about container mt-5">
+                        <div class="about__container container align-baseline">
+                            <h3 class="mb-4">Про проект</h3>
+                            <p class="text-body-emphasis" th:text="*{description.about}">Lorem ipsum dolor sit amet
+                                consectetur adipisicing elit.
+                                Assumenda
+                                modi unde fuga, eos doloribus dolor enim esse, distinctio ducimus omnis qui quod
+                                praesentium
+                                amet eveniet, voluptates hic eligendi odio cupiditate.
+                                Laudantium dolore exercitationem doloribus labore reiciendis quas deleniti rerum ducimus
+                                at
+                                ex iusto eum natus officia, unde sed, autem sapiente alias et distinctio aliquam est
+                                earum.
+                                Iusto neque quae necessitatibus!
+                                Aliquam voluptas sed reiciendis doloremque quia a, dolorum rem animi ad dolore cumque
+                                minus!
+                                Ex quae sapiente voluptate perspiciatis consectetur quas sint minima dolorum culpa iure,
+                                nemo aliquam impedit. Aspernatur.
+                                Nesciunt qui explicabo voluptatem sapiente odio neque sint accusantium exercitationem
+                                ratione culpa excepturi placeat officia, asperiores adipisci praesentium quo officiis
+                                minus
+                                magnam temporibus soluta cupiditate! Dolore amet aliquam quibusdam distinctio!
+                            </p>
+                        </div>
+                        <div class="infographic__cards__container row g-0 justify-content-center"
+                            th:each="infographic : *{infographics}" th:remove="all-but-first">
+                            <div class="infographic__card col-2 g-0 p-5"
+                                th:if="${#strings.equals(infographic.type, 'MAIN')}">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/684/400/400"
+                                    th:src="@{ ${infographic.path} }" alt="Infographic">
+                                <h6 class="text-center" th:text="${infographic.description}">
+                                    Lorem ipsum dolor sit amet.
+                                </h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/684/400/400" alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/684/400/400" alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/684/400/400" alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                        </div>
+                        <div id="about__banners__carousel" class="carousel slide" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#about__banners__carousel" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#about__banners__carousel" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#about__banners__carousel" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[1]} ? 
+                                            *{banners[1].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[2]} ? 
+                                            *{banners[2].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[3]} ? 
+                                            *{banners[3].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#about__banners__carousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#about__banners__carousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- LOCATION SECTION -->
+
+                    <section class="location container mt-5">
+                        <div class="location__container container align-baseline">
+                            <h3 class="mb-4">Місце розташування</h3>
+                            <p class="text-body-emphasis" th:text="*{description.location}">
+                                Maiores veritatis consequatur vitae ducimus ullam dolor ipsum pariatur delectus, totam
+                                est
+                                sapiente quaerat optio vel eaque, accusamus praesentium suscipit, blanditiis expedita
+                                architecto voluptate repellendus quam nulla voluptas. Quibusdam, et?
+                                Voluptates, quae. Nihil deserunt aliquam quidem nemo placeat cumque alias aut corporis,
+                                sapiente, dicta quod vel assumenda inventore beatae accusamus earum culpa explicabo
+                                doloremque voluptas voluptatum cupiditate incidunt. Quod, velit.
+                                Porro ex facere, saepe magnam facilis labore. Aut eligendi sequi nihil accusamus eaque
+                                corporis inventore sed deserunt optio cumque aspernatur totam, explicabo dolor a
+                                temporibus!
+                                Adipisci inventore porro reiciendis quidem.
+                                Sed a iure reiciendis nulla fugit vero quibusdam nihil cupiditate culpa minima laborum
+                                quae
+                                consequatur similique facere recusandae, totam accusantium nostrum, ea inventore dolores
+                                sunt! Quibusdam distinctio dolor magnam doloremque!
+                                Error similique voluptate est ut harum deleniti quam dolore illo quidem necessitatibus
+                                deserunt voluptates itaque omnis reprehenderit optio assumenda laudantium fugit eos a
+                                vel
+                                aspernatur minus porro, ratione vero. Repellendus.
+                            </p>
+                        </div>
+                        <div id="location__map" style="height: 400px;">
+                            <p id="latitude" hidden th:text="*{location.latitude}">50</p>
+                            <p id="longitude" hidden th:text="*{location.longitude}">30</p>
+                            <div id="map" class="w-100 h-100 container-fluid"></div>
+                        </div>
+                    </section>
+
+                    <!-- INFRASTRUCTURE SECTION -->
+
+                    <section class="infrastructure container mt-5">
+                        <div class="infrastructure__container container align-baseline">
+                            <h3 class="mb-4">Інфраструктура</h3>
+                            <p class="text-body-emphasis" th:text="*{description.infrastructure}">
+                                Maiores veritatis consequatur vitae ducimus ullam dolor ipsum pariatur delectus, totam
+                                est
+                                sapiente quaerat optio vel eaque, accusamus praesentium suscipit, blanditiis expedita
+                                architecto voluptate repellendus quam nulla voluptas. Quibusdam, et?
+                                Voluptates, quae. Nihil deserunt aliquam quidem nemo placeat cumque alias aut corporis,
+                                sapiente, dicta quod vel assumenda inventore beatae accusamus earum culpa explicabo
+                                doloremque voluptas voluptatum cupiditate incidunt. Quod, velit.
+                                Porro ex facere, saepe magnam facilis labore. Aut eligendi sequi nihil accusamus eaque
+                                corporis inventore sed deserunt optio cumque aspernatur totam, explicabo dolor a
+                                temporibus!
+                                Adipisci inventore porro reiciendis quidem.
+                                Sed a iure reiciendis nulla fugit vero quibusdam nihil cupiditate culpa minima laborum
+                                quae
+                                consequatur similique facere recusandae, totam accusantium nostrum, ea inventore dolores
+                                sunt! Quibusdam distinctio dolor magnam doloremque!
+                                Error similique voluptate est ut harum deleniti quam dolore illo quidem necessitatibus
+                                deserunt voluptates itaque omnis reprehenderit optio assumenda laudantium fugit eos a
+                                vel
+                                aspernatur minus porro, ratione vero. Repellendus.
+                            </p>
+                        </div>
+                        <div class="infographic__cards__container row g-0 justify-content-center" th:remove="all-but-first">
+                            <div class="infographic__card col-2 g-0 p-5" 
+                                th:each="infographic : *{infographics}" 
+                                th:if="${#strings.equals(infographic.type, 'INFRASTRUCTURE')}">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    th:src="@{infographic.path}" alt="">
+                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                        </div>
+                        <div id="infrastructure__banners__carousel" class="carousel slide" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#infrastructure__banners__carousel"
+                                    data-bs-slide-to="0" class="active" aria-current="true"
+                                    aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#infrastructure__banners__carousel"
+                                    data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#infrastructure__banners__carousel"
+                                    data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[4]} ?
+                                            *{banners[4].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[5]} ?
+                                            *{banners[5].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[6]} ?
+                                            *{banners[6].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#infrastructure__banners__carousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#infrastructure__banners__carousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- FLATS SECTION -->
+
+                    <section class="flats container my-5">
+                        <div class="flats__container container align-baseline">
+                            <h3 class="mb-4">Квартири від забудовника</h3>
+                            <p class="text-body-emphasis">
+                                Maiores veritatis consequatur vitae ducimus ullam dolor ipsum pariatur delectus, totam
+                                est
+                                sapiente quaerat optio vel eaque, accusamus praesentium suscipit, blanditiis expedita
+                                architecto voluptate repellendus quam nulla voluptas. Quibusdam, et?
+                                Voluptates, quae. Nihil deserunt aliquam quidem nemo placeat cumque alias aut corporis,
+                                sapiente, dicta quod vel assumenda inventore beatae accusamus earum culpa explicabo
+                                doloremque voluptas voluptatum cupiditate incidunt. Quod, velit.
+                                Porro ex facere, saepe magnam facilis labore. Aut eligendi sequi nihil accusamus eaque
+                                corporis inventore sed deserunt optio cumque aspernatur totam, explicabo dolor a
+                                temporibus!
+                                Adipisci inventore porro reiciendis quidem.
+                                Sed a iure reiciendis nulla fugit vero quibusdam nihil cupiditate culpa minima laborum
+                                quae
+                                consequatur similique facere recusandae, totam accusantium nostrum, ea inventore dolores
+                                sunt! Quibusdam distinctio dolor magnam doloremque!
+                                Error similique voluptate est ut harum deleniti quam dolore illo quidem necessitatibus
+                                deserunt voluptates itaque omnis reprehenderit optio assumenda laudantium fugit eos a
+                                vel
+                                aspernatur minus porro, ratione vero. Repellendus.
+                            </p>
+                        </div>
+                        <div class="infographic__cards__container row g-0 justify-content-center" th:remove="all-but-first">
+                            <div class="infographic__card col-2 g-0 p-5" 
+                                th:each="infographic : ${infographics}" 
+                                th:if="${#strings.equals(infographic.type, 'FLATS')}">
+                                <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
+                                    th:src="@{infographic.path}" alt="">
+                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle mb-3" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle mb-3" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle mb-3" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                            <div class="infographic__card col-2 g-0 p-5">
+                                <img class="img-fluid rounded-circle mb-3" src="https://picsum.photos/id/1029/400/400"
+                                    alt="">
+                                <h6 class="text-center">Lorem ipsum dolor sit amet.</h6>
+                            </div>
+                        </div>
+                        <div id="flats__banners__carousel" class="carousel slide" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#flats__banners__carousel" data-bs-slide-to="0"
+                                    class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#flats__banners__carousel" data-bs-slide-to="1"
+                                    aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#flats__banners__carousel" data-bs-slide-to="2"
+                                    aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                    th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[7]} ?
+                                        *{banners[7].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[8]} ?
+                                            *{banners[8].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[9]} ?
+                                            *{banners[9].path} : ${DUMB_PATH} }" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#flats__banners__carousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#flats__banners__carousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="flats__container container align-baseline g-0">
+                            <h3 class="my-4">Квартири в будинку</h3>
+                            <div class="cards__container container-fluid d-flex flex-wrap row-cols-3 mt-5 g-0">
+                                <div class="card bg-white text-black p-3" th:each="unit : *{units}">
+                                    <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true">
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item" th:each="image : ${unit.images}" 
+                                                th:classappend="${imageStat.first} ? 'active'">
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
+                                                    th:src="${image.path}" alt="...">
+                                            </div>
+                                            <!-- <div class="carousel-item">
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" alt="...">
+                                            </div> -->
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#flat__images__carousel" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#flat__images__carousel" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                    <h3 class="card-title" th:text="*{title}">Lorem ipsum dolor sit.</h3>
+                                    <ul class="card__data_list" style="list-style-type: none;">
+                                        <li>
+                                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                                            <p th:text="|${unit.address.city}, ${unit.address.street}, ${unit.address.houseNumber}|">Lorem ipsum dolor sit amet.</p>
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-building-fill text-secondary"></i>
+                                            <p th:text="'Кімнат '+ ${unit.rooms} + ', Поверх ' + ${unit.floor}">Lorem ipsum dolor sit amet.</p>
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-currency-dollar text-primary"></i>
+                                            <p th:text="${unit.square} + ' / ' + ${unit.pricePerSqM} + ' $'">Lorem ipsum dolor sit amet.</p>
+                                        </li>
+                                        <li>
+                                            <i class="bi bi-cash text-success"></i>
+                                            <p th:text="${unit.totalPrice} + ' $'">Lorem ipsum dolor sit amet.</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                     <!-- PANORAMA SECTION -->
+
+                     <section>
+                        <img class="img-fluid img-thumbnail" src="https://picsum.photos/id/870/1920/800" 
+                        th:src="@{ *{panoramaPath} ?: 'https://picsum.photos/id/870/1920/400' }" alt="Panorama">
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

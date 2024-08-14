@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../../static/js/client_scripts/inject_sidebar_header.js"></script>
+
+    <title>Вторинний ринок</title>
+</head>
+
+<body class="mx-auto" style="width: 90%;">
+    <div class="container-fluid main__container">
+        <div class="row">
+            <div id="placeholder__side__nav__container"></div>
+            <div class="col-md-10 container-fluid text-center g-0" id="main__container">
+                <div id="placeholder__main__header"></div>
+                <div class="container-fluid g-0 border border-top-0 border-black mb-5">
+                    <section id="choose__options" class="justify-content-center">
+                        <nav class="pt-5">
+                            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+                                <button class="nav-link text-dark active" id="nav__flats__tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav__flats" type="button" role="tab"
+                                    aria-controls="nav__flats__tab" aria-selected="true">
+                                    Квартири
+                                </button>
+                                <button class="nav-link text-dark" id="nav__houses__tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav__houses" type="button" role="tab"
+                                    aria-controls="nav__houses__tab" aria-selected="false">
+                                    Будинки
+                                </button>
+                                <button class="nav-link text-dark" id="nav__commercial__tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav__commercial" type="button" role="tab"
+                                    aria-controls="nav__commercial__tab" aria-selected="false">
+                                    Комерційна
+                                </button>
+                                <button class="nav-link text-dark" id="nav__areas__tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav__areas" type="button" role="tab"
+                                    aria-controls="nav__areas__tab" aria-selected="false">
+                                    Ділянки
+                                </button>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav__flats" role="tabpanel"
+                                aria-labelledby="nav__flats__tab" tabindex="0">
+                                <form action="#">
+                                    <input type="checkbox" name="city" id="">
+                                    <label class="form-label ms-1" for="city">Місто</label>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="nav__houses" role="tabpanel"
+                                aria-labelledby="nav__houses__tab" tabindex="0">
+                                ...
+                            </div>
+                            <div class="tab-pane fade" id="nav__commercial" role="tabpanel"
+                                aria-labelledby="nav__commercial__tab" tabindex="0">
+                                ...
+                            </div>
+                            <div class="tab-pane fade" id="nav__areas" role="tabpanel" aria-labelledby="nav__areas__tab"
+                                tabindex="0">
+                                ...
+                            </div>
+                        </div>
+                    </section>
+                    <section id="flat__cards" class="cards__container container-fluid d-flex flex-wrap row-cols-3 my-5 g-0">
+                        <div class="card bg-white text-black p-3">
+                            <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="0"
+                                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="../../static/img/client/7.jpg" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="../../static/img/client/8.jpg" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="../../static/img/client/9.jpg" class="d-block w-100" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#flat__images__carousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#flat__images__carousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <h3 class="card-title">Lorem ipsum dolor sit.</h3>
+                            <ul class="card__data_list" style="list-style-type: none;">
+                                <li>
+                                    <i class="bi bi-geo-alt-fill text-danger"></i>
+                                    <p>Lorem ipsum dolor sit amet.</p>
+                                </li>
+                                <li>
+                                    <i class="bi bi-building-fill text-secondary"></i>
+                                    <p>Lorem ipsum dolor sit amet.</p>
+                                </li>
+                                <li>
+                                    <i class="bi bi-currency-dollar text-primary"></i>
+                                    <p>Lorem ipsum dolor sit amet.</p>
+                                </li>
+                                <li>
+                                    <i class="bi bi-cash text-success"></i>
+                                    <p>Lorem ipsum dolor sit amet.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

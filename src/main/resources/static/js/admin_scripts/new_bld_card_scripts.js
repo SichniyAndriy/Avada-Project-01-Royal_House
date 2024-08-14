@@ -108,8 +108,8 @@ async function addInfographic(type, id) {
     const newInfographicPath = await setInfographic(file, id, index);
     infographics[index] = {
         path: newInfographicPath,
-        description: description,
-        type: type
+        description,
+        type
     }
 
     const newListItem = document.createElement("li");
@@ -266,10 +266,7 @@ async function updateNewBld(newbld) {
     const newDescription = await getDescription();
     const newAddress = await getAddress(newbld.id);
     const panoramaFile = newbldsPanoramaInput.files[0];
-    let newPanoramaPath = newbld.panoramaPath;
-    if (panoramaFile) {
-        newPanoramaPath = await setPanorama(panoramaFile, newbld.id);
-    }
+    const newPanoramaPath = panoramaFile ? await setPanorama(panoramaFile, newbld.id) : newbld.panoramaPath;
 
     const newBanners = newbld.banners;
     for (let i = 0; i < bannersArr.length; ++i) {
