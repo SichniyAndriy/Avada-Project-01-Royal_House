@@ -10,6 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../static/css/client_styles/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -17,7 +18,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../../static/js/client_scripts/inject_sidebar_header.js" defer></script>
+    <script src="../../static/js/client_scripts/inject_sidebar_header.js" th:remove="all" defer></script>
 
     <title>Картка об'єкта</title>
 </head>
@@ -25,17 +26,16 @@
 <body class="mx-auto" style="width: 90%;">
     <div class="container-fluid main__container">
         <div class="row">
-            <div id="placeholder__side__nav__container"></div>
+            <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}"></div>
             <div class="col-md-10 container-fluid text-center g-0" id="main__container">
-                <div id="placeholder__main__header"></div>
+                <div id="placeholder__main__header" th:replace="~{client/fragments/index :: mainheader}"></div>
                 <div class="container-fluid border border-top-0 border-black g-0 mb-5">
-                    <img class="img-fluid img-thumbnail" src="../../static/img/client/fff.jpg" alt="">
                     <h3 class="pt-5 pb-3">Lorem, ipsum dolor sit amet consectetur adipisicing.</h3>
                     <section id="service__card" class="container-fluid g-0">
                         <div class="mx-5 my-3 text-center clearfix">
                             <div class="col-4 float-start m-3">
                                 <img class="img-fluid img-thumbnail" src="../../static/img/client/client-logo.jpg"
-                                    alt="">
+                                    alt="" th:src="@{/img/client/client-logo.jpg}">
                             </div>
                             <p class="card-text">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dolores, mollitia,
@@ -68,7 +68,7 @@
                             </p>
                             <div class="col-4 float-end m-3">
                                 <img class="img-fluid img-thumbnail" src="../../static/img/client/client-logo.jpg"
-                                    alt="">
+                                    alt="" th:src="@{/img/client/client-logo.jpg}">
                             </div>
                             <p>
                                 Nam voluptatum autem quo distinctio ipsa, laborum consequatur deserunt! Fugiat,

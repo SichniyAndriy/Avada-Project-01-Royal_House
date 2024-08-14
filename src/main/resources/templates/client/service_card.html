@@ -10,6 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../static/css/client_styles/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -25,15 +26,17 @@
 <body class="mx-auto" style="width: 90%;">
     <div class="container-fluid main__container">
         <div class="row">
-            <div id="placeholder__side__nav__container"></div>
+            <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}">
+            </div>
             <div class="col-md-10 container-fluid text-center g-0" id="main__container">
                 <div id="placeholder__main__header"></div>
-                <div class="container-fluid border border-top-0 border-black g-0 mb-5">
-                    <h3 class="pt-5 pb-3 ps-5 text-start">Назва послуги</h3>
-                    <img class="img-fluid img-thumbnail" src="../../static/img/client/fff.jpg" alt="">
+                <div class="container-fluid border border-top-0 border-black g-0 mb-5" th:object="${service}">
+                    <h3 class="pt-5 pb-3 ps-5 text-start" th:text="*{title}">Назва послуги</h3>
+                    <img class="img-fluid img-thumbnail" src="../../static/img/client/fff.jpg" alt=""
+                        th:src="@{*{imagePath} ?: '/img/client/fff.jpg'}">
                     <section id="service__card" class="container-fluid g-0">
-                        <div class="text-start mx-5 my-3">
-                            <p class="card-text">
+                        <div class="text-start mx-5 my-3 p-3">
+                            <p class="card-text text-break" th:text="*{description}">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum quam
                                 magnam voluptates veniam quisquam labore delectus quis consequatur
                                 recusandae libero doloribus inventore commodi, velit eius dolore

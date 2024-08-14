@@ -6,6 +6,7 @@ import edu.avada.course.model.entity.CompanyService;
 import edu.avada.course.model.entity.CompanyService.ServiceStatus;
 import edu.avada.course.repository.CompanyServiceRepository;
 import edu.avada.course.service.AdminCompanyServService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,13 @@ public class AdminCompanyServServiceImpl implements AdminCompanyServService {
             @Autowired CompanyServiceRepository companyServiceRepository
     ) {
         this.companyServiceRepository = companyServiceRepository;
+    }
+
+    @Override
+    public List<AdminCompanyServiceDto> findAll() {
+        return companyServiceRepository.findAll().stream()
+                .map(CompanyServiceMapper::fromEntityToAdminDto)
+                .toList();
     }
 
     @Override
