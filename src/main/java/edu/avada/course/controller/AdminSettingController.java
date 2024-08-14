@@ -23,9 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/admin")
 public class AdminSettingController {
-    private final String CONTACTS_FILE_PATH = "src/main/resources/support_files/contacts";
-    private final String BINDING_FILE_PATH = "src/main/resources/support_files/binding";
-    private final String ABOUT_FILE_PATH = "src/main/resources/support_files/about";
     private final AdminNewBldsService adminNewBldsService;
 
     public AdminSettingController(
@@ -37,7 +34,7 @@ public class AdminSettingController {
     @GetMapping("/contacts")
     public String contacts(Model model) throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileReader(CONTACTS_FILE_PATH));
+        properties.load(new FileReader(Controllers.CONTACTS_FILE_PATH));
 
         model.addAttribute("phone", properties.getProperty("phone"));
         model.addAttribute("viber", properties.getProperty("viber"));
@@ -68,7 +65,7 @@ public class AdminSettingController {
         properties.setProperty("instagram", instagram);
         properties.setProperty("facebook", facebook);
         properties.setProperty("address", address);
-        properties.store(new FileWriter(CONTACTS_FILE_PATH), null);
+        properties.store(new FileWriter(Controllers.CONTACTS_FILE_PATH), null);
         return "redirect:/admin/contacts";
     }
 
@@ -79,7 +76,7 @@ public class AdminSettingController {
 
         model.addAttribute("titleList", titleList);
         Properties properties = new Properties();
-        properties.load(new FileReader(BINDING_FILE_PATH));
+        properties.load(new FileReader(Controllers.BINDING_FILE_PATH));
         for(var entry : properties.entrySet()) {
             model.addAttribute((String) entry.getKey(), entry.getValue());
         }
@@ -95,14 +92,14 @@ public class AdminSettingController {
         for(var item : fieldList) {
             properties.setProperty("field" + (++i), item);
         }
-        properties.store(new FileWriter(BINDING_FILE_PATH), null );
+        properties.store(new FileWriter(Controllers.BINDING_FILE_PATH), null );
         return "redirect:/admin/binding";
     }
 
     @GetMapping("/about")
     public String about(Model model) throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileReader(ABOUT_FILE_PATH));
+        properties.load(new FileReader(Controllers.ABOUT_FILE_PATH));
         for(var entry : properties.entrySet()) {
             model.addAttribute((String) entry.getKey(), entry.getValue());
         }
@@ -116,11 +113,11 @@ public class AdminSettingController {
             @Nullable @RequestParam(name = "bannerUrl", required = false) String bannerUrl
     ) throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileReader(ABOUT_FILE_PATH));
+        properties.load(new FileReader(Controllers.ABOUT_FILE_PATH));
         properties.setProperty("title", title);
         properties.setProperty("desc", desc);
         Optional.ofNullable(bannerUrl).ifPresent(url -> properties.setProperty("bannerUrl", url));
-        properties.store(new FileWriter(ABOUT_FILE_PATH), null);
+        properties.store(new FileWriter(Controllers.ABOUT_FILE_PATH), null);
         return "redirect:/admin/contacts";
     }
 

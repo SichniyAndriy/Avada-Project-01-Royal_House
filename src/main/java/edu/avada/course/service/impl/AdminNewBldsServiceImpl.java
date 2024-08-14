@@ -8,8 +8,10 @@ import edu.avada.course.model.entity.NewBuilding.NewBuildStatus;
 import edu.avada.course.repository.AddressRepository;
 import edu.avada.course.repository.NewBuildingRepository;
 import edu.avada.course.service.AdminNewBldsService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,13 +29,12 @@ public class AdminNewBldsServiceImpl implements AdminNewBldsService {
         this.newBuildingRepository = newBuildingRepository;
         this.addressRepository = addressRepository;
     }
-
-     @Override
-     public List<AdminNewBuildingDto> getAllNewBuildings() {
-         return newBuildingRepository.findAll().stream()
-                 .map(NewBuildingMapper::fromEntityToAdminDto)
-                 .toList();
-     }
+    @Override
+    public List<AdminNewBuildingDto> getAllNewBuildings() {
+        return newBuildingRepository.findAll().stream()
+                .map(NewBuildingMapper::fromEntityToAdminDto)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
     @Override
     public Page<AdminNewBuildingDto> getPageNewBlds(int page, int size) {

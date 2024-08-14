@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Controllers {
-    private static final String SERVER_PREFIX = "src/main/resources/static";
+    private final static String SERVER_PREFIX = "src/main/resources/static";
+    public final static String CONTACTS_FILE_PATH = "src/main/resources/support_files/contacts";
+    public final static String BINDING_FILE_PATH = "src/main/resources/support_files/binding";
+    public final static String ABOUT_FILE_PATH = "src/main/resources/support_files/about";
 
     public static String saveFile(
             String picturesPath,
