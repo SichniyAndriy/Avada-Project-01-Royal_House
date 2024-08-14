@@ -26,7 +26,7 @@
         defer></script>
     <script src="../../static/js/admin_scripts/new_bld_card_scripts.js"
         th:src="@{/js/admin_scripts/new_bld_card_scripts.js}" defer></script>
-    <!-- <script src="../../static/js/admin_scripts/header_nav_inject_script.js" defer></script> -->
+    <script src="../../static/js/admin_scripts/header_nav_inject_script.js" th:remove="all" defer></script>
 
     <title>Карта новобудови</title>
 </head>
@@ -58,8 +58,7 @@
                             <div class="banner-card">
                                 <h2>Головний баннер</h2>
                                 <img alt="Main banner" id="newblds-main-banner"
-                                    src="../../static/pictures/banner_dumb.jpg" 
-                                    th:src="${not #lists.isEmpty(newbld.banners)} 
+                                    src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} 
                                               and ${newbld.banners[0]} and ${newbld.banners[0].path} ? 
                                               ${newbld.banners[0].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір 1920х800</p>
@@ -81,7 +80,7 @@
                                     <input id="main-infographic-input-picture" type="file" accept="image/*">
                                     <label for="main-infographic-input-description"></label>
                                     <input id="main-infographic-input-description" type="text" placeholder="Опис">
-                                    <button onclick="addInfographic('MAIN', /*[[${newbld.id}]]*/)">
+                                    <button th:onclick="addInfographic('MAIN', [[${newbld.id}]])">
                                         <img src="../../static/img/admin/add.svg" th:src="@{/img/admin/add.svg}"
                                             alt="Add infographic">
                                     </button>
@@ -94,7 +93,7 @@
                                         <p><span th:text="${infographic.description}">fd gdfgdfgdfgdfgdfgdfhd dfg dfg
                                                 dfg dhf файлу</span>
                                         </p>
-                                        <button onclick="deleteInfographic(/*[[${infographicStat.index}]]*/)">
+                                        <button th:onclick="deleteInfographic([[${infographicStat.index}]])">
                                             <img src="../../static/img/admin/x-octagon-fill.svg"
                                                 th:src="@{/img/admin/x-octagon-fill.svg}" alt="Delete infographic">
                                         </button>
@@ -110,8 +109,7 @@
                         <div class="banner-cards-block">
                             <div class="banner-card">
                                 <h2>Баннер 1</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} 
                                             and ${newbld.banners[1]} and ${newbld.banners[1].path} ?
                                             ${newbld.banners[1].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
@@ -119,8 +117,7 @@
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 2</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} 
                                             and ${newbld.banners[2]} and ${newbld.banners[2].path} ?
                                             ${newbld.banners[2].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
@@ -128,8 +125,7 @@
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 3</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg"
-                                     th:src="${not #lists.isEmpty(newbld.banners)} 
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} 
                                             and ${newbld.banners[3]} and ${newbld.banners[3].path} ?
                                             ${newbld.banners[3].path} : ${DUMB_BANNER_PATH}">
                                 <p>Рекомендований розмір (1920х800)</p>
@@ -175,22 +171,22 @@
                         <div class="banner-cards-block">
                             <div class="banner-card">
                                 <h2>Баннер 1</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4].path} ? 
-                      ${newbld.banners[4].path} : '/pictures/banner_dumb.jpg'">
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[4]} ? 
+                                        ${newbld.banners[4].path} : '/pictures/banner_dumb.jpg'">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-infrastructure-1-banner-input">
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 2</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5].path} ? 
-                      ${newbld.banners[5].path} : '/pictures/banner_dumb.jpg'">
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[5]} ? 
+                                        ${newbld.banners[5].path} : '/pictures/banner_dumb.jpg'">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-infrastructure-2-banner-input">
                             </div>
                             <div class="banner-card">
                                 <h2>Баннер 3</h2>
-                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6].path} ? 
-                      ${newbld.banners[6].path} : '/pictures/banner_dumb.jpg'">
+                                <img alt="New building banner" src="../../static/pictures/banner_dumb.jpg" th:src="${not #lists.isEmpty(newbld.banners)} and ${newbld.banners[6]} ? 
+                                        ${newbld.banners[6].path} : '/pictures/banner_dumb.jpg'">
                                 <p>Рекомендований розмір (1920х800)</p>
                                 <input type="file" accept="image/*" id="newblds-infrastructure-3-banner-input">
                             </div>
