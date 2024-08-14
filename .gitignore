@@ -40,3 +40,4 @@ build/
 ### Pictures ###
 
 /src/main/resources/static/pictures/
+/src/main/resources/support_files/
