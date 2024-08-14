@@ -10,6 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../static/css/client_styles/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -17,7 +18,7 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../../static/js/client_scripts/inject_sidebar_header.js" defer></script>
+    <script src="../../static/js/client_scripts/inject_sidebar_header.js" th:remove="all" defer></script>
 
     <title>Картка об'єкта</title>
 </head>
@@ -25,24 +26,34 @@
 <body class="mx-auto" style="width: 90%;">
     <div class="container-fluid main__container">
         <div class="row">
-            <div id="placeholder__side__nav__container"></div>
+            <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}">
+            </div>
             <div class="col-md-10 container-fluid text-center g-0" id="main__container">
                 <div id="placeholder__main__header"></div>
                 <div class="container-fluid border border-top-0 border-black g-0 mb-5">
-                    <section id="flat__card" class="container-fluid g-0">
-                        <div class="card">
-                            <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="0"
-                                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="1"
-                                        aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#flat__images__carousel" data-bs-slide-to="2"
-                                        aria-label="Slide 3"></button>
+                    <section id="unit__card" class="container-fluid g-0">
+                        <div class="card" th:object="${unit}">
+                            <div id="unit__images__carousel" class="carousel slide" data-bs-ride="true"
+                                th:if="*{not #lists.isEmpty(images)}">
+                                <div class="carousel-indicators" th:remove="all-but-first">
+                                    <button type="button" class="active" data-bs-target="#unit__images__carousel"
+                                        data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"
+                                        th:each="image : *{images}" th:class="${imageStat.first} ? active"
+                                        th:data-bs-slide-to="${imageStat.index}"
+                                        th:aria-label="|Slide ${imageStat.count}">
+                                    </button>
+                                    <button type="button" data-bs-target="#unit__images__carousel" data-bs-slide-to="1"
+                                        aria-label="Slide 2">
+                                    </button>
+                                    <button type="button" data-bs-target="#unit__images__carousel" data-bs-slide-to="2"
+                                        aria-label="Slide 3">
+                                    </button>
                                 </div>
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="../../static/img/client/7.jpg" class="d-block w-100" height="480px">
+                                <div class="carousel-inner" th:remove="all-but-first">
+                                    <div class="carousel-item active" th:each="image : *{images}" 
+                                        th:class="carousel-item" th:classappend="${imageStat.first} ? active">
+                                        <img class="d-block w-100" height="640px" src="../../static/img/client/7.jpg"
+                                            th:src="@{ ${image.path} }">
                                     </div>
                                     <div class="carousel-item">
                                         <img src="../../static/img/client/8.jpg" class="d-block w-100" height="480px">
@@ -52,12 +63,12 @@
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#flat__images__carousel" data-bs-slide="prev">
+                                    data-bs-target="#unit__images__carousel" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
                                 <button class="carousel-control-next" type="button"
-                                    data-bs-target="#flat__images__carousel" data-bs-slide="next">
+                                    data-bs-target="#unit__images__carousel" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
@@ -65,24 +76,24 @@
                             <div class="card-body fs-4 py-5 ps-5">
                                 <div class="d-flex fw-bolder">
                                     <i class="bi bi-geo-alt-fill text-warning"></i>
-                                    <p class="ms-2">Адреса</p>
+                                    <p class="ms-2" th:text="*{address}">Адреса</p>
                                 </div>
                                 <ul class="card__data__list d-flex p-0 fst-italic pt-4" style="list-style-type: none;">
                                     <li class="d-flex me-4">
                                         <i class="bi bi-house-door text-primary"></i>
-                                        <p class="ms-2">Площа</p>
+                                        <p class="ms-2" th:text="|*{square} кв.м|">Площа</p>
                                     </li>
                                     <li class="d-flex me-4">
                                         <i class="bi bi-house-door text-info"></i>
-                                        <p class="ms-2">Кімнати</p>
+                                        <p class="ms-2" th:text="|Кімнат *{rooms}|">Кімнати</p>
                                     </li>
                                     <li class="d-flex me-4">
                                         <i class="bi bi-house-door text-info"></i>
-                                        <p class="ms-2">Поверх</p>
+                                        <p class="ms-2" th:text="|Поверх *{floor}|">Поверх</p>
                                     </li>
                                     <li class="d-flex me-4">
                                         <i class="bi bi-cash text-success"></i>
-                                        <p class="ms-2">Ціна</p>
+                                        <p class="ms-2" th:text="|Ціна $ *{totalPrice}|">Ціна</p>
                                     </li>
                                 </ul>
                             </div>

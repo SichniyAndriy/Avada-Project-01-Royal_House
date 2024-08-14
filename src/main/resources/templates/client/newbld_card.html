@@ -15,16 +15,17 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">
-        </script>
-    <script src="../../static/js/client_scripts/newbld_card.js" th:src="@{/js/client_scripts/newbld_card.js}"
-        defer>
-        </script>
+    </script>
+    <script src="../../static/js/client_scripts/newbld_card.js" th:src="@{/js/client_scripts/newbld_card.js}" defer>
+    </script>
+    <script src="../../static/js/client_scripts/secondary.js" th:src="@{/js/client_scripts/secondary.js}" defer>
+    </script>
     <script src="../../static/js/client_scripts/inject_sidebar_header.js" th:remove="all" defer>
     </script>
 
@@ -42,8 +43,8 @@
                     th:with="DUMB_PATH='/img/client/fff.jpg'">
 
                     <!-- MAIN BANNER -->
-                    <img class="img-fluid img-thumbnail" style="height: 480px;" src="https://picsum.photos/id/870/1920/800" 
-                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[0]} ? 
+                    <img class="img-fluid img-thumbnail" style="height: 480px;"
+                        src="https://picsum.photos/id/870/1920/800" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[0]} ? 
                             *{banners[0].path} : 'https://picsum.photos/id/870/1920/800'}" alt="Main banner">
 
                     <!-- ABOUT SECTION -->
@@ -106,18 +107,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[1]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[1]} ? 
                                             *{banners[1].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[2]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[2]} ? 
                                             *{banners[2].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[3]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[3]} ? 
                                             *{banners[3].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -195,13 +193,14 @@
                                 aspernatur minus porro, ratione vero. Repellendus.
                             </p>
                         </div>
-                        <div class="infographic__cards__container row g-0 justify-content-center" th:remove="all-but-first">
-                            <div class="infographic__card col-2 g-0 p-5" 
-                                th:each="infographic : *{infographics}" 
+                        <div class="infographic__cards__container row g-0 justify-content-center"
+                            th:remove="all-but-first">
+                            <div class="infographic__card col-2 g-0 p-5" th:each="infographic : *{infographics}"
                                 th:if="${#strings.equals(infographic.type, 'INFRASTRUCTURE')}">
                                 <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
                                     th:src="@{infographic.path}" alt="">
-                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.</h6>
+                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.
+                                </h6>
                             </div>
                             <div class="infographic__card col-2 g-0 p-5">
                                 <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
@@ -236,18 +235,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[4]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[4]} ?
                                             *{banners[4].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[5]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[5]} ?
                                             *{banners[5].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[6]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[6]} ?
                                             *{banners[6].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -291,13 +287,14 @@
                                 aspernatur minus porro, ratione vero. Repellendus.
                             </p>
                         </div>
-                        <div class="infographic__cards__container row g-0 justify-content-center" th:remove="all-but-first">
-                            <div class="infographic__card col-2 g-0 p-5" 
-                                th:each="infographic : ${infographics}" 
+                        <div class="infographic__cards__container row g-0 justify-content-center"
+                            th:remove="all-but-first">
+                            <div class="infographic__card col-2 g-0 p-5" th:each="infographic : ${infographics}"
                                 th:if="${#strings.equals(infographic.type, 'FLATS')}">
                                 <img class="img-fluid rounded-circle" src="https://picsum.photos/id/1029/400/400"
                                     th:src="@{infographic.path}" alt="">
-                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.</h6>
+                                <h6 class="text-center" th:src="@{infographic.description}">Lorem ipsum dolor sit amet.
+                                </h6>
                             </div>
                             <div class="infographic__card col-2 g-0 p-5">
                                 <img class="img-fluid rounded-circle mb-3" src="https://picsum.photos/id/1029/400/400"
@@ -331,18 +328,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                    th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[7]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[7]} ?
                                         *{banners[7].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[8]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[8]} ?
                                             *{banners[8].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg"
-                                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[9]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[9]} ?
                                             *{banners[9].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -362,18 +356,20 @@
                             <div class="cards__container container-fluid d-flex flex-wrap row-cols-3 mt-5 g-0">
                                 <div class="card bg-white text-black p-3" th:each="unit : *{units}">
                                     <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item" th:each="image : ${unit.images}" 
+                                        <div class="carousel-inner" th:remove="all-but-first">
+                                            <div class="carousel-item" th:each="image : ${unit.images}"
                                                 th:classappend="${imageStat.first} ? 'active'">
-                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" 
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg"
                                                     th:src="${image.path}" alt="...">
                                             </div>
-                                            <!-- <div class="carousel-item">
-                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" alt="...">
+                                            <div class="carousel-item">
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                                    alt="...">
                                             </div>
                                             <div class="carousel-item">
-                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg" alt="...">
-                                            </div> -->
+                                                <img class="d-block w-100" src="../../static/img/client/fff.jpg"
+                                                    alt="...">
+                                            </div>
                                         </div>
                                         <button class="carousel-control-prev" type="button"
                                             data-bs-target="#flat__images__carousel" data-bs-slide="prev">
@@ -387,18 +383,23 @@
                                         </button>
                                     </div>
                                     <h3 class="card-title" th:text="*{title}">Lorem ipsum dolor sit.</h3>
-                                    <ul class="card__data_list" style="list-style-type: none;">
+                                    <ul class="card__data_list" style="list-style-type: none;"
+                                        th:onclick="showSecondaryCard([[${unit.id}]])">
                                         <li>
                                             <i class="bi bi-geo-alt-fill text-danger"></i>
-                                            <p th:text="|${unit.address.city}, ${unit.address.street}, ${unit.address.houseNumber}|">Lorem ipsum dolor sit amet.</p>
+                                            <p
+                                                th:text="|${unit.address.city}, ${unit.address.street}, ${unit.address.houseNumber}|">
+                                                Lorem ipsum dolor sit amet.</p>
                                         </li>
                                         <li>
                                             <i class="bi bi-building-fill text-secondary"></i>
-                                            <p th:text="'Кімнат '+ ${unit.rooms} + ', Поверх ' + ${unit.floor}">Lorem ipsum dolor sit amet.</p>
+                                            <p th:text="'Кімнат '+ ${unit.rooms} + ', Поверх ' + ${unit.floor}">Lorem
+                                                ipsum dolor sit amet.</p>
                                         </li>
                                         <li>
                                             <i class="bi bi-currency-dollar text-primary"></i>
-                                            <p th:text="${unit.square} + ' / ' + ${unit.pricePerSqM} + ' $'">Lorem ipsum dolor sit amet.</p>
+                                            <p th:text="${unit.square} + ' / ' + ${unit.pricePerSqM} + ' $'">Lorem ipsum
+                                                dolor sit amet.</p>
                                         </li>
                                         <li>
                                             <i class="bi bi-cash text-success"></i>
@@ -410,11 +411,11 @@
                         </div>
                     </section>
 
-                     <!-- PANORAMA SECTION -->
+                    <!-- PANORAMA SECTION -->
 
-                     <section>
-                        <img class="img-fluid img-thumbnail" src="https://picsum.photos/id/870/1920/800" 
-                        th:src="@{ *{panoramaPath} ?: 'https://picsum.photos/id/870/1920/400' }" alt="Panorama">
+                    <section>
+                        <img class="img-fluid img-thumbnail" src="https://picsum.photos/id/870/1920/800"
+                            th:src="@{ *{panoramaPath} ?: 'https://picsum.photos/id/870/1920/400' }" alt="Panorama">
                     </section>
                 </div>
             </div>

@@ -10,4 +10,9 @@ public class AdminAddressDto implements Serializable {
     private String city;
     private String street;
     private String houseNumber;
+
+    @Override
+    public String toString() {
+        return city + ", " + street + ", " + houseNumber;
+    }
 }
