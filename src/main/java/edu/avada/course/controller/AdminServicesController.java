@@ -26,9 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/services")
 public class AdminServicesController {
     private final AdminCompanyServService adminCompanyServService;
-    private final Properties properties = new Properties();
-    private final String SERVICE_BANNER_PATH_KEY = "service_banner";
-    private final String PICTURES_PATH = "src/main/resources/support_files/pictures_paths";
 
     public AdminServicesController(
             @Autowired AdminCompanyServService adminCompanyServService
@@ -52,13 +49,10 @@ public class AdminServicesController {
     public String showService(
             @PathVariable long id,
             Model model
-    ) {
-        try {
-            properties.load(new FileReader(PICTURES_PATH));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String serviceBannerPath = properties.getProperty(SERVICE_BANNER_PATH_KEY);
+    ) throws IOException {
+        Properties prop = new Properties();
+        prop.load(new FileReader(Controllers.PICTURES_PATH));
+        String serviceBannerPath = prop.getProperty(Controllers.SERVICE_BANNER_PATH_KEY);
         AdminCompanyServiceDto adminCompanyServiceDtoById = adminCompanyServService.getCompanyServiceById(id);
         model.addAttribute("service", adminCompanyServiceDtoById);
         model.addAttribute("serviceBannerPath", serviceBannerPath);
@@ -99,14 +93,15 @@ public class AdminServicesController {
         if (multipartFile.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
+        Properties properties = new Properties();
         String serviceBannerPath = Controllers.saveFile(
                 path,
                 multipartFile.getOriginalFilename(),
                 timestamp,
                 ext,
                 multipartFile.getBytes());
-        properties.put(SERVICE_BANNER_PATH_KEY, serviceBannerPath);
-        properties.store(new FileWriter(PICTURES_PATH), null);
+        properties.put(Controllers.SERVICE_BANNER_PATH_KEY, serviceBannerPath);
+        properties.store(new FileWriter(Controllers.PICTURES_PATH), null);
         return ResponseEntity.ok(serviceBannerPath);
     }
 

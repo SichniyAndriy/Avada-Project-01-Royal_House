@@ -10,6 +10,8 @@ public class Controllers {
     public final static String CONTACTS_FILE_PATH = "src/main/resources/support_files/contacts";
     public final static String BINDING_FILE_PATH = "src/main/resources/support_files/binding";
     public final static String ABOUT_FILE_PATH = "src/main/resources/support_files/about";
+    public final static String SERVICE_BANNER_PATH_KEY = "service_banner";
+    public final static String PICTURES_PATH = "src/main/resources/support_files/pictures_paths";
 
     public static String saveFile(
             String picturesPath,

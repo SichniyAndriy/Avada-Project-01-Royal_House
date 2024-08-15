@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/services")
 public class ServiceController {
-    private final String SERVICE_BANNER_PATH_KEY = "service_banner";
-    private final String PICTURES_PATH = "src/main/resources/support_files/pictures_paths";
     private final AdminCompanyServService adminCompanyServService;
 
     public ServiceController(
@@ -27,8 +25,8 @@ public class ServiceController {
     @GetMapping
     public String services(Model model) throws IOException {
         Properties prop = new Properties();
-        prop.load(new FileReader(PICTURES_PATH));
-        model.addAttribute("banner", prop.getProperty(SERVICE_BANNER_PATH_KEY));
+        prop.load(new FileReader(Controllers.PICTURES_PATH));
+        model.addAttribute("banner", prop.getProperty(Controllers.SERVICE_BANNER_PATH_KEY));
         model.addAttribute("services", adminCompanyServService.findAll());
         return "client/services";
     }

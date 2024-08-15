@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class NewBldsController {
     private final AdminNewBldsService adminNewBldsService;
 
-    public NewBldsController(@Autowired AdminNewBldsService adminNewBldsService) {
+    public NewBldsController(
+            @Autowired AdminNewBldsService adminNewBldsService
+    ) {
         this.adminNewBldsService = adminNewBldsService;
     }
 
