@@ -30,7 +30,7 @@
         <div id="placeholder__main__header" th:replace="~{client/fragments/index :: mainheader}"></div>
         <div class="container-fluid g-0 border border-top-0 border-black">
           <div class="table__container container-fluid g-0 mb-5">
-            <table class="table tab">
+            <table class="table" style="table-layout: fixed;">
               <tr>
                 <td th:onclick="showNewBld([[${field1} ? ${field1.id} : 0]])">
                   <img class="img-thumbnail img-fluid" src="https://picsum.photos/id/684/800/800"

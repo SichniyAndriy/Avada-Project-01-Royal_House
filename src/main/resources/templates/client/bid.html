@@ -10,6 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../../static/css/client_styles/index.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../../static/css/client_styles/index.css" th:href="@{/css/client_styles/index.css}">
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -25,34 +26,34 @@
 <body class="mx-auto" style="width: 90%;">
     <div class="container-fluid main__container">
         <div class="row">
-            <div id="placeholder__side__nav__container"></div>
+            <div id="placeholder__side__nav__container" th:replace="~{client/fragments/index :: sidenavcontainer}"></div>
             <div class="col-md-10 container-fluid text-center g-0" id="main__container">
-                <div id="placeholder__main__header"></div>
+                <div id="placeholder__main__header" th:replace="~{client/fragments/index :: mainheader}"></div>
                 <div class="container-fluid g-0 mb-5">
                     <h3 class="pt-5 pb-3 ps-5">Залишити заявку</h3>
                     <section id="bid__form" class="container-fluid g-0">
                         <div class="col-8 border border-black rounded-2 bg-dark-subtle p-5 mx-auto my-5">
-                            <form action="#">
+                            <form action="#" method="post"  th:object="${bid}" th:action="@{/bid/add-new}">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-floating mb-3">
                                             <input id="name__input" type="text" class="form-control"
-                                                placeholder="Ваше ім'я">
+                                                placeholder="Ваше ім'я" th:field="*{name}" required>
                                             <label for="name__input">Повне ім'я</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input id="phone__input" type="tel" class="form-control"
-                                                placeholder="Ваш телефон">
+                                                placeholder="Ваш телефон" th:field="*{phone}" required>
                                             <label for="phone__input">Телефон</label>
                                         </div>
                                         <div class="form-floating">
                                             <input id="email__input" type="email" class="form-control"
-                                                placeholder="Ваш email">
+                                                placeholder="Ваш email" th:field="*{email}" required>
                                             <label for="email__input">Email</label>
                                         </div>
                                     </div>
                                     <div class="form-floating col-lg-6">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="comment__input" style="height: 206px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="comment__input" style="height: 206px" th:field="*{comment}" required></textarea>
                                         <label class="ms-3" for="comment__input">Ваш коментарій</label>
                                       </div>
                                 </div>

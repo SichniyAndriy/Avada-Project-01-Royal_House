@@ -30,14 +30,20 @@
             <div class="col-md-10 container-fluid text-center g-0" id="main__container">
                 <div id="placeholder__main__header" th:replace="~{client/fragments/index :: mainheader}"></div>
                 <div class="container-fluid border border-top-0 border-black g-0 mb-5">
-                    <h3 class="pt-5 pb-3">Lorem, ipsum dolor sit amet consectetur adipisicing.</h3>
+                    <img th:src="@{ ${bannerUrl} ?: '/img/client/fff.jpg'}" src="../../static/img/client/fff.jpg" alt=""
+                        width="100%" height="640px">
+                    <h3 class="pt-5 pb-3" th:text="${title}">Lorem, ipsum dolor sit amet consectetur adipisicing.</h3>
                     <section id="service__card" class="container-fluid g-0">
                         <div class="mx-5 my-3 text-center clearfix">
-                            <div class="col-4 float-start m-3">
+                            <div class="col-3 float-start m-3">
+                                <img class="img-fluid img-thumbnail" src="../../static/img/client/client-logo.jpg"
+                                    th:src="@{/img/client/client-logo.jpg}">
+                            </div>
+                            <div class="col-3 float-end m-3">
                                 <img class="img-fluid img-thumbnail" src="../../static/img/client/client-logo.jpg"
                                     alt="" th:src="@{/img/client/client-logo.jpg}">
                             </div>
-                            <p class="card-text">
+                            <p class="card-text" th:text="${desc}">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro dolores, mollitia,
                                 quisquam ab quidem eaque iusto facilis amet sed veritatis dolorum voluptas nesciunt!
                                 Assumenda dignissimos error eligendi repellat iusto officiis.
@@ -66,34 +72,6 @@
                                 voluptas aliquam at id aperiam. Ab ad consectetur, voluptatum porro, officiis quas quod
                                 rerum alias, repellendus pariatur labore!
                             </p>
-                            <div class="col-4 float-end m-3">
-                                <img class="img-fluid img-thumbnail" src="../../static/img/client/client-logo.jpg"
-                                    alt="" th:src="@{/img/client/client-logo.jpg}">
-                            </div>
-                            <p>
-                                Nam voluptatum autem quo distinctio ipsa, laborum consequatur deserunt! Fugiat,
-                                excepturi magnam hic rem voluptatum sequi consectetur nemo ea error doloribus quia
-                                consequatur laboriosam optio, minima dolorum enim veniam! Impedit.
-                                Fuga non saepe rem provident quas laborum magni vitae neque ab, animi ducimus vel
-                                voluptates eos? Voluptatum, magni veniam laborum molestiae accusamus fuga debitis
-                                pariatur commodi minus officiis, corporis deleniti?
-                                Cupiditate iusto nostrum dolore, eos velit repudiandae delectus fuga animi, quod totam
-                                pariatur est nobis earum ut itaque optio quam! Ex odio fuga culpa adipisci quam
-                                corporis. Tempora, dolorum autem?
-                                Ipsam facere natus enim, repellat ex quisquam, officia laudantium commodi consectetur
-                                magnam eius iusto corporis voluptatem saepe non delectus asperiores amet. Quia vitae
-                                quisquam nobis esse a assumenda, error nisi?
-                                Deserunt aperiam distinctio aspernatur aliquid quos tenetur quae facilis. Natus, vero
-                                sequi? Mollitia voluptatum possimus autem sapiente commodi in. Voluptatum, eius unde
-                                modi delectus provident optio soluta corporis pariatur fuga!
-                                At harum, laborum eaque error suscipit dicta non eveniet quo. Incidunt, nulla. Aut
-                                impedit illum saepe eaque. Eos vel laborum, nemo enim quam, voluptate veritatis, eum ad
-                                id quas quo.
-                                Cum, nostrum placeat ipsum voluptatum suscipit doloremque temporibus dolores. Dolorem,
-                                dolores id iste blanditiis maiores suscipit odit architecto eos consectetur illum
-                                praesentium omnis veniam non nostrum obcaecati ipsum optio! Hic!
-                            </p>
-
                         </div>
                     </section>
                 </div>

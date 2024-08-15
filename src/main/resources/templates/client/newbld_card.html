@@ -44,7 +44,8 @@
 
                     <!-- MAIN BANNER -->
                     <img class="img-fluid img-thumbnail" style="height: 480px;"
-                        src="https://picsum.photos/id/870/1920/800" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[0]} ? 
+                        src="https://picsum.photos/id/870/1920/800" 
+                        th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[0].path} ? 
                             *{banners[0].path} : 'https://picsum.photos/id/870/1920/800'}" alt="Main banner">
 
                     <!-- ABOUT SECTION -->
@@ -107,15 +108,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[1]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[1].path} ? 
                                             *{banners[1].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[2]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[2].path} ? 
                                             *{banners[2].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[3]} ? 
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[3].path} ? 
                                             *{banners[3].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -235,15 +236,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[4]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[4].path} ?
                                             *{banners[4].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[5]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[5].path} ?
                                             *{banners[5].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[6]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[6].path} ?
                                             *{banners[6].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -328,15 +329,15 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[7]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[7].path} ?
                                         *{banners[7].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[8]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[8].path} ?
                                             *{banners[8].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[9]} ?
+                                    <img class="d-block w-100" src="../../static/img/client/fff.jpg" th:src="@{ *{not #lists.isEmpty(banners)} and *{banners[9].path} ?
                                             *{banners[9].path} : ${DUMB_PATH} }" alt="...">
                                 </div>
                             </div>
@@ -353,12 +354,13 @@
                         </div>
                         <div class="flats__container container align-baseline g-0">
                             <h3 class="my-4">Квартири в будинку</h3>
-                            <div class="cards__container container-fluid d-flex flex-wrap row-cols-3 mt-5 g-0">
+                            <div class="cards__container container-fluid d-flex row row-cols-3 mt-5 g-0">
                                 <div class="card bg-white text-black p-3" th:each="unit : *{units}">
-                                    <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true">
+                                    <div id="flat__images__carousel" class="carousel slide" data-bs-ride="true"
+                                        th:id="|flatimagescarousel${unitStat.count}|">
                                         <div class="carousel-inner" th:remove="all-but-first">
-                                            <div class="carousel-item" th:each="image : ${unit.images}"
-                                                th:classappend="${imageStat.first} ? 'active'">
+                                            <div class="carousel-item active" th:each="image : ${unit.images}"
+                                                th:class="carousel-item" th:classappend="${imageStat.first} ? 'active'">
                                                 <img class="d-block w-100" src="../../static/img/client/fff.jpg"
                                                     th:src="${image.path}" alt="...">
                                             </div>
@@ -372,12 +374,14 @@
                                             </div>
                                         </div>
                                         <button class="carousel-control-prev" type="button"
-                                            data-bs-target="#flat__images__carousel" data-bs-slide="prev">
+                                            data-bs-target="#flat__images__carousel"
+                                            th:data-bs-target="|#flatimagescarousel${unitStat.count}|" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </button>
                                         <button class="carousel-control-next" type="button"
-                                            data-bs-target="#flat__images__carousel" data-bs-slide="next">
+                                            data-bs-target="#flat__images__carousel" data-bs-slide="next"
+                                            th:data-bs-target="|#flatimagescarousel${unitStat.count}|">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
                                         </button>

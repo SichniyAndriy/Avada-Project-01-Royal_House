@@ -26,6 +26,10 @@ table tr td {
     position: relative;
 }
 
+table img {
+    object-fit: cover;
+}
+
 .overlay__text {
     position: absolute;
     top: 50%;
@@ -60,4 +64,12 @@ table tr td {
 .contacts__container li h6,
 .card__data_list li p {
     margin-left: 1rem;
+}
+
+div>.carousel img {
+    height: 640px;
+}
+
+div>.card>.carousel img {
+    height: 256px;
 }

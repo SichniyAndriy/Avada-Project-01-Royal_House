@@ -59,7 +59,7 @@
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav__flats" role="tabpanel"
                                 aria-labelledby="nav__flats__tab" tabindex="0">
-                                <div class="container-fluid row-cols-3 d-flex flex-wrap g-0">
+                                <div class="container-fluid row row-cols-3 g-0">
                                     <div class="card bg-white text-black p-3" th:each="unit : ${units}"
                                         th:if="${#strings.equals(unit.type, 'FLAT')}">
                                         <div id="flat__images__carousel" th:id="|flatimagescarousel${unitStat.count}|"
