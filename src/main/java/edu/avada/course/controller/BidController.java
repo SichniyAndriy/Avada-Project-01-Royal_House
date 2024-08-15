@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/bid")
 public class BidController {
-    private AdminBidService adminBidService;
+    private final AdminBidService adminBidService;
 
     public BidController(
             @Autowired AdminBidService adminBidService
