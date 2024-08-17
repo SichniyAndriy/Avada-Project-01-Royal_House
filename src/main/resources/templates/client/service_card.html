@@ -33,7 +33,7 @@
                 <div class="container-fluid border border-top-0 border-black g-0 mb-5" th:object="${service}">
                     <h3 class="pt-5 pb-3 ps-5 text-start" th:text="*{title}">Назва послуги</h3>
                     <img class="img-fluid img-thumbnail" src="../../static/img/client/fff.jpg" alt=""
-                        th:src="@{*{imagePath} ?: '/img/client/fff.jpg'}">
+                        style="height: 640px;" th:src="@{*{imagePath} ?: '/img/client/fff.jpg'}">
                     <section id="service__card" class="container-fluid g-0">
                         <div class="text-start mx-5 my-3 p-3">
                             <p class="card-text text-break" th:text="*{description}">
